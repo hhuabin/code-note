@@ -1,4 +1,4 @@
-# 打印
+# printf
 
 %d          int
 
