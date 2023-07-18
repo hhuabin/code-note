@@ -140,6 +140,10 @@ ___
 
 `![]()`
 
+插入图片Markdown语法代码：`![图片alt](图片链接 "图片title")`。
+
+对应的HTML代码：`<img src="图片链接" alt="图片alt" title="图片title">`
+
 ```
 ![这是图片](/assets/img/philly-magic-garden.jpg "Magic Gardens")
 ```
