@@ -1,7 +1,10 @@
 # 构造方法
 
-- new(pattern: RegExp | string): RegExp;
-- new(pattern: string, flags?: string): RegExp;
+```typescript
+new(pattern: RegExp | string): RegExp;
+
+new(pattern: string, flags?: string): RegExp;
+```
 
 以下三个表达式创建相同的正则表达式：
 
