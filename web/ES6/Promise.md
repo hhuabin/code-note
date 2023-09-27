@@ -31,6 +31,7 @@ Promise有三种状态：pending、resovled、rejected
    ```javascript
    new Promise((resolve, reject) => {
        // 这里执行同步代码，同步部分只能执行 resolve, reject
+    	// 不能返回 return Promise.resolve()
        resolve()
    })
    .then(value => {
@@ -69,6 +70,7 @@ Promise有三种状态：pending、resovled、rejected
            resolve(1)
        })
    };
+   
    // 用法一，同步使用
    new Promise((resolve, reject) => {
    	resolve(axios())
@@ -79,6 +81,7 @@ Promise有三种状态：pending、resovled、rejected
    .catch(err => {
    	console.error(err);
    });
+   
    // 用法二，在 .then 使用
    new Promise((resolve, reject) => {
    	resolve()
@@ -113,6 +116,25 @@ Promise有三种状态：pending、resovled、rejected
    .catch(err => {
    	console.error(err);
    })
+   ```
+
+5. 异步等待 Promise
+
+   ```javascript
+   // 创建一个 Promise 对象
+   const promise = new Promise((resolve, reject) => {
+       // 这里可以执行异步操作，例如发送请求或执行一些耗时的操作
+       // 在这个示例中，我们使用 setTimeout 模拟一个异步操作
+       setTimeout(() => {
+           // 异步操作完成后，调用 resolve 表示成功，可以将结果传递给 .then
+           resolve("操作成功");
+       }, 2000); // 假设需要 2 秒才能完成
+   });
+   
+   // 在 .then 中处理异步操作的结果
+   promise.then(result => {
+       console.log(result); // 在这里处理异步操作成功后的结果
+   });
    ```
 
    

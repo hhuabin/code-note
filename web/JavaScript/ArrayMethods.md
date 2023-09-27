@@ -21,3 +21,13 @@ arr.reduce(function(preview,current,index,arr){
 # forEach
 
 - 不会改变原数组基本类型的值，但引用数据类型会改变
+
+
+
+
+
+# join
+
+**Array -> String**
+
+- 将数组中的所有元素放到字符串，参数是字符串的分隔符
