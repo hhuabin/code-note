@@ -6,7 +6,7 @@ reduce方法可做的事情特别多，就是循环遍历能做的，reduce都�
 
 ```javascript
 arr.reduce(function(preview,current,index,arr){
-	...
+	return init + preview
 }, init);
 ```
 
@@ -24,10 +24,25 @@ arr.reduce(function(preview,current,index,arr){
 
 
 
-
-
 # join
 
 **Array -> String**
 
 - 将数组中的所有元素放到字符串，参数是字符串的分隔符
+
+```javascript
+[1, 2, 3].join(',')    // 1,2,3
+```
+
+
+
+# filter
+
+返回一个数组，里面包含符合条件的元素
+
+
+
+# map
+
+返回一个新数组，数组中的元素是原始数组的元素调用函数之后处理的值
+

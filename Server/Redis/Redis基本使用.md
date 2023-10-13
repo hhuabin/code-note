@@ -24,6 +24,8 @@ setnx name bin
 get name
 ```
 
+
+
 # 通用命令
 
 ```sql
@@ -35,6 +37,8 @@ TTL key          // 返回给定 key 的剩余生存时间(TTL,time to live)，�
 DEL key          // 该命令用于在 key 存在是删除 key
 ```
 
+
+
 # 哈希 hash 操作命令
 
 Redis hash 是一个string类型的 field和 value 的映射表，hash特别适合用于存储对象
@@ -45,6 +49,8 @@ Redis hash 是一个string类型的 field和 value 的映射表，hash特别适�
 - **HKEYS** key                    获取哈希表中所有字段
 - **HVALS** key                    获取哈希表中所有值
 - **HGETALL** key               获取在哈希表中指定key的所有字段和值
+
+
 
 # 列表 list 常用命令
 
@@ -59,6 +65,8 @@ Redis 列表是简单的字符串列表，按照插入顺序排序
 - LLEN key                                                  获取列表长度
 
 - BRPoP key1 [key2] timeout                  移出并获取列表的最后一个元素，如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止
+
+
 
 # 集合 set 常用命令
 
@@ -78,6 +86,8 @@ Redis set 是string类型的无序集合。集合成员是唯一的，这就意�
 
 - SREM key member1 [member2]        移除集合中一个或多个成员
 
+
+
 # 有序集合 sortedset 操作命令
 
 Redis sorted set 有序集合是 string 类型元素的集合，且不允许重复的成员。每个元素都会关联一个double类型的分数(score)。redis正是通过分数来为集合中的成员进行从小到大排序。有序集合的成员是唯一的，但分数却可以重复
@@ -89,6 +99,8 @@ Redis sorted set 有序集合是 string 类型元素的集合，且不允许重�
 - ZINCRBY key increment member                             有序集合中对指定成员的分数加上增量increment
 
 - ZREM key member [member ...]                               移除有序集合中的一个或多个成员
+
+
 
 # SpringBoot 整合 redis
 
@@ -235,6 +247,8 @@ spring:
         zSetOperations.remove("myZset","a","b");
     }
 ```
+
+
 
 # Java 操作 Redis
 

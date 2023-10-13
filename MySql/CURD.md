@@ -65,7 +65,7 @@ UNION ALL      # 不去重
 
 ## 插入
 
-```shell
+```sql
 INSERT INTO tableName VALUES();
 ```
 
@@ -73,7 +73,7 @@ INSERT INTO tableName VALUES();
 
 ## 改
 
-```shell
+```sql
 UPDATE tableName SET ... WHERE ...
 ```
 
@@ -81,7 +81,7 @@ UPDATE tableName SET ... WHERE ...
 
 ## 删除
 
-```shell
+```sql
 DELETE FROM tableName WHERE ...
 ```
 
