@@ -46,3 +46,29 @@ arr.reduce(function(preview,current,index,arr){
 
 返回一个新数组，数组中的元素是原始数组的元素调用函数之后处理的值
 
+
+
+# find
+
+用于查找满足指定测试函数的第一个元素。如果找到了，它返回数组中第一个满足测试函数的元素的值；否则，返回 `undefined`
+
+```javascript
+array.find(function(element, index, array) {
+  // 返回一个测试条件为真的元素
+}, thisArg);
+```
+
+- `element`: 当前正在处理的元素。
+- `index`（可选）: 当前正在处理的元素的索引。
+- `array`（可选）: 调用 `find` 的数组。
+- `thisArg`（可选）: 执行回调时的 `this` 值。
+
+```javascript
+let numbers = [1, 2, 3, 4, 5];
+let even = numbers.find(function(element) {
+  return element % 2 === 0;
+});
+
+console.log(even); // 输出: 2，因为它是数组中第一个偶数
+```
+
