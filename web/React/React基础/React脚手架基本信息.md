@@ -16,7 +16,8 @@ create-react-app react-learn
 
 - **.env.development**              开发环境加载的环境变量配置
 - **.env.production **                 生产环境加载的环境变量配置
-- config-overrides.js                webpack 配置文件
+- craco.config.js                       craco 配置文件
+- config-overrides.js                rewired 配置文件
 
 
 

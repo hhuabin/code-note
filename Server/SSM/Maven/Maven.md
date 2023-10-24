@@ -6,7 +6,7 @@
 
 
 
-# 配置
+# 安装配置
 
 1. 下载`Maven`解压
 2. 在`/conf/settings.xml`下修改，仓库存储地址，阿里云镜像等3处
@@ -29,7 +29,7 @@ Maven 中的 GAVP 是指 Groupld、Artifactld、 Version、Packaging 等四个�
 
 
 
-# 第三方依赖
+# 依赖管理
 
 
 
@@ -62,3 +62,109 @@ Maven 中的 GAVP 是指 Groupld、Artifactld、 Version、Packaging 等四个�
 
 3. 找到本地仓库对应的包文件，删除即可（.lastUpdated文件）
 
+
+
+# 构建管理
+
+请根据你的需求选择适当的命令。在执行这些命令之前，确保你已经在项目的根目录下，其中包含了 `pom.xml` 文件
+
+1. 清理编译或打包后的项目结构，删除 target 文件夹
+
+   ```
+   mvn clean
+   ```
+
+2. 编译项目，生成 target 文件
+
+   ```
+   mvn compile
+   ```
+
+3. 只运行单元测试：
+
+   ```
+   mvn test
+   ```
+
+4. 打包项目但不运行测试，生成 war /jar 文件
+
+   ```
+   mvn package
+   ```
+
+5. 打包后上传到 maven 本地仓库(本地部署)
+
+   ```
+   mvn install
+   ```
+
+6. 只打包，上传到 maven 私服仓库(私服部署)
+
+   ```
+   mvn deploy
+   ```
+
+7. 生成一个项目依赖信息的展示页面
+
+   ```
+   mvn site
+   ```
+
+
+
+## 命令构建周期
+
+清理周期 clean
+
+构建周期 compile、test、package、install / deploy
+
+报告周期 site
+
+
+
+# Maven工程的继承
+
+父工程的 `packaging` 设置成 `pom`，不打包也不写代码
+
+```xml
+<packaging>pom</packaging>
+```
+
+在`dependencyManagement`中声明依赖，不会下载依赖，可以被子工程继承默认版本号
+
+```xml
+<packaging>pom</packaging>
+
+<properties>
+    <mysql.version>8.0.33</mysql.version>
+</properties>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+
+
+# 依赖本地其他工程
+
+1. install 需要被依赖的工程
+
+2. 在工程中直接引入依赖即可
+
+   ```xml
+   <dependencies>
+       <dependency>
+           <groupId>com.locationproject</groupId>
+           <artifactId>myprojectname</artifactId>
+       </dependency>
+   </dependencies>
+   ```
+
+   

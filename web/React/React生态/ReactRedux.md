@@ -1,12 +1,18 @@
+[react-redux官网](https://react-redux.js.org/tutorials/quick-start "react-redux")
+
+
+
 # react-redux + @reduxjs/toolkit
 
 **Redux 可以理解为是 `reducer` 和 `context` 的集合体**
 
-```
+```shell
 npm install @reduxjs/toolkit react-redux
 ```
 
-## 基础使用
+
+
+## react-redux基础使用
 
 1. 在启动文件传 store
 
@@ -386,6 +392,8 @@ store.getState()
 ```
 npm install react-redux
 ```
+
+
 
 ## React-Redux 基础使用
 

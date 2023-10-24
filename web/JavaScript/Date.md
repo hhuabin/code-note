@@ -1,3 +1,5 @@
+[MDN Date](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date "MDN")
+
 # 构造函数 DateConstructor
 
 ```typescript
@@ -23,7 +25,7 @@ interface DateConstructor {
 ```javascript
 new Date()    // -> Date
 
-Date.UTC(1970, 0, 1, 0, 0, 0)    // -> 0 number 月份从0开始
+Date.UTC(1970, 0, 1, 0, 0, 0)    // -> 0 number         月份从0开始
 
 Date.now()    // -> 1694053979134 number
 ```

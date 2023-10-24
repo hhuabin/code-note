@@ -1,5 +1,9 @@
 [craco官网](https://craco.js.org/docs/getting-started/)
 
+
+
+# craco和react-app-rewired
+
 `craco` 和 `react-app-rewired`（以下简称 `rewired`）都是用于修改 `create-react-app` 的配置的工具，它们的作用类似，但是有以下几点不同：
 
 1. 实现原理不同
@@ -12,7 +16,7 @@
 
    而 `rewired` 则是通过 `config-overrides.js` 文件来配置，其中包含一个 `module.exports` 对象用于修改 Webpack 配置，而且它还支持在项目根目录下创建 `.env` 文件来配置环境变量。
 
-   二者不可搭配使用
+   **二者不可搭配使用**
 
 3. 插件支持不同
 
