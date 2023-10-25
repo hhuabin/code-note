@@ -20,6 +20,34 @@ history.listen((location) => {
 
 
 
+# 路由参数
+
+1. **params**
+
+   ```tsx
+   this.props.match.params
+   ```
+
+   会在地址栏展示（/home/:id）
+
+2. **search**
+
+   ```tsx
+   this.props.location.search
+   ```
+
+   会在地址栏展示（/home?id=1），相当于 `query`
+
+3. **state**
+
+   ```tsx
+   this.props.location.state
+   ```
+
+   不会在地址栏展示，刷新不丢失，不宜分享给别人。（安全）
+
+
+
 # ReactRouter 6
 
 ## 与ReactRouter 5相比
@@ -159,6 +187,16 @@ history.listen((location) => {
 - useParams：获取 params
 
 - useMatch：获取 match
+
+  - 返回值：
+
+    - 成功：返回包含匹配信息的对象
+
+      对象包含 `path`、`url`、`params`、`pathname`、`route`
+
+    - 失败：返回 `null`
+
+  - `useMatch` 的作用是用于检查当前URL是否与指定的路由匹配，并获取匹配的路由信息
 
 ```tsx
 import { useParams, useMatch } from 'react-router-dom';

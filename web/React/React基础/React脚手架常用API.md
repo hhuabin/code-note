@@ -69,6 +69,23 @@ render() {
 </Suspense>
 ```
 
+路由子路由组件的Suspense问题
+
+- react比较推崇在本页面解决问题，组件自定义loading会比较好，不用封装在路由那里
+
+```tsx
+<>
+	<div>mainContent</div>
+
+    {/* <Navigate to="/home/id"/> */}
+    {/* <Outlet></Outlet> */}
+    {/* 组件自定义loading会比较好 */}
+    <Suspense fallback={<div><Loading/></div>}>
+        <Outlet></Outlet>
+    </Suspense>
+</>
+```
+
 在 React 中，**异步组件第一次加载执行两次**的情况通常是由于 React 的工作机制所导致的。
 
 当使用异步组件（例如 React.lazy 和 Suspense）时，React 首先会触发组件的加载过程。在加载过程中，React 会渲染出一个占位符（placeholder），以便在异步组件加载完成前展示该占位符。这是第一次渲染。
@@ -125,13 +142,15 @@ export default function Demo() {
 
 可以让在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
 
+- dependencies：依赖数组，当依赖数组的 value 发生变化时更新，可以实现类似 watch 的功能
+
 ```javascript
 useEffect(() => { 
     // 在此可以执行任何带副作用操作
     return () => { // 在组件卸载前执行
         // componentWillUnmount() 在此做一些收尾工作, 比如清除定时器/取消订阅等
     }
-}, stateValue: [])
+}, dependencies: [])
 // stateValue 如果是 undefine, 相当于 componentDidMount()， componentDidUpdate()，componentWillUnmount()，所以，一般不为空。
 // stateValue 如果指定的是[], 回调函数只会在第一次render()后执行，相当于 componentDidMount()
 // stateValue 里面如果有 state，则state 更新时，也会执行，相当于 componentDidMount() 和 componentDidUpdate()一起
@@ -201,7 +220,7 @@ export default function Counter() {
   return (
     <>
       <button onClick={() => {
-        dispatch({ type: 'incremented_age' })w
+        dispatch({ type: 'incremented_age' })
       }}>
         Increment age
       </button>
@@ -220,6 +239,8 @@ export default function Counter() {
 - 在函数式组件中，每次重新渲染，定义的函数都会重新执行
 
 `useMemo()` 主要用于以下两个场景：
+
+- 返回值：返回计算结果的值
 
 1. **计算昂贵的操作**：如果某个计算操作需要较长的时间或者消耗较多的资源，可以使用 `useMemo()` 将计算结果缓存起来，避免重复计算，提高性能。
 2. **避免不必要的渲染**：当某个组件的渲染依赖于某个变量，而该变量的值没有发生变化时，可以使用 `useMemo()` 缓存组件的渲染结果，避免不必要的渲染。
@@ -257,6 +278,9 @@ export default function MyComponent({ data }) {
 ## 6. useCallback
 
 用于**优化函数的性能**。它的作用是在组件渲染过程中，**缓存回调函数**，以避免不必要的函数重新创建。可以配合 React.memo() 使用
+
+- 返回值：返回记忆的回调函数
+- **用途**：适用于避免在每次渲染时创建新的回调函数，特别是当将回调函数作为 props 传递给子组件时，可以提高性能
 
 ```
 const cachedFn = useCallback(fn, dependencies)
@@ -766,10 +790,32 @@ render() {
 
 # 组件通信方式总结
 
-1. props
+1. props：函数式组件本身只接收一个参数，即 `props` 对象
 
    - children props
    - render props
+
+   ```tsx
+   import PropTypes from 'prop-types';
+   
+   function MyComponent(props) {
+     // 组件逻辑
+   }
+   
+   MyComponent.propTypes = {
+     // 定义传入参数的类型
+     name: PropTypes.string.isRequired, // 字符串类型，且为必传
+     age: PropTypes.number, // 数字类型，可选
+     isActive: PropTypes.bool.isRequired // 布尔类型，且为必传
+   };
+   
+   MyComponent.defaultProps = {
+       name:'bin',
+       age:18,
+   }
+   
+   export default MyComponent;
+   ```
 
 2. 消息订阅-发布：
 

@@ -16,7 +16,7 @@ npm install @reduxjs/toolkit react-redux
 
 1. 在启动文件传 store
 
-```typescript
+```tsx
 // index.tsx
 import store from "./store/store"
 import { Provider } from 'react-redux';
