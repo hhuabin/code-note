@@ -7,6 +7,10 @@
 **Redux 可以理解为是 `reducer` 和 `context` 的集合体**
 
 ```shell
+yarn add @reduxjs/toolkit react-redux
+```
+
+```shell
 npm install @reduxjs/toolkit react-redux
 ```
 
@@ -18,8 +22,9 @@ npm install @reduxjs/toolkit react-redux
 
 ```tsx
 // index.tsx
-import store from "./store/store"
 import { Provider } from 'react-redux';
+
+import store from "./store/store"
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -27,7 +32,7 @@ const root = ReactDOM.createRoot(
 root.render(
     <Provider store={store}>
         {/* 路由模式 */}
-        <BrowserRouter>
+        <BrowserRouter>w
             <App />
         </BrowserRouter>
     </Provider>
@@ -60,7 +65,6 @@ export type AppDispatch = typeof store.dispatch
 
 ```typescript
 import { createSlice } from '@reduxjs/toolkit'
-import { type } from 'os'
 
 export const counterSlice = createSlice({
 	// 用来自动生成 action 中的 type
@@ -117,15 +121,15 @@ export default usersSlice.reducer
 5. 在组件中调用
 
 ```tsx
-import { useAppDispatch, useAppSelector } from '../../hooks/store'
+import { useAppDispatch, useAppSelector } from '@/hooks/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { decrement, increment } from '../../store/slice/counterSlice'
-import { RootState } from '../../store/store'
+import { decrement, increment } from '@/store/slice/counterSlice'
+import { RootState } from '@/store/store'
 
 export default function Redux() {
 
 	// const count = useAppSelector(state => state.counter.countNumber)
-	const count = useAppSelector((state: RootState) => state.counter.countNumber)
+	const count = useSelector((state: RootState) => state.counter.countNumber)
  	const dispatch = useAppDispatch()
 
 	return (
@@ -156,7 +160,7 @@ export default function Redux() {
 
 ```typescript
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
-import type { RootState, AppDispatch } from '../store/store'
+import type { RootState, AppDispatch } from '@/store/store'
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatch = useDispatch
@@ -164,6 +168,21 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 ```
 
 以后使用 useDispatch， useSelector 直接引用该文件的 **useAppDispatch**， **useAppSelector**即可，state, dispatch则无需声明类型了。
+
+
+
+## 在组件外使用 redux
+
+由于 react hooks 只能在组件内使用，`useSelector`和`useDispatch`在组件外就失效了，例如axios的配置文件中
+
+```typescript
+import store from '@/store/store'
+
+// 使用 state
+const state = store.getState()
+// 使用dispath
+const dispatch = store.dispatch()
+```
 
 
 

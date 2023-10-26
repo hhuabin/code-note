@@ -101,6 +101,8 @@ render() {
 - Hook：React16.8.0版本增加的新特性
 - 可以**在函数式组件中使用 state** 以及其他的 React 新特性
 
+
+
 ## 1. State Hook
 
 `const [state, setState] = useState(initialState);`
@@ -138,6 +140,8 @@ export default function Demo() {
 }
 ```
 
+
+
 ## 2. Effect Hook，生命周期
 
 可以让在函数组件中执行副作用操作(用于模拟类组件中的生命周期钩子)
@@ -145,6 +149,8 @@ export default function Demo() {
 - dependencies：依赖数组，当依赖数组的 value 发生变化时更新，可以实现类似 watch 的功能
 
 ```javascript
+import { useEffect } from 'react';
+
 useEffect(() => { 
     // 在此可以执行任何带副作用操作
     return () => { // 在组件卸载前执行

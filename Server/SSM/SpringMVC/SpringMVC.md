@@ -1,5 +1,7 @@
 # Spring MVC (Spring Model View Controller)
 
+
+
 # 注解说明
 
 - @RequestMapping
@@ -26,6 +28,8 @@
 
 - @RestController      @Controller与@ResponseBody的集合
 
+
+
 # 请求 RequestMapping
 
 ```java
@@ -51,6 +55,8 @@
  */
 ```
 
+
+
 # 请求参数 RequestParam
 
 ```java
@@ -70,6 +76,8 @@
  */
 ```
 
+
+
 # 请求参数 RequestBody
 
 ```java
@@ -80,7 +88,9 @@
  */
 ```
 
-# 相应体 ResponseBody
+
+
+# 响应体 ResponseBody
 
 ```java
 /**
@@ -89,6 +99,8 @@
  *  需要使用 jackson依赖
  */
 ```
+
+
 
 # 文件上传
 
@@ -127,6 +139,8 @@ public R<String> upload(MultipartFile file) {
     return R.success("上传成功");
 }
 ```
+
+
 
 # 文件下载
 

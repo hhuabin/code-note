@@ -26,6 +26,8 @@
 <bean id="userDao" class="com.spring.dao.impl.UserDaoImpl"></bean>
 ```
 
+
+
 # 组件扫描
 
 ```java
@@ -70,6 +72,8 @@
     <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
 </context:component-scan>
 ```
+
+
 
 # 属性注入(几乎不用)
 
@@ -162,6 +166,8 @@
 </util:map>
 ```
 
+
+
 # 获取bean
 
 ```java
@@ -187,6 +193,8 @@
  */
 ```
 
+
+
 # 事务管理器
 
 ```java
@@ -205,6 +213,8 @@
         propagation = Propagation.REQUIRES_NEW
 )
 ```
+
+
 
 # AOP
 

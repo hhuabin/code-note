@@ -1,5 +1,3 @@
-[craco官网](https://craco.js.org/docs/getting-started/)
-
 # 使用 less
 
 1. **安装相关依赖**
@@ -8,7 +6,11 @@
 
    craco 只能配和 craco.config.js 文件使用
 
+   ```shell
+   yarn add @craco/craco less craco-less --dev
    ```
+
+   ```shell
    npm install @craco/craco less craco-less --save-dev
    ```
 

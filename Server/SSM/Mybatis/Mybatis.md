@@ -10,6 +10,8 @@
 </dependency>
 ```
 
+
+
 # 2. Mapper.xml Parameter参数设置
 
 ```xml
@@ -42,6 +44,8 @@ Map<String, Object> getUserByIdToMap(@Param("id") Integer id);
     select * from t_user where id = #{id}
 </select>
 ```
+
+
 
 # 3. Mapper.xml ResultMap参数设置
 
@@ -88,7 +92,7 @@ type: 处理映射关系的实体类类型
 
 ## 分布查询 可以配合延迟加载进行 sql 性能提升
 
-使用 <association/> 标签
+使用 \<association/> 标签
 
     property：实体类的属性名
      fetchType: eager | lazy 立即加载 | 延迟加载
@@ -121,6 +125,8 @@ type: 处理映射关系的实体类类型
     SELECT * FROM t_dept WHERE t_dept.dept_id = #{deptId}
 </select>-->
 ```
+
+
 
 # 4. 动态 sql
 
@@ -173,6 +179,8 @@ type: 处理映射关系的实体类类型
     </foreach>
 </insert>
 ```
+
+
 
 # 5. Mybatis 缓存
 

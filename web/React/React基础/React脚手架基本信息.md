@@ -1,12 +1,12 @@
 创建 ts 项目
 
-```
+```shell
 create-react-app react --template typescript
 ```
 
 创建 js 项目
 
-```
+```shell
 create-react-app react-learn
 ```
 
