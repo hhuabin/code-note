@@ -1,7 +1,8 @@
 # constructor
 
-```javascript
-Error(message?, options?)
+```typescript
+new (message?: string, options?: ErrorOptions): Error;
+
 new Error("message", {cause: unknown})
 ```
 

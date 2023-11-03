@@ -5,6 +5,7 @@
 3. 不能为行内元素设置`background`
 4. `position: fixed;`失效问题：fixed定位的元素，如果父级元素有transform样式且值不为none，那么fixed定位无效
 5. `!important`：用于强制一个样式优先级高于其他样式，即使其他样式具有更高的优先级
+6. `input` 会阻止点击事件冒泡
 
 
 

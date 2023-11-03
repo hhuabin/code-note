@@ -4,7 +4,7 @@ node.js V17版本中发布的OpenSSL3.0，而OpenSSL3.0对允许算法和密钥�
 
 `set NODE_OPTIONS=--openssl-legacy-provider` 是设置 `NODE_OPTIONS` 环境变量的命令，用于在 Node.js 运行时启用 OpenSSL 的旧版提供程序
 
-1. 单次启动，cmd下执行
+1. 单次启动，计算机的`cmd` 下执行
 
    ```shell
    SET NODE_OPTIONS=--openssl-legacy-provider && npm run serve

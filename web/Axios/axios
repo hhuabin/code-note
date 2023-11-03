@@ -1,5 +1,37 @@
 # Axios
 
+# POST
+
+post的请求数据是data
+
+```typescript
+return service({
+    url: 'url',
+    data: {
+        ...param,
+    },
+    method: 'post',
+})
+```
+
+
+
+# GET
+
+get 的请求参数是 params
+
+```typescript
+return service({
+    url: 'url',
+    params: {
+        ...param,
+    },
+    method: 'GET',
+})
+```
+
+
+
 axios拥有的元素
 
 ```javascript

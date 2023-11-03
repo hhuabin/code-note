@@ -14,7 +14,7 @@
 
    `craco` 使用的是 `craco.config.js` 文件来配置，其中包含一个 `webpack` 属性用于修改 Webpack 配置，其它的配置项都通过 `create-react-app` 提供的环境变量进行配置。
 
-   而 `rewired` 则是通过 `config-overrides.js` 文件来配置，其中包含一个 `module.exports` 对象用于修改 Webpack 配置，而且它还支持在项目根目录下创建 `.env` 文件来配置环境变量。
+   而 `rewired` 则是通过 `config-overrides.js` 文件来配置，其中包含一个 `module.exports` 对象用于修改 Webpack 配置，而且它还支持在项目根目录下创建 **`.env`** 文件来配置环境变量。
 
    **二者不可搭配使用**
 

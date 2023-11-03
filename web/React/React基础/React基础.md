@@ -10,6 +10,10 @@
 
 引入 prop-types.js，全局多了 **PropTypes** 对象（适用于props相关）
 
+Node 全局变量 process
+
+**React不能直接打印 `process`，真正的前端运行时是没有process的，编译时会把process.env.xxx当作宏替换，需要打印`process.env`**
+
 
 
 # 关于虚拟DOM：
@@ -256,6 +260,27 @@ constructor(props){
    
 
 `createRef `主要用于 class 组件。而函数组件通常使用 useRef。
+
+
+
+# 样式绑定
+
+```tsx
+import React from 'react';
+
+function MyComponent(props) {
+  const dynamicColor = props.isError ? 'red' : 'green';
+  const dynamicFontSize = props.size === 'large' ? '20px' : '16px';
+
+  return (
+    <div style={{ color: dynamicColor, fontSize: dynamicFontSize }}>
+      Hello, World!
+    </div>
+  );
+}
+
+export default MyComponent;
+```
 
 
 
