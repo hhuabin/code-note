@@ -9,8 +9,46 @@
 # 安装配置
 
 1. 下载`Maven`解压
+
 2. 在`/conf/settings.xml`下修改，仓库存储地址，阿里云镜像等3处
-3. 改变`idea`的Maven配置 
+
+   55行左右
+
+   ```xml
+   <localRepository>D:\Software\Maven\apache-maven-3.8.4\repository</localRepository>
+   ```
+
+   \<mirrors>\</mirrors>标签下
+
+   ```xml
+   <mirror>
+       <id>nexus-aliyun</id>
+       <mirrorOf>central</mirrorOf>
+       <name>Nexus aliyun</name>
+       <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+   </mirror>
+   ```
+
+   \<profiles>\</profiles>下
+
+   ```xml
+   <profile>
+       <id>jdk-1.8</id>
+       <activation>
+           <activeByDefault>true</activeByDefault>
+           <jdk>1.8</jdk>
+       </activation>
+       <properties>
+           <maven.compiler.source>1.8</maven.compiler.source>
+           <maven.compiler.target>1.8</maven.compiler.target>
+           <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+       </properties>
+   </profile>
+   ```
+
+3. 改变`idea`的Maven配置，配置方式与步骤2一样
+
+   `D:\Software\JetBrains\IntelliJ IDEA 2021.1.3\plugins\maven\lib\maven3\conf\settings.xml`
 
 
 
