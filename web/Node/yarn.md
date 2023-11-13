@@ -3,7 +3,7 @@
 **使用node安装**
 
 ```shell
-npm instal1 --global yarn
+npm install --global yarn
 ```
 
 **查看yarn版本**
