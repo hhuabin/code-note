@@ -236,7 +236,7 @@ const location = useLocation()
 
 setSearch("id=0&name=bin")
 
-console.log(SearchParams.get("id"), location);
+console.log(search.get("id"), location);
 ```
 
 ### state 参数

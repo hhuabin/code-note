@@ -1,4 +1,8 @@
-[react 官网](https://react.dev/learn)
+[react 官网](https://react.dev/learn "react")
+
+[react 中文网](https://react.docschina.org/reference/react "react")
+
+
 
 # 全局对象 React, ReactDOM
 

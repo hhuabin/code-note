@@ -1,4 +1,4 @@
-安装 antd （PC端版本4.16.13）4官网 <https://4x.ant.design/docs/react/introduce-cn/>
+[antd ((PC端版本4.16.13）4官网](https://4x.ant.design/docs/react/introduce-cn/)
 
 版本5自动支持按需引入
 

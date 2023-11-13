@@ -157,9 +157,9 @@ useEffect(() => {
         // componentWillUnmount() 在此做一些收尾工作, 比如清除定时器/取消订阅等
     }
 }, dependencies: [])
-// stateValue 如果是 undefine, 相当于 componentDidMount()， componentDidUpdate()，componentWillUnmount()，所以，一般不为空。
-// stateValue 如果指定的是[], 回调函数只会在第一次render()后执行，相当于 componentDidMount()
-// stateValue 里面如果有 state，则state 更新时，也会执行，相当于 componentDidMount() 和 componentDidUpdate()一起
+// dependencies 如果是 undefine, 相当于 componentDidMount()， componentDidUpdate()，componentWillUnmount()，所以，一般不为空，而是[]。
+// dependencies 如果指定的是[], 回调函数只会在第一次render()后执行，相当于 componentDidMount()
+// dependencies 里面如果有 state，则state 更新时，也会执行，相当于 componentDidMount() 和 componentDidUpdate()一起
 ```
 
 可以把 useEffect Hook 看做如下三个函数的组合
@@ -167,6 +167,23 @@ useEffect(() => {
 - `componentDidMount()`
 - `componentDidUpdate()`
 - `componentWillUnmount() `
+
+如果只要 `componentDidUpdate` 即 `nextTick()` 的功能，需要加多一个 `useEffect` ，在挂载完成时候让 `isMounted=true`
+
+```tsx
+const [isMounted, setIsMounted] = useState(false)    // 是否挂载完成
+
+useEffect(() => { 
+    setIsMounted(true)
+    return () => {
+        setIsMounted(false)
+    }
+}, [])
+
+useEffect(() => { 
+    if(!isMounted) return
+}, [arr])
+```
 
 
 
@@ -457,11 +474,11 @@ export default function App() {
 
 ## 11. useTransition
 
-用于在渲染过渡期间优化用户体验。它允许我们在异步更新状态时指定一个过渡期，以平滑地处理状态的变化，并在过渡期间显示一些加载指示或过渡效果。**可以实现类似 vue 中 nextick 的功能**
+用于在渲染过渡期间优化用户体验。它允许我们在异步更新状态时指定一个过渡期，以平滑地处理状态的变化，并在过渡期间显示一些加载指示或过渡效果。**可以实现单个变量的类似 vue 中 nextick 的功能**，或者是**单个变量的 this.setState(a, () => {})的第二个参数**，不过不建议这样子想。`useTransition` 的目的是实现平滑过渡，即 `isPending`，若要实现 `nextick ` 建议参数 `useEffect`
 
 `const [isPending, startTransition] = useTransition()`
 
-`useTransition` 返回一个数组，其中包含两个元素：`startTransition` 和 `isPending`。
+`useTransition` 返回一个数组，其中包含两个元素： `isPending` 和 `startTransition`。
 
 - `startTransition` 是一个**函数**，用于触发过渡期的开始。我们可以在该函数中**执行异步操作或更新状态**。在过渡期间，React 会延迟更新组件，以提供更平滑的过渡效果。
 - `isPending` 是一个**布尔值**，指示是否处于过渡期。当调用 `startTransition` 函数开始过渡期时，`isPending` 会变为 `true`，在过渡期结束后会变为 `false`。我们可以根据 `isPending` 的值来在界面上显示加载指示或过渡效果。
@@ -473,15 +490,19 @@ function MyComponent() {
 	const [a, setA] = useState(0)
 	const [b, setB] = useState(0)
     
-	const [startTransition, isPending] = useTransition();
+	const [isPending, startTransition] = useTransition()
 
 	const fetchData = () => {
         // 在过渡期间更新状态
         setA(a => a+1)
+        setB(b => b+1)
         // startTransition 的回调函数设置setState会在其他的setState生效后才执行
 		startTransition(() => {
-            // 倒是可以实现 vue 中 nextick 的功能
-			setB(b => b+1)
+            // 这里 a = 0, b = 0;
+			setA(a => {
+                // 这里a = 1, b = 0，setA只对 a 生效
+                return a+1
+            })
 		})
 	};
 
@@ -796,7 +817,7 @@ render() {
 
 # 组件通信方式总结
 
-1. props：函数式组件本身只接收一个参数，即 `props` 对象
+1. props：**函数式组件本身只接收一个参数**，即 `props` 对象
 
    - children props
    - render props
@@ -834,6 +855,13 @@ render() {
 4. conText
 
    生产者-消费者模式
+   
+   ```tsx
+   import React, { createContext, useContext } from 'react';
+   
+   ```
+   
+   
 
 
 
