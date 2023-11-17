@@ -26,6 +26,13 @@
   	readonly name: string;
   	readonly age: number;
   }>
+  ```
+  
+  数组单个类型获取，注意这里不要使用 `lineGroup[0].items`
+  
+  ```typescript
+  [] as typeof lineGroup[0]["items"]
+  ```
 
 
 

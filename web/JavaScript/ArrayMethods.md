@@ -20,6 +20,8 @@ arr.reduce(function(preview,current,index,arr){
 
 # forEach
 
+- 返回值：`undefined`
+
 - 不会改变原数组基本类型的值，但引用数据类型会改变
 
 

@@ -319,9 +319,10 @@ function sum(a){
 <input onChange={this.saveFormData('username')} type="text" name="username"/>
 ```
 
-```javascript
+```tsx
 saveFormData = (dataType)=>{
-    return (event)=>{
+    return (event: React.MouseEvent)=>{
+        event.stopPropagation()            // 阻止事件冒泡
         this.setState({[dataType]:event.target.value})
     }
 }
@@ -434,6 +435,43 @@ componentDidUpdate --> componentWillUnmount
       console.log('componentDidUpdate',preProps,preState,snapshot);
   }
   ```
+
+
+
+# 引入第三方SDK
+
+- 使用 `craco`
+
+  1. 在src下引入SDK文件 `src/static/jweixin-1.6.0.js`，不能在根目录引入，尽量在 `src` 下
+
+  2. 在 `craco.config.ts` 下配置路径别名 `"jweixin"`
+
+     ```typescript
+     export default {
+     	webpack: {
+     		alias: {
+     			'@': resolve(__dirname, 'src'), // 将 @ 符号指向 src 目录
+     			'jweixin': resolve(__dirname, 'src/static/jweixin-1.6.0.js'),
+     		},
+     	},
+     };
+     ```
+
+  3. 声明模块文件 `jweixin.d.ts`
+
+     ```typescript
+     declare module 'jweixin'
+     ```
+
+  4. 在组件中把他当模块引入即可
+
+     ```tsx
+     import jweixin from 'jweixin'
+     ```
+
+     
+
+
 
 
 
