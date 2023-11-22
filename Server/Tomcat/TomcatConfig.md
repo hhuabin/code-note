@@ -14,3 +14,11 @@
 1. 在 `webapps` 目录下新建 `项目名/WEB_INF`
 2. 把 服务资源 放到与 `WEB_INF` 同级的目录下，即可完成项目的 Tomcat 部署
 3. 启动服务，默认路径为 `http://localhost:8080/项目名`
+
+
+
+# idea 关联 Tomcat
+
+在 idea 的`File | Settings | Build, Execution, Deployment | Application Servers`下面增加Tomcat即可
+
+<img src="./Images/ideatomcat.jpg" alt="picture" style="zoom:80%;" />

@@ -24,6 +24,20 @@ try {
 - condition_1 一个条件表达式。
 - finally_statements 在try语句块之后执行的语句块。无论是否有异常抛出或捕获这些语句都将执行。
 
+只要 `try_statements` 出现错误，则相当于 `try_statements` 整块代码都没有执行
+
+```javascript
+const a = 0
+try {
+	a = 1
+	JSON.parse('')
+} catch (error) {
+	console.log(a);  // 0
+}
+
+console.log(a);    // 0
+```
+
 
 
 例1，但该写法不符合ECMAscript 规范。

@@ -108,8 +108,8 @@ interface Date {
 const dataFormat = () => {
 	const date = new Date()
 	const year = date.getFullYear()
-	const month = date.getMonth() + 1
-	const day = date.getDay()
+	const month = addLeftZero((date.getMonth() + 1) + '')
+	const day = addLeftZero(date.getDate() + '')
 	const hour = date.getHours()
 	const minute = date.getMinutes()
 	const second = date.getSeconds()
@@ -117,6 +117,11 @@ const dataFormat = () => {
 	console.log(year * 10000000000 + month * 100000000 + day * 1000000 + hour * 10000 + minute * 100 + second);
 
 	return (year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second)
+}
+
+// 给左边加 0
+const addLeftZero = (str: string): string => {
+	return ("00" + str).substring(str.length);
 }
 ```
 
