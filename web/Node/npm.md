@@ -66,3 +66,40 @@ npm update package-name                    // 将特定包更新到符合package
 npm update package-name@latest             // 将指定包更新至最新版本，并同步修改package.json文件
 npm update package-name[@version]        // 更新指定包
 ```
+
+**生产环境打包命令**
+
+```json
+"build": "vue-cli-service build",
+```
+
+```bash
+npm run build
+```
+
+**开发环境打包命令**
+
+```json
+"test": "vue-cli-service build --mode development",
+```
+
+在 Vue CLI 中的 `vue-cli-service build --mode development` 实际上是利用了 Vue CLI 内置的 `mode` 参数，该参数用于指定不同的构建模式，对应不同的环境配置
+
+```bash
+npm run test
+```
+
+
+
+
+
+**serve**
+
+```bash
+npm install -g serve
+```
+
+```bash
+serve -s build
+```
+

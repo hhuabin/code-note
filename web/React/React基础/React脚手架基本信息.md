@@ -1,3 +1,9 @@
+安装create-react-app
+
+```bash
+npm install -g create-react-app
+```
+
 创建 ts 项目
 
 ```shell

@@ -12,13 +12,13 @@
 
 2. 在`/conf/settings.xml`下修改，仓库存储地址，阿里云镜像等3处
 
-   55行左右
+   55行左右，添加以下内容
 
    ```xml
    <localRepository>D:\Software\Maven\apache-maven-3.8.4\repository</localRepository>
    ```
 
-   \<mirrors>\</mirrors>标签下
+   \<mirrors>\</mirrors>标签下，注释原来的mirror，添加下面部分
 
    ```xml
    <mirror>

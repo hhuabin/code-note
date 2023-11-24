@@ -57,3 +57,56 @@ yarn info <package-name> version              // 查看指定包的版本
 yarn info <package-name> versions             // 查看指定包的所有版本
 ```
 
+
+
+**生产环境打包命令**（React）
+
+```json
+"build": "react-scripts build"
+
+"build": "craco build"
+```
+
+```bash
+yarn run build
+```
+
+
+
+**开发环境打包命令**（React）
+
+1. 使用`dotenv`(推荐)
+
+   ```bash
+   yarn add dotenv-cli --dev
+   ```
+
+   ```json
+   "build:dev": "dotenv -e .env.development react-scripts build"
+   
+   "build:dev": "dotenv -e .env.development craco build"
+   ```
+
+   ```bash
+   yarn run build:dev
+   ```
+
+   此时会有一个问题，`process.env.NODE_ENV`的值仍然是`"production"`，因为运行的是`craco build`，只是把.env.development文件加载进去了。.env.development的环境变量会生效，但是在 craco 运行的项目中，.env.development不能改变`NODE_ENV`的值，即一定要是`"production"`，不然会报 craco-less错误
+
+2. 使用`env.cmd`
+
+   ```bash
+   yarn add env-cmd --dev
+   ```
+
+   ```json
+   "build:dev": "env-cmd -f .env.development react-scripts build"
+   
+   "build:dev": "env-cmd -f .env.development craco build"
+   ```
+   
+   ```bash
+   yarn run build:dev
+   ```
+   
+   此时会有一个问题，`process.env.NODE_ENV`的值仍然是`"production"`，因为运行的是`craco build`，只是把.env.development文件加载进去了。.env.development的环境变量会生效，但是在 craco 运行的项目中，.env.development不能改变`NODE_ENV`的值，即一定要是`"production"`，不然会报 craco-less错误

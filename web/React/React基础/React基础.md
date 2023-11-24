@@ -463,12 +463,14 @@ componentDidUpdate --> componentWillUnmount
      declare module 'jweixin'
      ```
 
-  4. 在组件中把他当模块引入即可
+  4. 在组件中把他当模块引入即可，建议使用require的方式导入
 
      ```tsx
-     import jweixin from 'jweixin'
+     const wx = require('jweixin')
+     
+     // import jweixin from 'jweixin'
      ```
-
+     
      
 
 
