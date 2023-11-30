@@ -47,22 +47,22 @@
 
 Servlet 在 `Tomcat` 中是单例的，不建议在 `service ` 方法中修改成员变量，会引发线程安全问题
 
-
+---
 
 Servlet中的核心方法：`init()` `service()` `destroy()`
 
 ```java
 public interface Servlet {
-    
+    // 初始化方法，构造完毕后，由 tomcat 自动调用并完成初始化功能的方法
     void init(ServletConfig var1) throws ServletException;
-
+	// 接收用户请求，响应信息的方法
     void service(ServletRequest request, ServletResponse response) throws ServletException, IOException;
-
+	// Servlet 回收前，由 tomcat 调用的销毁方法
     void destroy();
 }
 ```
 
-
+---
 
 一般每个请求会执行相对应的 servlet。
 
@@ -76,6 +76,12 @@ public interface Servlet {
 ```
 
 
+
+# Servlet 的继承结构
+
+**Servlet -> GenericServlet -> HttpServlet**
+
+`service()`方法负责处理请求，在`service()`里面会调用`doGet()`、`doPost()`方法。默认的`doGet`、`doPost()`是返回**405**的。所以继承类一定要重写`doGet()`、`doPost()`方法，或者`service()`方法(一般不推荐直接重写这个)。
 
 
 
@@ -95,8 +101,6 @@ public interface Servlet {
 
    
 
-
-
 # HttpServletResponse
 
 1. 设置响应头的`Content-Type`
@@ -112,5 +116,4 @@ public interface Servlet {
    ```
 
    
-
 

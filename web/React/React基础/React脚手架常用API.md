@@ -13,8 +13,11 @@ React 状态的更新是**异步**的
 2. setState 函数接收两个参数，第二个参数是一个状态更新后的执行函数
 
    ```jsx
-   this.setState({count:count+1},()=>{
-       console.log(this.state.count);
+   state = {
+       count: 0,
+   }
+   this.setState({count: count + 1},() => {
+       console.log(this.state.count);   // 1
    })
    ```
 
@@ -121,9 +124,16 @@ render() {
    2. setXxx(precState => newState)：参数为函数，接收原本的状态值，`newState` 和 `precState` 不能为同一值，否则不会触发页面更新。**尤其注意对象**，地址容易一样
 
    ```jsx
-   import React from 'react'
+   import { useState } from 'react'
    export default function Demo() {
-       const [name, setName] = React.useState(['bin'])
+       const [name, setName] = useState(['bin'])
+       const [age, setAge] = useState(18)
+       const [age1, setAge1] = useState(0)
+       
+       const changeAge = () => {
+           setAge1(18)
+           setAge(age + age1)    // 18
+       }
        
        const changeName = () => {
    		//setName("huabin") //第一种写法
@@ -670,7 +680,7 @@ export default function App() {
 
 ## 11. useTransition
 
-用于在渲染过渡期间优化用户体验。它允许我们在异步更新状态时指定一个过渡期，以平滑地处理状态的变化，并在过渡期间显示一些加载指示或过渡效果。**可以实现单个变量的类似 vue 中 nextick 的功能**，或者是**单个变量的 this.setState(a, () => {})的第二个参数**，不过不建议这样子想。`useTransition` 的**目的是实现平滑过渡**，即 `isPending`，若要实现 `nextick ` 建议参数 `useEffect`
+用于在渲染过渡期间优化用户体验。它允许我们在异步更新状态时指定一个过渡期，以平滑地处理状态的变化，并在过渡期间显示一些加载指示或过渡效果。**可以实现单个变量的类似 vue 中 nextick 的功能**，或者是**单个变量的 this.setState(a, () => {})的第二个参数**，不过不建议这样子想。`useTransition` 的**目的是实现平滑过渡**，即 `isPending`，若要实现 `nextick ` 建议使用 `useEffect`
 
 `const [isPending, startTransition] = useTransition()`
 

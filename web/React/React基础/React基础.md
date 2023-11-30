@@ -28,7 +28,7 @@ Node 全局变量 process
 
 - 使用 jsx 创建虚拟 dom
 
-```javascript
+```jsx
 //1.创建虚拟DOM
 const VDOM = (  /* 此处一定不要写引号，因为不是字符串 */
     <h1 id="title">
@@ -45,7 +45,7 @@ ReactDOM.render(VDOM,document.getElementById('test'))
 //1.创建虚拟DOM
 const VDOM = React.createElement('h1',{id:'title'},React.createElement('span',{},'Hello,React'))
 //2.渲染虚拟DOM到页面
-ReactDOM.render(VDOM,document.getElementById('test'))
+ReactDOM.render(VDOM,document.getElemewntById('test'))
 ```
 
 **jsx 是 js 的语法糖**
@@ -440,38 +440,70 @@ componentDidUpdate --> componentWillUnmount
 
 # 引入第三方SDK
 
-- 使用 `craco`
+1. 在`public`下当成静态文件直接引入
 
-  1. 在src下引入SDK文件 `src/static/jweixin-1.6.0.js`，不能在根目录引入，尽量在 `src` 下
+   在public目录下存放该文件，然后在HTML中通过`<script>`引入
 
-  2. 在 `craco.config.ts` 下配置路径别名 `"jweixin"`
+   ```html
+   <script src="%PUBLIC_URL%/libs/jweixin-1.6.0.js"></script>
+   
+   <!-- 或者直接引用线上文件 -->
+   <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+   ```
 
-     ```typescript
-     export default {
-     	webpack: {
-     		alias: {
-     			'@': resolve(__dirname, 'src'), // 将 @ 符号指向 src 目录
-     			'jweixin': resolve(__dirname, 'src/static/jweixin-1.6.0.js'),
-     		},
-     	},
-     };
-     ```
+   使用：在项目的任何地方都能直接使用
 
-  3. 声明模块文件 `jweixin.d.ts`
+   ```tsx
+   // eslint-disable-next-line
+   console.log("weixin", (window as any).wx);
+   ```
 
-     ```typescript
-     declare module 'jweixin'
-     ```
+2. 直接安装`weixin-js-sdk`包
 
-  4. 在组件中把他当模块引入即可，建议使用require的方式导入
+   ```bash
+   yarn add weixin-js-sdk@1.6.0
+   ```
 
-     ```tsx
-     const wx = require('jweixin')
-     
-     // import jweixin from 'jweixin'
-     ```
-     
-     
+   使用：
+
+   ```tsx
+   const wx = require('weixin-js-sdk')
+   
+   console.log("weixin", wx);
+   ```
+
+3. 使用 `craco`
+
+   在src下引入SDK文件 `src/static/jweixin-1.6.0.js`，不能在根目录引入，尽量在 `src` 下
+
+   在 `craco.config.ts` 下配置路径别名 `"jweixin"`
+
+   ```typescript
+   export default {
+   	webpack: {
+   		alias: {
+   			'@': resolve(__dirname, 'src'), // 将 @ 符号指向 src 目录
+   			'jweixin': resolve(__dirname, 'src/static/jweixin-1.6.0.js'),
+   		},
+   	},
+   };
+   ```
+
+   声明模块文件 `jweixin.d.ts`
+
+   ```typescript
+   declare module 'jweixin'
+   ```
+
+   在组件中把他当模块引入即可，建议使用require的方式导入
+
+   ```tsx
+   const wx = require('jweixin')
+   ```
+
+   配置到这里**只会在开发环境中生效**，生产环境不打包生效。请另外寻找办法。
+
+
 
 
 

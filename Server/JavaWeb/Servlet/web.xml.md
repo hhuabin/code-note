@@ -50,6 +50,19 @@ public class MyServlet extends HttpServlet {
 }
 ```
 
+```
+@WebServlet(
+        urlPatterns = "/hello",
+        initParams = {                      // 默认参数
+                @WebInitParam(name = "name", value = "bin")
+        }
+)
+```
+
+
+
+
+
 
 
 Tips：
