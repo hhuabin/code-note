@@ -1,4 +1,4 @@
-# Servlet
+# 1.Servlet
 
 **Servlet (server applet) 是运行在服务端 tomcat 的 Java 小程序，是sun司提供一套定义动态资源规范；从代码层面上来进 Servlet 就是一个接口**
 
@@ -38,7 +38,7 @@
 
 
 
-# Searvlet 的生命周期
+# 2.Searvlet 的生命周期
 
 1. 实例化 **ServletLifeCycle()**
 2. 初始化 **init()**
@@ -77,7 +77,7 @@ public interface Servlet {
 
 
 
-# Servlet 的继承结构
+# 3.Servlet 的继承结构
 
 **Servlet -> GenericServlet -> HttpServlet**
 
@@ -85,23 +85,251 @@ public interface Servlet {
 
 
 
-# HttpServletRequest
+## ServletConfig
 
-1. 转发请求
+- 为Servlet提供初始配置参数的一种对象每个Servlet都有自己独立唯一的ServletConfig对象
+- 容器会为每个**Servlet实例化一个ServletConfig对象**，并通过Servlet生命周期的init方法传入给Servlet作为属性
 
-   在Servlet中，使用`RequestDispatcher`对象来进行请求转发。以下是一个简单的请求转发
+```java
+@WebServlet(
+        urlPatterns = "/hello",
+        initParams = {
+                @WebInitParam(name = "name", value = "bin"),
+                @WebInitParam(name = "age", value = "18"),
+        }
+)
+public class userServlet extends HttpServlet {
 
-   ```java
-   // 获取RequestDispatcher对象，参数是转发的目标路径
-   RequestDispatcher dispatcher = request.getRequestDispatcher("/targetServlet");
-   
-   // 执行请求转发
-   dispatcher.forward(request, response);
-   ```
+    // http://localhost:5000/demo/hello
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ServletConfig servletConfig  = getServletConfig();
 
-   
+        String keyname = servletConfig.getInitParameter("name");
 
-# HttpServletResponse
+        System.out.println("keyname: " + keyname);
+
+        Enumeration<String> initParameterNames = servletConfig.getInitParameterNames();
+
+        while(initParameterNames.hasMoreElements()) {
+            String key = initParameterNames.nextElement();
+            System.out.println(key + "=" + getInitParameter(key));
+        }
+    }
+}
+```
+
+
+
+## ServletContext
+
+- ServletContext对象有称呼为上下文对象或者叫应用域对象（后面统一讲解域对象）
+- 容器会为每个app创建一个独立的唯一的ServletContext对象
+- ServletContext对象为所有的Servlet所共享
+- ServletContext可以为所有的Servlet提供初始配置参数
+
+```java
+public class userServlet extends HttpServlet {
+
+    // http://localhost:5000/demo/hello
+    @Override
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println("---------------ServletConfig----------------------");
+        ServletContext servletContext = servletConfig.getServletContext();
+        ServletContext servletContext1 = request.getServletContext();
+        ServletContext servletContext2 = getServletContext();
+        System.out.println(servletContext == servletContext1);      // true
+        System.out.println(servletContext1 == servletContext2);     // true
+        
+        // 获取资源的真实路径
+        String realPath = servletContext.getRealPath("upload");
+        System.out.println("realPath: " + realPath);
+
+        // 获取项目的上下文路径
+        String contextPath = servletContext.getContextPath();
+        System.out.println("contextPath: " + contextPath);
+
+        // 域对象的相关API
+        servletContext.setAttribute("myName", "bin");
+        Object myName = servletContext.getAttribute("myName");
+        servletContext.removeAttribute("myName");
+        System.out.println("myName: " + myName);
+    }
+}
+```
+
+**域对象的相关API**
+
+| API                                          | 功能解释            |
+| -------------------------------------------- | ------------------- |
+| void setAttribute(String var1, Object var2); | 向域中存储/修改数据 |
+| Object getAttribute(String var1);            | 获得域中的数据      |
+| void removeAttribute(String var1);           | 移除域中的数据      |
+
+
+
+# 4.HttpServletRequest
+
+- 获取请求行信息相关方式请求的url,协议及版本)
+
+  | API                     | 功能解释                       |
+  | ----------------------- | ------------------------------ |
+  | **getRequestURL**       | 获取客户端请求的url            |
+  | String getRequestURI(); | 获取客户端请求项目中的具体资源 |
+  | int getServerPort();    | 获取客户端发送请求时的端口     |
+  | int getLocalPort();     | 获取本应用在所在容器的端口     |
+  | int getRemotePort();    | 获取客户端程序的端口           |
+  | String getScheme();     | 获取请求协议                   |
+  | String getProtocol();   | 获取请求协议及版本号           |
+  | String getMethod();     | 获取请求方式                   |
+
+- 获得请求头信息相关
+
+  | API                                   | 功能解释               |
+  | ------------------------------------- | ---------------------- |
+  | String getHeader(String var1);        | 根据头名称获取请求头   |
+  | Enumeration<String> getHeaderNames(); | 获取所有的请求头名字   |
+  | String getContentType();              | 获取content-type请求头 |
+
+  ```java
+  // 获取请求头相关的
+  System.out.println("------------------getHeaderNames--------------------");
+  Enumeration<String> headerNames = req.getHeaderNames();
+  while (headerNames.hasMoreElements()) {
+      String hname = headerNames.nextElement();
+      System.out.println(hname + ": " + req.getHeader(hname));
+      // host: localhost:5000
+  	// connection: keep-alive
+  }
+  ```
+
+- 获得请求参数相关
+
+  | API                                                     | 功能解释                             |
+  | ------------------------------------------------------- | ------------------------------------ |
+  | **String getParameter(String var1);**                   | 根据请求参数名获取请求单个参数值     |
+  | String[] getParameterValues(String var1);               | 根据请求参数名获取请求多个参数值数组 |
+  | **Enumeration<String> getParameterNames();**            | 获取所有请求参数名                   |
+  | **Map<String, String[]> getParameterMap();**            | 获取所有请求参数的键值对集合         |
+  | BufferedReader getReader() throws IOException;          | 获取读取请求体的字符输入流           |
+  | ServletInputStream getInputStream() throws IOException; | 获取读取请求体的字节输入流           |
+  | int getContentLength();                                 | 获得请求体长度的字节数               |
+
+  ```java
+  @WebServlet("/httpservlet")
+  public class httpServlet extends HttpServlet {
+  
+      // http://localhost:5000/demo/httpservlet?username=bin&age=18
+      @Override
+      protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+          // 用于获取key=value形式的参数
+          String username = req.getParameter("username");
+          String age = req.getParameter("age");
+          System.out.println("username: " + username + ", age: " + age);  // username: bin, age: 18
+  
+          Map<String, String[]> parameterMap = req.getParameterMap();
+          Set<Map.Entry<String, String[]>> entries = parameterMap.entrySet();
+          for (Map.Entry<String, String[]> entry : entries) {
+              String key = entry.getKey();
+              String[] value = entry.getValue();
+              if(value.length > 1) {
+                  System.out.println(key + "=" + value.toString());
+              } else {
+                  System.out.println(key + "=" + value[0]);
+              }
+          }
+      }
+  }
+  ```
+
+  
+
+- 其他API
+
+  | API                                                          | 功能解释                    |
+  | ------------------------------------------------------------ | --------------------------- |
+  | String getServletPath();                                     | 获取请求的Servlet的映射路径 |
+  | ServletContext getServletContext();                          | 获取ServletContext对象      |
+  | Cookie[] getCookies();                                       | 获取请求中的所有cookie      |
+  | HttpSession getSession();                                    | 获取Session对象             |
+  | void setCharacterEncoding(String var1) throws UnsupportedEncodingException; | 设置请求体字符集            |
+
+  
+
+## 请求转发
+
+在Servlet中，使用`RequestDispatcher`对象来进行请求转发。以下是一个简单的请求转发
+
+```java
+// 获取RequestDispatcher对象，参数是转发的目标路径
+RequestDispatcher dispatcher = request.getRequestDispatcher("/targetServlet");
+
+// 执行请求转发
+dispatcher.forward(request, response);
+```
+
+- 请求转发是通过`HttpServletRequest`对象实现的
+- 请求转发是服务器内部行为，对客户端是屏蔽的
+- 容户端只产生了一次请求 服务端只产生了一对 request response对象
+- 客户端的地址栏是不变的
+- 请求的参数是可以继续传递的
+- 目标资源可以是servlet动态资源 也可以是html协态资源
+  - 目标资源可以追WEB-INF 下的受保护的资源 该方式也是`WEB-INF`下的资源的唯一访问方式
+- 目标资源不可以是外部资源，如`https://www.bilibili.com`这种
+
+
+
+# 5.HttpServletResponse
+
+- 设置响应行相关
+
+  | API                           | 功能解释       |
+  | ----------------------------- | -------------- |
+  | **void setStatus(int var1);** | 设置响应状态码 |
+
+- 设置响应头相关
+
+  | API                                           | 功能解释                                         |
+  | --------------------------------------------- | ------------------------------------------------ |
+  | **void setHeader(String var1, String var2);** | 设置/修改响应头键值对                            |
+  | **void setContentType(String var1);**         | 设置content-type响应头及响应字符集(设置MIME类型) |
+
+- 设置响应体相关
+
+  | API                                                       | 功能解释                                               |
+  | --------------------------------------------------------- | ------------------------------------------------------ |
+  | PrintWriter getWriter() throws IOException;               | 获得向响应体放入信息的字符输出流                       |
+  | ServletOutputStream getOutputStream() throws IOException; | 获得向响应体放入信息的字节输出流                       |
+  | **void setContentLength(int var1);**                      | 设置响应体的字节长度其实就是在设置content-length响应头 |
+
+  ```java
+  @WebServlet("/httpservlet")
+  public class httpServlet extends HttpServlet {
+  
+      // http://localhost:5000/demo/httpservlet
+      @Override
+      protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+          resp.setStatus(200);
+          String _html = "<h1>hhaubin</h1>";
+          resp.setHeader("Content-Type", "text/html");
+          // 获得一个向响应体中输入二进制信息的字节输出流
+          PrintWriter writer = resp.getWriter();
+          writer.write(_html);
+      }
+  }
+  ```
+
+  
+
+- 其他API
+
+  | API                                                       | 功能解释                                            |
+  | --------------------------------------------------------- | --------------------------------------------------- |
+  | void sendError(int var1, String var2) throws IOException; | 向客户端响应错误信息的方法,需要指定响应码和响应信息 |
+  | void addCookie(Cookie var1)                               | 向响应体中增加cookie                                |
+  | void setCharacterEncoding(String var1);                   | 设置响应体字符集                                    |
+
+  
 
 1. 设置响应头的`Content-Type`
 

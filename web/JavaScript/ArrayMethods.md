@@ -52,7 +52,7 @@ arr.reduce(function(preview,current,index,arr){
 
 # find
 
-用于查找满足指定测试函数的第一个元素。如果找到了，它返回数组中第一个满足测试函数的元素的值；否则，返回 `undefined`
+用于查找满足指定测试函数的第一个元素。如果找到了，它返回数组中**第一个**满足测试函数的元素的值；否则，返回 `undefined`
 
 ```javascript
 array.find(function(element, index, array) {
