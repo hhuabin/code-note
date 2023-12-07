@@ -148,14 +148,14 @@ ___
 ![这是图片](/assets/img/philly-magic-garden.jpg "Magic Gardens")
 ```
 
-<img title="avatat" src="./Image/markdown/avatar.jpg" alt="" width="245">
+<img title="avatat" src="./Image/avatar.jpg" alt="" width="245">
 
 ```
 链接图片
 [![沙漠中的岩石图片](/assets/img/shiprock.jpg "Shiprock")](https://markdown.com.cn)
 ```
 
-[<img title="avatar" src="./Image/markdown/avatar.jpg" alt="" width="252">](https://github.com/hhuabin)
+[<img title="avatar" src="./Image/avatar.jpg" alt="" width="252">](https://github.com/hhuabin)
 
 
 
