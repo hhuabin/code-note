@@ -123,7 +123,7 @@ public class userServlet extends HttpServlet {
 
 ## ServletContext
 
-- ServletContext对象有称呼为上下文对象或者叫应用域对象（后面统一讲解域对象）
+- ServletContext对象有称呼为上下文对象或者叫**应用域对象**
 - 容器会为每个app创建一个独立的唯一的ServletContext对象
 - ServletContext对象为所有的Servlet所共享
 - ServletContext可以为所有的Servlet提供初始配置参数
@@ -147,7 +147,7 @@ public class userServlet extends HttpServlet {
 
         // 获取项目的上下文路径
         String contextPath = servletContext.getContextPath();
-        System.out.println("contextPath: " + contextPath);
+        System.out.println("contextPath: " + contextPath);         // /demo
 
         // 域对象的相关API
         servletContext.setAttribute("myName", "bin");
@@ -301,6 +301,7 @@ dispatcher.forward(request, response);
   | PrintWriter getWriter() throws IOException;               | 获得向响应体放入信息的字符输出流                       |
   | ServletOutputStream getOutputStream() throws IOException; | 获得向响应体放入信息的字节输出流                       |
   | **void setContentLength(int var1);**                      | 设置响应体的字节长度其实就是在设置content-length响应头 |
+  | **void sendRedirect(String var1) throws IOException;**    | 设置响应码为302，同时设置location响应头                |
 
   ```java
   @WebServlet("/httpservlet")
@@ -331,17 +332,29 @@ dispatcher.forward(request, response);
 
   
 
-1. 设置响应头的`Content-Type`
+## 响应重定向
 
-   ```java
-   @Override
-   protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       String _html = "<h1>hhaubin</h1>";
-       response.setHeader("Content-Type", "text/html");
-       PrintWriter writer = response.getWriter();
-       writer.write(_html);
-   }
-   ```
+- 响应重定向通过HttpServletResponse对象的sendRedirect方法实现
+- 响应重定向是服务端通过302响应码和路径告诉客户端自己去找其他资源,是在服务端提示下的,客户端的行为
+- 客户端至少发送了两次请求客户端地址栏是要变化的
+- 服务端产生了多对请求和响应对象且请求和响应对象不会传递给下一个资源
+- 因为全程产生了多个HttpservletRequset对象,所以请求参数不可以传递请求域中的数据也不可以传递
+- 重定向可以是其他Servlet动态资源也可以是一些静态资源以实现页面跳转
+- 重定向不可以到给WEB-INF下受保护的资源
+- 重定向可以到本项目以外的外部资源
 
-   
+```java
+@Override
+protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    ServletContext servletContext = request.getServletContext();
+    String contextPath = servletContext.getContextPath();
+    System.out.println("contextPath: " + contextPath);    // /demo
+    
+    resp.setStatus(302);
+    resp.setHeader("location", contextPath + "/hello");
+    // or
+    resp.sendRedirect(contextPath + "/hello")
+}
+```
 
+- 重定向要注意路径问题
