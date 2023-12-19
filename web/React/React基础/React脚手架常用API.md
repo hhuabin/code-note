@@ -282,7 +282,7 @@ const inputRef = useRef(null);
 作用：保存标签对象,功能与React.createRef()一样
 
 ```jsx
-intervalRef.value = 100
+intervalRef.current = 100
 <input ref={inputRef} type="text" placeholder="点击按钮提示数据"/>
 ```
 
@@ -757,6 +757,15 @@ function MyComponent() {
 ```
 
 在上面的示例中，如果条件 `condition` 成立，组件会提前返回 `null`，导致后面定义的 Hook 没有机会使用。要解决这个问题，可以将提前返回移动到组件 JSX 渲染的部分，以确保 Hook 在组件的顶层使用。
+
+
+
+## 13. nextTick
+
+- Vue的`nextTick`，是在DOM更新后执行的，**React中并没有针对DOM更新之后执行的代码**
+
+- React实现不了`nextTick`，但是React可以通过`useEffect`监听state的状态变化，当state状态变化后可以执行`useEffect`中的函数
+- 但是要明白一点，state状态变化并不等于是DOM更新，**如果一定要在DOM更新后执行函数，请使用Vue**
 
 
 

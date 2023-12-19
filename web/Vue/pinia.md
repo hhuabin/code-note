@@ -210,12 +210,14 @@ npm install pinia
 
 
 
-# 组件外的 Store
+# 组件外的 使用Store
 
 必须在 `createApp(App).use(pinia)` 之后使用
 
 ```typescript
+import { useStore } from '@/store/index'
 import { createRouter } from 'vue-router'
+
 const router = createRouter({
   // ...
 })

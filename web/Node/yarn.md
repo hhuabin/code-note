@@ -12,6 +12,31 @@ npm install --global yarn
 yarn --version
 ```
 
+
+
+# 镜像源
+
+1. 查看当前镜像
+
+   ```bash
+   yarn config get registry
+   ```
+
+2. 打开终端或命令行，运行以下命令来配置 npm 使用淘宝镜像：
+
+   ```bash
+   yarn config set registry https://registry.npm.taobao.org/
+   ```
+
+3. 恢复为原来的镜像源
+
+   ````bash
+   yarn config set registry https://registry.yarnpkg.com
+   ````
+
+
+
+
 **初始化项目**
 
 ```shell

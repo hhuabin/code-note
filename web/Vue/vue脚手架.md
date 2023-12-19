@@ -1,7 +1,17 @@
+# 安装
+
+## webpack安装
+
 全局安装 Vue CLI
 
 ```bash
 npm install -g @vue/cli
+```
+
+查看@vue/cli版本
+
+```bash
+vue --version
 ```
 
 创建 vue 项目
@@ -11,6 +21,16 @@ vue create my-project
 ```
 
 
+
+## vite安装
+
+```bash
+npm create vue@latest
+```
+
+```bash
+npm install
+```
 
 
 

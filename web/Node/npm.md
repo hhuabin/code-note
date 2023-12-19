@@ -2,13 +2,40 @@
 
 ```shell
 node --version
+node -v
 ```
 
 **查看npm版本**
 
 ```shell
-node --version
+npm -v
 ```
+
+
+
+# 镜像源
+
+1. 查看当前镜像
+
+   ```bash
+   npm config get registry
+   ```
+
+2. 打开终端或命令行，运行以下命令来配置 npm 使用淘宝镜像：
+
+   ```bash
+   npm config set registry https://registry.npm.taobao.org/
+   ```
+
+3. 恢复为原来的镜像源
+
+   ````bash
+   npm config set registry https://registry.npmjs.org/
+   ````
+
+   
+
+
 
 **初始化项目**
 
