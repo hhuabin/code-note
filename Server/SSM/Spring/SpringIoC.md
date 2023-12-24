@@ -218,7 +218,74 @@ public class UserService {
 
       
 
+### 组件(Bean)作用域和周期方法配置
+
+#### 生命周期方法
+
+我们可以在组件类中定义方法，然后当**IoC容器实例化**和**销毁组件对象**的时候进行调用！这两个方法我们成为**生命周期方法**！
+
+类似于Servlet的init/destroy方法,我们可以在周期方法完成初始化和释放资源等工作。
+
+```java
+public class HelloBean {
+
+    //周期方法要求： 方法命名随意，但是要求方法必须是 public void 无形参列表
+    public void init() {
+        System.out.println("JavaBean init");
+    }
+
+    public void destory() {
+        System.out.println("JavaBean destory");
+    }
+}
+```
+
+在 xml 文件中声明 init-method 和 destroy-method
+
+```xml
+<bean id="helloBean" class="com.springioc.bean.HelloBean" init-method="init" destroy-method="destory"></bean>
+```
+
+```java
+@Test
+public void testLifeCycle() {
+    // 获取 IOC 容器
+    ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("springioc.xml");
+    // 销毁
+    applicationContext.close();
+}
+```
 
 
 
+#### 作用域 Scope
+
+`<bean` 标签声明Bean，只是将Bean的信息配置给SpringIoC容器！
+
+在IoC容器中，这些`<bean`标签对应的信息转成Spring内部 `BeanDefinition` 对象，`BeanDefinition` 对象内，包含定义的信息（id,class,属性等等）！
+
+这意味着，`BeanDefinition`与`类`概念一样，SpringIoC容器可以可以根据`BeanDefinition`对象反射创建多个Bean对象实例。
+
+具体创建多少个Bean的实例对象，由Bean的作用域Scope属性指定！
+
+```xml
+<!--
+    scope: singleton | prototype
+        singleton: 单例模式 （默认）
+        prototype: 多例模式
+-->
+<bean id="helloBean" class="com.springioc.bean.HelloBean" scope="prototype"></bean>
+```
+
+```java
+@Test
+public void testScope() {
+    // 获取 IOC 容器
+    ApplicationContext applicationContext = new ClassPathXmlApplicationContext("springioc.xml");
+    // 获取 IOC 容器中的 bean
+    HelloBean helloBean = (HelloBean) applicationContext.getBean(HelloBean.class);
+    HelloBean helloBean2 = (HelloBean) applicationContext.getBean(HelloBean.class);
+    System.out.println(helloBean == helloBean2);
+}
+```
 
