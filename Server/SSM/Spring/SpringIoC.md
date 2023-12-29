@@ -85,26 +85,55 @@ Spring框架提供了多种配置方式：XML配置方式、**注解方式**和*
 <bean id="helloBean" class="com.springioc.bean.HelloBean"></bean>
 
 <!--
-    方式2: 静态工厂方法实例化
+    方式2: 静态工厂方法实例化，注意，该方法必须是static方法。
  -->
 <bean id="helloBean2" class="com.springioc.bean.HelloBean" factory-method="createInstance"></bean>
 
+<!--
+    方式3: 基于实例工厂方法实例化，注意，实例方法必须是非static的
+ -->
+<bean id="myFactory" class="com.springioc.bean.MyFactoryBean"></bean>
+
+<bean id="myBean" factory-bean="myFactory" factory-method="createInstance"></bean>
 ```
 
-```java
-public class HelloBean {
+2. 方式2: 静态工厂方法实例化
 
-    private static HelloBean helloBean = new HelloBean();
+   ```java
+   public class HelloBean {
+   
+       private static HelloBean helloBean = new HelloBean();
+   
+       public void sayHello() {
+           System.out.println("hello bean");
+       }
+   
+       public static HelloBean createInstance() {
+           return helloBean;
+       }
+   }
+   ```
 
-    public void sayHello() {
-        System.out.println("hello bean");
-    }
+3. 方式3: 基于实例工厂方法实例化
 
-    public static HelloBean createInstance() {
-        return helloBean;
-    }
-}
-```
+   ```java
+   public class MyBean {
+       public void sayHello() {
+           System.out.println("hello MyBean");
+       }
+   }
+   
+   
+   public class MyFactoryBean {
+       // 实例工厂方法，用于创建 Bean 实例
+       public MyBean createInstance() {
+           // 创建并返回 Bean 的实例
+           return new MyBean();
+       }
+   }
+   ```
+
+   
 
 
 
@@ -289,3 +318,32 @@ public void testScope() {
 }
 ```
 
+
+
+### FactoryBean
+
+`FactoryBean` 接口是Spring IoC容器实例化逻辑的可插拔性点。
+
+用于配置复杂的Bean对象，可以将创建过程存储在`FactoryBean` 的getObject方法！
+
+**FactoryBean 接口提供三种方法：**
+
+1. `T getObject()`：返回此工厂创建的对象的实例。该返回值会被存储到IoC容器！
+2. `boolean isSingleton()`：如果此 FactoryBean 返回单例，则返回 true ，否则返回 false 。此方法的默认实现返回 true
+3. `Class getObjectType()`：方法返回的对象类型，如果事先不知道类型，则返回 null
+
+
+
+
+
+
+
+#### FactoryBean和BeanFactory区别
+
+**FactoryBean **是 Spring 中一种特殊的 bean，可以在 getObject() 工厂方法自定义的逻辑创建Bean！是一种能够生产其他 Bean 的 Bean。FactoryBean 在容器启动时被创建，而在实际使用时则是通过调用 getObject() 方法来得到其所生产的 Bean。因此，FactoryBean 可以自定义任何所需的初始化逻辑，生产出一些定制化的 bean。
+
+一般情况下，整合第三方框架，都是通过定义FactoryBean实现！！！
+
+**BeanFactory** 是 Spring 框架的基础，其作为一个顶级接口定义了容器的基本行为，例如管理 bean 的生命周期、配置文件的加载和解析、bean 的装配和依赖注入等。BeanFactory 接口提供了访问 bean 的方式，例如 getBean() 方法获取指定的 bean 实例。它可以从不同的来源（例如 Mysql 数据库、XML 文件、Java 配置类等）获取 bean 定义，并将其转换为 bean 实例。同时，BeanFactory 还包含很多子类（例如，ApplicationContext 接口）提供了额外的强大功能。
+
+总的来说，FactoryBean 和 BeanFactory 的区别主要在于前者是用于创建 bean 的接口，它提供了更加灵活的初始化定制功能，而后者是用于管理 bean 的框架基础接口，提供了基本的容器功能和 bean 生命周期管理。
