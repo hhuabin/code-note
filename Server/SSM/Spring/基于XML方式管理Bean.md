@@ -1,49 +1,4 @@
-# SpringIoC
-
-**SpringIoC(Inversion of Control)控制反转**
-
-Spring IoC 容器，负责实例化、配置和组装 bean（组件）。容器通过读取配置元数据来获取有关要实例化、配置和组装组件的指令。配置元数据以 XML、Java 注解或 Java 代码形式表现。它允许表达组成应用程序的组件以及这些组件之间丰富的相互依赖关系
-
-
-
-## SpringIoC容器和容器实现类
-
-**SpringIoc容器接口**：
-
-`BeanFactory` 接口提供了一种高级配置机制，能够管理任何类型的对象，它是SpringIoC容器标准化超接口！
-
-`ApplicationContext` 是 `BeanFactory` 的子接口。它**扩展**了以下功能：
-
-| 类型名                                 | 简介                                                         |
-| -------------------------------------- | ------------------------------------------------------------ |
-| ClassPathXmlApplicationContext         | 通过读取类路径下的 XML 格式的**配置文件**创建 IOC 容器对象   |
-| FileSystemXmlApplicationContext        | 通过文件系统路径读取 XML 格式的**配置文件**创建 IOC 容器对象 |
-| **AnnotationConfigApplicationContext** | 通过读取**Java配置类**创建 IOC 容器对象                      |
-| **WebApplicationContext**              | 专门为 Web 应用准备，基于 Web 环境创建 **IOC 容器对象**，并将对象引入存入 ServletContext 域中 |
-
-```mermaid
-graph TD
-A[BeanFactory] --> B[ApplicationContext]
-B --> C[ClassPathXmlApplicationContext]
-B --> D[FileSystemXmlApplicationContext]
-B --> E[AnnotationConfigApplicationContext]
-B --> F[WebApplicationContext]
-
-```
-
-
-
-### Spring IoC 容器管理配置方式
-
-Spring框架提供了多种配置方式：XML配置方式、**注解方式**和**Java配置类**方式
-
-1. XML配置方式：是Spring框架最早的配置方式之一，通过在XML文件中定义Bean及其依赖关系、Bean的作用域等信息，让Spring IoC容器来管理Bean之间的依赖关系。该方式从Spring框架的第一版开始提供支持
-2. 注解方式：从Spring 2.5版本开始提供支持，可以通过在Bean类上使用注解来代替XML配置文件中的配置信息。通过在Bean类上加上相应的注解（如@Component, @Service, @Autowired等），将Bean注册到Spring IoC容器中，这样Spring IoC容器就可以管理这些Bean之间的依赖关系
-3. **Java配置类**方式：从Spring 3.0版本开始提供支持，通过Java类来定义Bean、Bean之间的依赖关系和配置信息，从而代替XML配置文件的方式。Java配置类是一种使用Java编写配置信息的方式，通过@Configuration、@Bean等注解来实现Bean和依赖关系的配置
-
-
-
-## Spring IoC / DI 实践步骤
+# Spring IoC / DI 实践步骤
 
 1. **配置元数据（配置）**
 
@@ -71,7 +26,9 @@ Spring框架提供了多种配置方式：XML配置方式、**注解方式**和*
 
 
 
-### 组件(Bean)声明配置
+# 基于XML配置方式组件管理
+
+## 组件(Bean)声明配置
 
 ```xml
 // ***.xml
@@ -135,9 +92,7 @@ Spring框架提供了多种配置方式：XML配置方式、**注解方式**和*
 
    
 
-
-
-### 依赖注入
+## 依赖注入
 
 ```java
 // 准备类
@@ -198,7 +153,7 @@ public class UserService {
 
 
 
-### IoC容器的创建和使用
+## IoC容器的创建和使用
 
 1. 获取 IOC 容器实例化对象
 
@@ -247,9 +202,9 @@ public class UserService {
 
       
 
-### 组件(Bean)作用域和周期方法配置
+## 组件(Bean)作用域和周期方法配置
 
-#### 生命周期方法
+### 生命周期方法
 
 我们可以在组件类中定义方法，然后当**IoC容器实例化**和**销毁组件对象**的时候进行调用！这两个方法我们成为**生命周期方法**！
 
@@ -287,7 +242,7 @@ public void testLifeCycle() {
 
 
 
-#### 作用域 Scope
+### 作用域 Scope
 
 `<bean` 标签声明Bean，只是将Bean的信息配置给SpringIoC容器！
 
@@ -320,7 +275,7 @@ public void testScope() {
 
 
 
-### FactoryBean
+## FactoryBean
 
 `FactoryBean` 接口是Spring IoC容器实例化逻辑的可插拔性点。
 
@@ -334,11 +289,78 @@ public void testScope() {
 
 
 
+**FactoryBean应用**
 
+1. 准备`FactoryBean`接口实现类
 
+   ```java
+   public class HelloBean {
+   
+       public String name;
+   
+       public String getName() {
+           return name;
+       }
+   
+       public void setName(String name) {
+           this.name = name;
+       }
+   
+   }
+   
+   // 实现 FactoryBean 接口
+   public class HelloFactoryBean implements FactoryBean<HelloBean> {
+   
+       @Override
+       public boolean isSingleton() {
+           return FactoryBean.super.isSingleton();
+       }
+   
+       @Override
+       public HelloBean getObject() throws Exception {
+   
+           HelloBean helloBean = new HelloBean();
+   
+           helloBean.setName("bin");
+   
+           return helloBean;
+       }
+   
+       @Override
+       public Class<?> getObjectType() {
+           return HelloBean.class;
+       }
+   }
+   ```
 
+2. xml配置
 
-#### FactoryBean和BeanFactory区别
+   ```xml
+   <bean id="helloBean" class="com.springioc.bean.HelloFactoryBean"></bean>
+   ```
+
+3. 测试读取`FactoryBean`和`FactoryBean.getObject`对象
+
+   ```java
+   @Test
+   public void testFactoryBean() {
+       ApplicationContext applicationContext = new ClassPathXmlApplicationContext("springioc2.xml");
+   
+       // 获取HelloBean (FactoryBean.getObject)
+       HelloBean helloBean = applicationContext.getBean("helloBean", HelloBean.class);
+       System.out.println(helloBean);   // com.springioc.bean.HelloBean@10959ece
+       System.out.println(helloBean.getName());  // bin
+   
+       //如果想要获取FactoryBean对象, 直接在id前添加&符号即可!  &helloBean 这是一种固定的约束
+       Object helloFactoryBean = applicationContext.getBean("&helloBean");
+       System.out.println(helloFactoryBean);
+       // com.springioc.bean.HelloFactoryBean@3a6bb9bf
+   }
+   ```
+
+   
+
+### FactoryBean和BeanFactory区别
 
 **FactoryBean **是 Spring 中一种特殊的 bean，可以在 getObject() 工厂方法自定义的逻辑创建Bean！是一种能够生产其他 Bean 的 Bean。FactoryBean 在容器启动时被创建，而在实际使用时则是通过调用 getObject() 方法来得到其所生产的 Bean。因此，FactoryBean 可以自定义任何所需的初始化逻辑，生产出一些定制化的 bean。
 
@@ -347,3 +369,43 @@ public void testScope() {
 **BeanFactory** 是 Spring 框架的基础，其作为一个顶级接口定义了容器的基本行为，例如管理 bean 的生命周期、配置文件的加载和解析、bean 的装配和依赖注入等。BeanFactory 接口提供了访问 bean 的方式，例如 getBean() 方法获取指定的 bean 实例。它可以从不同的来源（例如 Mysql 数据库、XML 文件、Java 配置类等）获取 bean 定义，并将其转换为 bean 实例。同时，BeanFactory 还包含很多子类（例如，ApplicationContext 接口）提供了额外的强大功能。
 
 总的来说，FactoryBean 和 BeanFactory 的区别主要在于前者是用于创建 bean 的接口，它提供了更加灵活的初始化定制功能，而后者是用于管理 bean 的框架基础接口，提供了基本的容器功能和 bean 生命周期管理。
+
+
+
+# 基于XML的方式整合三层架构组件
+
+1. 分别注入`jdbcTemplate`、`userDao`、`userService`即可
+
+   ```xml
+   <!--
+       引入 jdbc.properties
+       然后就可以通过 ${key} 的方式获得 value
+   -->
+   <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+   
+   <!--druid 数据库连接池-->
+   <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+       <property name="driverClassName" value="${jdbc.driver}"></property>
+       <property name="url" value="${jdbc.url}"></property>
+       <property name="username" value="${jdbc.user}"></property>
+       <property name="password" value="${jdbc.password}"></property>
+   </bean>
+   
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+       <property name="dataSource" ref="dataSource"></property>
+   </bean>
+   
+   <bean id="userDao" class="com.springioc.dao.impl.UserDaoImpl">
+       <property name="jdbcTemplate" ref="jdbcTemplate" />
+   </bean>
+   
+   <bean id="userService" class="com.springioc.service.impl.UserServiceImpl">
+       <property name="userDao" ref="userDao" />
+   </bean>
+   
+   <bean id="userController" class="com.springioc.controller.UserController">
+       <property name="userService" ref="userService" />
+   </bean>
+   ```
+
+   
