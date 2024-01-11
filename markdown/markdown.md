@@ -270,9 +270,15 @@ ___
 
 
 
-# 15. 标题编号
+# 15. 标题编号 {custom-id}
 
-[标题编号](#15. 标题编号)
+标题编号仅限英文
+
+`<h1 id="custom-id">custom-id</h1>`
+
+<h1 id="custom-id">custom-id</h1>
+
+[标题编号](#custom-id)
 
 
 
