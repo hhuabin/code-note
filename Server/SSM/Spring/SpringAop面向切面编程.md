@@ -62,7 +62,7 @@
    动态代理技术分类
    
    - **JDK动态代理**：JDK原生的实现方式，需要被代理的目标类必须**实现接口**！他会根据目标类的接口动态生成一个代理对象！代理对象和目标对象有相同的接口！
-   - **cglib**：通过继承被代理的目标类实现代理，所以不需要目标类实现接口！
+   - **cglib**：通过继承被代理的目标类实现代理，所以**不需要目标类实现接口**！
    
    ---
    
@@ -348,3 +348,55 @@ AOP（面向切面编程）是一种编程范式，它通过**将通用的横切
 
    
 
+
+
+# SpringAop对获取Bean的理解
+
+根据接口获取Bean
+
+1. 获取Bean：场景1
+
+   - 一个接口有**多个实现类**，接口所有实现类都放入 IOC 容器
+
+     - 根据接口类型获取 bean
+
+       会抛出 NoUniqueBeanDefinitionException 异常，表示 IOC 容器中这个类型的 bean 有多个
+
+     - 根据类获取bean
+
+       正常
+
+2. 获取Bean：场景2
+
+   - 声明一个接口，接口有一个实现类
+
+   - **创建一个切面类**，对上面接口的实现类应用通知
+
+     - 测试：根据接口类型获取bean (Calculator.class)
+
+       正常
+
+     - 测试：根据类获取bean (CalculatorImpl.class)
+
+       <span style="color: #F00;">无法获取</span>
+
+   ```java
+   public interface Calculator {}
+   
+   @Component
+   public class CalculatorImpl implements Calculator {}
+   ```
+
+   原因分析：
+
+   应用了切面后，真正放在IOC容器中的是**代理类的对象**，目标类并没有被放到IOC容器中，所以根据目标类的类型从IOC容器中是找不到的，**根据接口能找到是因为实现接口使用的是JDK动态代理，代理类实现了该接口**
+
+3. 场景3
+
+   - 声明一个类，创建一个切面类，对上面的类应用通知
+
+     - 根据类获取 bean，<span style="color: #F00;">能获取到</span>
+
+       这里没有实现接口，采用的是cglib代理，故而可以通过类型获取
+
+<span style="color: #F00;">如果使用AOP技术，目标类有接口，必须使用接口类型接收IoC容器中代理组件！</span>

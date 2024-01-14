@@ -1,5 +1,11 @@
 [Spring官网](https://spring.io/ “spring”)
 
+==**Springd的三个核心功能**==
+
+1. **组件管理：Ioc和DI**
+2. **Aop切面**
+3. **声明式事务**
+
 
 
 # SpringFramework
