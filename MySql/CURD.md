@@ -2,7 +2,7 @@
 
 
 
-## SELECT
+# SELECT 查询
 
 通用查询模板
 
@@ -16,13 +16,13 @@ ORDER ... BY ... (ASC / DESC) [ ,... (ASC / DESC)]
 LIMIT ...(index, PageSize)
 ```
 
-- index：起始索引
+- index：起始索引(偏移量)
 - PageSize：每页条数
 - index = (PageNum - 1) * PageSize
 
 
 
-### 多表查询
+## 多表查询
 
 内连接
 
@@ -63,7 +63,7 @@ UNION ALL      # 不去重
 
 
 
-## 插入
+# INSERT 插入
 
 ```sql
 INSERT INTO tableName VALUES();
@@ -71,7 +71,7 @@ INSERT INTO tableName VALUES();
 
 
 
-## 改
+# UPDATE 改
 
 ```sql
 UPDATE tableName SET ... WHERE ...
@@ -79,7 +79,7 @@ UPDATE tableName SET ... WHERE ...
 
 
 
-## 删除
+# DELETE 删除
 
 ```sql
 DELETE FROM tableName WHERE ...

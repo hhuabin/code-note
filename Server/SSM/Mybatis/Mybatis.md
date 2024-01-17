@@ -10,120 +10,85 @@
 </dependency>
 ```
 
-
-
-# 2. Mapper.xml Parameter参数设置
-
 ```xml
-${}: 是 statement 拼串 (注意双引号)
-#{}: 是占位符
-不能使用#{}的情况：
-    若参数类型是String, #{}会把''带进 sql 语句中，此时需要使用 ${},因为${}是拼串的
-1. 如果有两个及以上的参数应该使用 #{param1} #{param2}的方式定义变量 | #{arg0} #{arg1}
-2. 使用 Map 的时候以 Map 的字段名命名即可
-3. 若mapper接口的参数为实体类
-    直接使用实体类的属性名即可
-4. 可以在mapper接口的参数中使用 @Param 注解
-    可以使用 Map 的键的形式调用参数
-    可以使用 #{param2} 的形式调用参数
-```
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
 
-```java
-// Mapper interface
-/*
-    @Param注解
-        Mybatis会自动把参数放进map集合里面
-        在映射文件调用的时候直接使用 value 值即可
-*/
-Map<String, Object> getUserByIdToMap(@Param("id") Integer id);
-```
+    <!--
+        properties?,settings?,typeAliases?,typeHandlers?,
+        objectFactory?,objectWrapperFactory?,reflectorFactory?,
+        plugins?,environments?,databaseIdProvider?,mappers?
+    -->
 
-```xml
-<!--Map<String, Object> getUserByIdToMap(@Param("id") Integer id);-->
-<select id="getUserByIdToMap" resultType="map">
-    select * from t_user where id = #{id}
-</select>
-```
+    <!--引入jdbc.properties文件，可以使用${key}的方式访问value-->
+    <properties resource="jdbc.properties"/>
 
+    <settings>
+        <!--将下划线映射为驼峰-->
+        <!--<setting name="mapUnderscoreToCamelCase" value="true"/>-->
+        <!--全局延迟加载-->
+        <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+        <!--完整加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
 
+    <typeAliases>
+        <!--bean包下的类型在 mapper/下的映射文件 中全部拥有默认别名-->
+        <package name="com.mybatis.bean"/>
+    </typeAliases>
+    
+    <plugins>
+        <!--配置分页器插件-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+    </plugins>
 
-# 3. Mapper.xml ResultMap参数设置
+    <!--
+        environments: 配置连接数据库环境
+        default: 设置默认使用的环境 id
+    -->
+    <environments default="development">
+        <!--
+            environment: 设置一个具体的连接数据库的环境
+            id: 设置环境的唯一表示，不能重复
+        -->
+        <environment id="development">
+            <!--
+                transactionManager: 设置事务管理器
+                type="JDBC" | "MANAGED"
+                JDBC: 设置使用 JDBC 原生的事务管理方式
+                MANAGED: 被管理，例如 Spring
+            -->
+            <transactionManager type="JDBC"/>
+            <!--
+                dataSource: 设置数据源
+                type="POOLED" | "UNPOOLED" | "JNDI"
+                POOLED: 表示数据库连接池
+                UNPOOLED： 表示不使用数据库连接池
+                JNDI： 表示使用上下文中的数据源
+            -->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="root"/>
+                <property name="password" value="binn"/>
+            </dataSource>
+        </environment>
+    </environments>
 
-## 使用驼峰命名的办法
-
-1. sql 自定义返回字段
-
-2. 在 mybatis-config.xml 的settings中设置
-
-3. 使用自定义映射 resultMap
-
-## resultMap: 设置自定义映射关系
-
-id: 唯一标识
-type: 处理映射关系的实体类类型
-    id: 处理表的主键和实体类属性的映射关系
-    result: 处理普通字段与实体类中属性的映射关系
-    association: 处理多对一的映射关系
-    collection: 处理一对多的映射关系
-        column: sql 查询出的某个字段
-        property: 实体类中属性名
-
-```xml
-<resultMap id="empResultMap" type="Emp">
-    <id column="emp_id" property="empId"></id>
-    <result column="emp_name" property="empName"></result>
-    <result column="age" property="age"></result>
-    <result column="gender" property="gender"></result>
-</resultMap>
-
-<!--List<Emp> getEmpByEmpId(@Param("empId") Integer empId);-->
-<select id="getEmpByEmpId" resultMap="empResultMap">
-   select * from t_emp where emp_id = #{empId}
-</select>
-```
-
-## 表关联查询
-
-1. 处理多对一关系
-    property="dept.deptId"
-2. 使用 <association/> 标签
-    property：实体类的属性名
-    javaType：实体类的类型
-
-## 分布查询 可以配合延迟加载进行 sql 性能提升
-
-使用 \<association/> 标签
-
-    property：实体类的属性名
-     fetchType: eager | lazy 立即加载 | 延迟加载
-     select: 设置分布查询的sql 唯一标识
-     column: 将查询出的某个字段作为分布查询的 sql 条件
-
-```xml
-<resultMap id="deptAndEmpResultMap" type="Dept">
-    <id column="dept_id" property="deptId"></id>
-    <result column="dept_name" property="deptName"></result>
-    <collection property="emps" ofType="Emp">
-        <id column="emp_id" property="empId"></id>
-        <result column="emp_name" property="empName"></result>
-        <result column="age" property="age"></result>
-        <result column="gender" property="gender"></result>
-    </collection>
-    <!--<association property="emps" fetchType="lazy"
-                 select="com.mybatis.mapper.EmpMapper.getEmpByDeptId"
-                 column="dept_id"></association>-->
-</resultMap>
-
-<!--Dept getDeptAndEmpByDeptId(@Param("deptId") Integer deptId);-->
-<select id="getDeptAndEmpByDeptId" resultMap="deptAndEmpResultMap">
-    SELECT * FROM t_dept
-    LEFT JOIN t_emp ON t_dept.dept_id = t_emp.dept_id
-    WHERE t_dept.dept_id = #{deptId}
-</select>
-<!--分布查询-->
-<!--<select id="getDeptAndEmpByDeptId" resultMap="deptAndEmpResultMap">
-    SELECT * FROM t_dept WHERE t_dept.dept_id = #{deptId}
-</select>-->
+    <!--引入mybatis的映射文件-->
+    <mappers>
+        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+        <!--
+            以包的方式引入映射文件，但是必须满足于
+                1. mapper 接口和映射文件所在的包名必须一致
+                2. mapper 接口和映射文件的名字必须一致
+        -->
+        <package name="com.mybatis.mapper"/>
+    </mappers>
+</configuration>
 ```
 
 
