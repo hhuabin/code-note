@@ -71,6 +71,28 @@ console.log(result); // 输出 "Hello"
 
 
 
+# replace
+
+```javascript
+replace(pattern, replacement)
+```
+
+**原始字符串不会被改变**
+
+返回：**`replace()`** 方法返回一个**新字符串**，其中一个、多个或所有匹配的 `pattern` 被替换为 `replacement`
+
+`pattern` 可以是字符串或**`RegExp`**，`replacement` 可以是字符串或一个在每次匹配时调用的函数。如果 `pattern` 是字符串，则只会替换第一个匹配项，需要全部替换可使用`replaceAll`
+
+```javascript
+var str = "aaa"
+str.replace(/a/g, 'A')     // AAA
+console.log(str)           // aaa
+```
+
+
+
+
+
 # match
 
 返回所有查找的关键字的数组 
