@@ -38,7 +38,7 @@
 
 
 
-# 2.Searvlet 的生命周期
+# 2.Servlet 的生命周期
 
 1. 实例化 **ServletLifeCycle()**
 2. 初始化 **init()**

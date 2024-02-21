@@ -35,6 +35,14 @@
    }
    ```
 
+   ```java
+   @EnableWebMvc  //json数据处理,必须使用此注解,因为他会加入json处理器
+   @Configuration
+   @ComponentScan("com.springmvc")
+   public class MvcConfig implements WebMvcConfigurer {
+   }
+   ```
+
 3. Tomcat引入配置文件使用(**Tomcat10以上**)
 
    ```java
@@ -179,23 +187,11 @@ HTTP 方法特定快捷方式变体，进阶注解只能添加到handler方法�
 4. 实体接收，实体类一定要加上setter方法，否则赋值不生效
 
    ```java
+   @Data
    public class User {
        private String name;
-       private int age = 18;
        
-       public void setName(String name) {
-           this.name = name;
-       }
-       public void setAge(int age) {
-           this.age = age;
-       }
-       @Override
-       public String toString() {
-           return "User{" +
-                   "name='" + name + '\'' +
-                   ", age=" + age +
-                   '}';
-       }
+       private int age = 18;
    }
    
    // http://localhost:5000/param/addUser?name=bin
@@ -246,6 +242,7 @@ HTTP 方法特定快捷方式变体，进阶注解只能添加到handler方法�
 
    ```java
    // 加入setter方法
+   @Data
    public class Person {
        private String name;
        private int age;
@@ -328,7 +325,11 @@ public void api(HttpServletRequest request,
 
 ## 6.共享域对象
 
-请求**转发**或者**重定向**，使用共享域
+请求**转发**或者**重定向**，使用JavaWeb的共享域
+
+1. **HttpServletRequest**
+2. **HttpSession**
+3. **ServletContext**
 
 ```java
 @Controller
@@ -348,19 +349,71 @@ public class ShareController {
 
 **SpringMvc提供的方式**：
 
-1. request域
+1. **ModelAndView**
 
-   1. 使用Map
+   `ModelAndView` 是一个包含模型（Model）和视图（View）的对象。通过在控制器方法中返回 `ModelAndView`，你可以设置模型数据并指定视图名称。该对象将在请求处理过程中被传递给视图解析器，以渲染相应的视图
 
-      ```java
-      public void data(Map map) {
-          map.put("key", "value");
-      }
-      ```
+   ```java
+   @Controller
+   public class MyController {
+   
+       @RequestMapping("/example")
+       public ModelAndView example() {
+           ModelAndView modelAndView = new ModelAndView("exampleView");
+           modelAndView.addObject("message", "Hello, World!");
+           return modelAndView;
+       }
+   }
+   ```
 
-2. session域
+2. **Model**
 
-3. servletContext域
+   ```java
+   @Controller
+   public class MyController {
+   
+       @RequestMapping("/example")
+       public String example(Model model) {
+           model.addAttribute("message", "Hello, World!");
+           return "exampleView";
+       }
+   }
+   ```
+
+3. **Map**
+
+   除了 `Model` 接口外，你还可以使用 `Map` 类型的参数。Spring MVC 会自动将 `Model` 对象注入到方法参数中
+
+   ```java
+   @Controller
+   public class MyController {
+       @RequestMapping("/example")
+       public String example(Map<String, Object> model) {
+           model.put("message", "Hello, World!");
+           return "exampleView";
+       }
+   }
+   ```
+
+4. **@ModelAttribute**
+
+   `@ModelAttribute` 注解可以用于方法参数或方法上，用于将一个方法返回的对象添加到模型中。这样的对象将在每个请求处理方法执行之前被调用，并被添加到模型中
+
+   ```java
+   @Controller
+   public class MyController {
+   
+       @ModelAttribute("message")
+       public String addMessage() {
+           return "Hello, World!";
+       }
+   
+       @RequestMapping("/example")
+       public String example() {
+           return "exampleView";
+       }
+   }
+   ```
 
 
 
