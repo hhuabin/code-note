@@ -25,6 +25,8 @@ npm -v
 
    ```bash
    npm config set registry https://registry.npm.taobao.org/
+   
+   npm config set registry https://registry.npmmirror.com
    ```
 
 3. 恢复为原来的镜像源

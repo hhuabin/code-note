@@ -25,7 +25,9 @@ yarn --version
 2. 打开终端或命令行，运行以下命令来配置 npm 使用淘宝镜像：
 
    ```bash
-   yarn config set registry https://registry.npm.taobao.org/
+   yarn config set registry https://registry.npm.taobao.org
+   
+   yarn config set registry https://registry.npmmirror.com
    ```
 
 3. 恢复为原来的镜像源

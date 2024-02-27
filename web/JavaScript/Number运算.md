@@ -12,13 +12,26 @@
 # Math 对象的方法
 
 - `Math.abs(x)`：返回 x 的绝对值。
+
 - `Math.round(x)`：把 x 四舍五入为最接近的整数。
+
 - `Math.floor(x)`：返回小于等于 x 的最大整数。
+
 - `Math.ceil(x)`：返回大于等于 x 的最小整数。
+
 - `Math.pow(x, y)`：返回 x 的 y 次幂。
+
 - `Math.sqrt(x)`：返回 x 的平方根。
-- `Math.random()`：返回一个 0 到 1 之间的随机数。
+
+- `Math.random()`：返回一个 0 到 1 之间的随机数，返回值是在区间 [0, 1)
+
+  ```javascript
+  // 返回min - max的随机数
+  Math.floor(Math.random() * (max - min + 1)) + min;
+  ```
+
 - `Math.min(x, y, ...)`：返回传入参数的最小值。
+
 - `Math.max(x, y, ...)`：返回传入参数的最大值。
 
 
