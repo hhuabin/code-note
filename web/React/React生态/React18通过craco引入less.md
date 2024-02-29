@@ -47,7 +47,7 @@
 
    在需要使用 Less 样式的组件中，可以通过 `import` 引入 Less 文件，并通过 `className` 属性来应用样式。
 
-   ```javascript
+   ```jsx
    import styles from './MyComponent.module.less';
    
    function MyComponent() {

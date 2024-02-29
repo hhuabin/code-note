@@ -63,10 +63,14 @@ npm i package-name[@version] --save(-S) [-g]
 npm i package-name[@version] --save-dev(-D)
 ```
 
-**生成报告**
+**生成报告**(vue)
+
+```json
+"build": "vue-cli-service build --report",
+```
 
 ```shell
-npm run build --report
+npm run build
 ```
 
 **查看包的当前版本号**
@@ -96,6 +100,12 @@ npm update package-name@latest             // 将指定包更新至最新版本�
 npm update package-name[@version]        // 更新指定包
 ```
 
+**清楚缓存**
+
+```bash
+npm cache clean --force
+```
+
 **生产环境打包命令**
 
 ```json
@@ -117,8 +127,6 @@ npm run build
 ```bash
 npm run test
 ```
-
-
 
 
 

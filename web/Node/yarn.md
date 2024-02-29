@@ -84,6 +84,18 @@ yarn info <package-name> version              // 查看指定包的版本
 yarn info <package-name> versions             // 查看指定包的所有版本
 ```
 
+**清除缓存**
+
+```bash
+yarn cache clean
+```
+
+**暴露webpack配置**，==不可回退==
+
+```bash
+yarn eject
+```
+
 
 
 **生产环境打包命令**（React）
