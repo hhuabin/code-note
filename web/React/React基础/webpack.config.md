@@ -12,7 +12,7 @@
 
    ```shell
    yarn add less-loader --dev
-   yarn add css-loader style-loader -D
+   yarn add css-loader style-loader -
    ```
 
    ```js

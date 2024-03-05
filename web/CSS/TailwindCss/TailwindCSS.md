@@ -387,6 +387,13 @@ background:
 
 
 
+## box-sizing
+
+| Class       | Properties               |
+| ----------- | ------------------------ |
+| box-border  | box-sizing: border-box;  |
+| box-content | box-sizing: content-box; |
+
 
 
 ## box-shadow
@@ -553,7 +560,13 @@ left: 0px;
 | font-extrabold  | font-weight: 800; |
 | font-black      | font-weight: 900; |
 
+### color
 
+| Class              | Properties               |
+| ------------------ | ------------------------ |
+| **text-[#50d71e]** | color: #50d71e;          |
+| text-black         | color: rgb(0 0 0);       |
+| text-white         | color: rgb(255 255 255); |
 
 ### text-align
 
@@ -565,14 +578,6 @@ left: 0px;
 | text-justify | text-align: justify; |
 | text-start   | text-align: start;   |
 | text-end     | text-align: end;     |
-
-### color
-
-| Class              | Properties               |
-| ------------------ | ------------------------ |
-| **text-[#50d71e]** | color: #50d71e;          |
-| text-black         | color: rgb(0 0 0);       |
-| text-white         | color: rgb(255 255 255); |
 
 ### vertical-align
 

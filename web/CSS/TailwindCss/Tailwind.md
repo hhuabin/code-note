@@ -94,6 +94,8 @@
 
 # tailwind.config.js
 
+==tail不能使用css表达式(如clac())，如需使用，请自写样式==
+
 ## content
 
 可以配置任何包含Tailwind类名的**文件的路径**
@@ -122,6 +124,7 @@ export default {
 	content: ['./src/pages/**/*.{vue,js,ts,jsx,tsx}'],
 	theme: {
 		colors: {
+            'color-primary': '#333',
 			'blue': '#1fb6ff',
 		},
         borderRadius: {
@@ -141,6 +144,12 @@ export default {
 	plugins: [],
 } satisfies Config
 ```
+
+```html
+<div className="bg-color-primary">
+```
+
+
 
 1. 在theme中，键决定生成类的后缀，值决定生成类的值，如上面的 borderRadius 生成
 
@@ -259,21 +268,71 @@ module.exports = {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     theme: {
-        spacing: {
-            '1': '8px',
-            '2': '12px',
-            '3': '16px',
-            '4': '24px',
-            '5': '32px',
-            '6': '48px',
-        }
+        extend: {
+			spacing: {
+				unit1: '0.0625rem',   // 1px
+                unit3: '0.1875rem',   // 3px
+                unit5: '0.3125rem',
+                unit7: '0.4375rem',
+                unit9: '0.5625rem',
+                unit11: '0.6875rem',
+                unit13: '0.8125rem',
+                unit15: '0.9375rem',
+                unit18: '1.125rem',
+                unit22: '1.375rem',
+                unit26: '1.625rem',
+                unit30: '1.875rem',
+			}
+		},
     }
 }
 ```
 
+```html
+<div className="bg-white w-unit30"></div>
+    
+<div className="bg-white w-[1.875rem]"></div>
+```
 
+默认的`spacing`（都是双数倍的），所以我们非常有必要扩展一下`spacing`
 
-
+| Name | Size     | Pixels |
+| ---- | -------- | ------ |
+| 0    | 0px      | 0px    |
+| px   | 1px      | 1px    |
+| 0.5  | 0.125rem | 2px    |
+| 1    | 0.25rem  | 4px    |
+| 1.5  | 0.375rem | 6px    |
+| 2    | 0.5rem   | 8px    |
+| 2.5  | 0.625rem | 10px   |
+| 3    | 0.75rem  | 12px   |
+| 3.5  | 0.875rem | 14px   |
+| 4    | 1rem     | 16px   |
+| 5    | 1.25rem  | 20px   |
+| 6    | 1.5rem   | 24px   |
+| 7    | 1.75rem  | 28px   |
+| 8    | 2rem     | 32px   |
+| 9    | 2.25rem  | 36px   |
+| 10   | 2.5rem   | 40px   |
+| 11   | 2.75rem  | 44px   |
+| 12   | 3rem     | 48px   |
+| 14   | 3.5rem   | 56px   |
+| 16   | 4rem     | 64px   |
+| 20   | 5rem     | 80px   |
+| 24   | 6rem     | 96px   |
+| 28   | 7rem     | 112px  |
+| 32   | 8rem     | 128px  |
+| 36   | 9rem     | 144px  |
+| 40   | 10rem    | 160px  |
+| 44   | 11rem    | 176px  |
+| 48   | 12rem    | 192px  |
+| 52   | 13rem    | 208px  |
+| 56   | 14rem    | 224px  |
+| 60   | 15rem    | 240px  |
+| 64   | 16rem    | 256px  |
+| 72   | 18rem    | 288px  |
+| 80   | 20rem    | 320px  |
+| 96   | 24rem    | 384px  |
 
 
 
