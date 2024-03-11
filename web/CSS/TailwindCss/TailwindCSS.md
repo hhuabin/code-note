@@ -58,7 +58,7 @@
 | w-full       | width: 100%;                       |
 | w-screen     | width: 100vw;                      |
 
-`min-width`与`width`基本相同
+### min-width
 
 | Class             | Properties        |
 | ----------------- | ----------------- |
@@ -66,13 +66,14 @@
 | min-w-0           | min-width: 0px;   |
 | min-w-full        | min-width: 100%;  |
 
-`max-width`与`width`基本相同
+### max-width
 
 | Class             | Properties        |
 | ----------------- | ----------------- |
 | **max-w-[220px]** | max-width: 220px; |
 | max-w-0           | max-width: 0px;   |
 | max-w-full        | max-width: 100%;  |
+| max-w-screen-md   | max-width: 768px; |
 
 
 
@@ -88,21 +89,23 @@
 | h-full       | height: 100%;  |
 | h-screen     | height: 100vh; |
 
-`min-height`与`width`基本相同
+### min-height
 
 | Class             | Properties         |
 | ----------------- | ------------------ |
 | **min-h-[220px]** | min-height: 220px; |
 | min-h-0           | min-height: 0px;   |
 | min-h-full        | min-height: 100%;  |
+| min-h-screen      | min-height: 100vh; |
 
-`max-height`与`width`基本相同
+### max-height
 
 | Class             | Properties         |
 | ----------------- | ------------------ |
 | **max-h-[220px]** | max-height: 220px; |
 | max-h-0           | max-height: 0px;   |
 | max-h-full        | max-height: 100%;  |
+| max-h-screen      | max-height: 100vh; |
 
 
 
@@ -340,15 +343,58 @@ background:
 | bg-black     | background-color: rgb(0 0 0);       |
 | bg-white     | background-color: rgb(255 255 255); |
 
+```html
+<div class="bg-sky-500/[.06]"></div>
+
+<div class="bg-[#000]/[.1]"></div>
+```
+
 
 
 ### background-image
 
-| Class                             | Properties                                      |
-| --------------------------------- | ----------------------------------------------- |
-| bg-[url('/img/hero-pattern.svg')] | background-image: url('/img/hero-pattern.svg'); |
-| bg-none                           | background-image: none;                         |
-| bg-none                           | background-image: none;                         |
+| Class                             | Properties                                                   |
+| --------------------------------- | ------------------------------------------------------------ |
+| bg-[url('/img/hero-pattern.svg')] | background-image: url('/img/hero-pattern.svg');              |
+| bg-none                           | background-image: none;                                      |
+| bg-gradient-to-t                  | background-image: linear-gradient(to top, var(--tw-gradient-stops)); |
+| bg-gradient-to-tr                 | background-image: linear-gradient(to top right, var(--tw-gradient-stops)); |
+| bg-gradient-to-r                  | background-image: linear-gradient(to right, var(--tw-gradient-stops)); |
+| bg-gradient-to-br                 | background-image: linear-gradient(to bottom right, var(--tw-gradient-stops)); |
+| bg-gradient-to-b                  | background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); |
+| bg-gradient-to-bl                 | background-image: linear-gradient(to bottom left, var(--tw-gradient-stops)); |
+| bg-gradient-to-l                  | background-image: linear-gradient(to left, var(--tw-gradient-stops)); |
+| bg-gradient-to-tl                 | background-image: linear-gradient(to top left, var(--tw-gradient-stops)); |
+
+1. 起始末尾颜色
+
+   ```html
+   <div class="h-14 bg-gradient-to-r from-cyan-500 to-blue-500"></div>
+   ```
+
+2. 中间颜色
+
+   ```html
+   <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+   ```
+
+3. 百分比
+
+   ```html
+   <div class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"></div>
+   ```
+
+4. 貌似不支持其他角度的渐变
+
+5. 不能使用`to-transparent`
+
+   ```html
+   <div class="bg-gradient-to-r from-blue-500 to-transparent">
+   	<!-- ... -->
+   </div>
+   ```
+
+   
 
 
 
@@ -486,6 +532,20 @@ left: 0px;
 | z-0     | z-index: 0;    |
 | z-50    | z-index: 50;   |
 | z-auto  | z-index: auto; |
+
+
+
+## overflow
+
+| Class             | Properties          |
+| ----------------- | :------------------ |
+| overflow-auto     | overflow: auto;     |
+| overflow-hidden   | overflow: hidden;   |
+| overflow-scroll   | overflow: scroll;   |
+| overflow-x-hidden | overflow-x: hidden; |
+| overflow-y-hidden | overflow-y: hidden; |
+| overflow-x-scroll | overflow-x: scroll; |
+| overflow-y-scroll | overflow-y: scroll; |
 
 
 
@@ -631,10 +691,29 @@ left: 0px;
 
 
 
+### line-clamp
+
+| Class           | Properties                                                   |
+| --------------- | ------------------------------------------------------------ |
+| line-clamp-[7]  | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 7; |
+| line-clamp-1    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 1; |
+| line-clamp-2    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 2; |
+| line-clamp-3    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 3; |
+| line-clamp-4    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 4; |
+| line-clamp-5    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 5; |
+| line-clamp-6    | overflow: hidden;<br />display: -webkit-box;<br />-webkit-box-orient: vertical;<br />-webkit-line-clamp: 6; |
+| line-clamp-none | overflow: visible;<br />display: block;<br />-webkit-box-orient: horizontal;<br />-webkit-line-clamp: none; |
+
+
+
 ## cursor
 
-| Class          | Properties       |
-| -------------- | ---------------- |
-| cursor-auto    | cursor: auto;    |
-| cursor-default | cursor: default; |
-| cursor-pointer | cursor: pointer; |
+| Class           | Properties        |                                                              |
+| --------------- | ----------------- | ------------------------------------------------------------ |
+| cursor-auto     | cursor: auto;     | ![img](https://www.tailwindcss.cn/img/cursors/cursor-auto.svg) |
+| cursor-default  | cursor: default;  | ![img](https://www.tailwindcss.cn/img/cursors/cursor-default.svg) |
+| cursor-pointer  | cursor: pointer;  | ![img](https://www.tailwindcss.cn/img/cursors/cursor-pointer.svg) |
+| cursor-grab     | cursor: grab;     | ![img](https://www.tailwindcss.cn/img/cursors/cursor-grab.svg) |
+| cursor-grabbing | cursor: grabbing; | ![img](https://www.tailwindcss.cn/img/cursors/cursor-grabbing.svg) |
+| cursor-zoom-in  | cursor: zoom-in;  | ![img](https://www.tailwindcss.cn/img/cursors/cursor-zoom-in.svg) |
+| cursor-zoom-out | cursor: zoom-out; | ![img](https://www.tailwindcss.cn/img/cursors/cursor-zoom-out.svg) |

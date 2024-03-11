@@ -296,6 +296,8 @@ module.exports = {
 
 默认的`spacing`（都是双数倍的），所以我们非常有必要扩展一下`spacing`
 
+`padding`, `margin`, `width`, `minWidth`, `maxWidth`, `height`, `minHeight`, `maxHeight`, `gap`, `inset`, `space`, `translate`, `scrollMargin`, and `scrollPadding`
+
 | Name | Size     | Pixels |
 | ---- | -------- | ------ |
 | 0    | 0px      | 0px    |
