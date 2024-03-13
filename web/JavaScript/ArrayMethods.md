@@ -74,3 +74,25 @@ let even = numbers.find(function(element) {
 console.log(even); // 输出: 2，因为它是数组中第一个偶数
 ```
 
+
+
+# sort
+
+`Array.prototype.sort()`
+
+1. 升序
+
+   ```javascript
+   const numbers = [4, 2, 8, 1, 6];
+   numbers.sort((a, b) => a - b);
+   console.log(numbers); // 输出: [1, 2, 4, 6, 8]
+   ```
+
+2. 降序
+
+   ```javascript
+   const numbers = [4, 2, 8, 1, 6];
+   numbers.sort((a, b) => b - a); // 降序排序
+   console.log(numbers); // 输出: [8, 6, 4, 2, 1]
+   ```
+
