@@ -535,7 +535,7 @@ export default function ProductPage({ productId, referrer, theme }) {
 
 ## 7. useImperativeHandle
 
-在 react 中无法直接通过 `ref ` 获取子组件实例（在 vue 中可以）。**当父组件需要调用子组件的方法时**，可以使用 `forwardRef` +  `useImperativeHandle`
+在 react 中无法直接通过 `ref ` 获取**子组件实例**（在 vue 中可以）。**当父组件需要调用子组件的方法时**，可以使用 `forwardRef` +  `useImperativeHandle`
 
 `forwardRef` 是 React 提供的一个函数，用于向函数组件转发 `ref`。它允许你在函数组件中接收 `ref` 并将其转发给内部的子组件。
 
@@ -769,13 +769,47 @@ function MyComponent() {
 
 
 
+## 14. createPortal
+
+允许组件挂载在父组件以外的其他元素。==可用于Modal框，或者弹出层等等==
+
+```tsx
+<div>
+    <SomeComponent />
+    {createPortal(children, domNode, key?)}
+</div>
+```
+
+- 挂载在body上
+
+  ```tsx
+  import { createPortal } from 'react-dom';
+  
+  <div>
+      <p>This child is placed in the parent div.</p>
+      {createPortal(
+          <p>This child is placed in the document body.</p>,
+          document.body,
+          // document.getElementById('root') // 这是指定的 DOM 节点
+      )}
+  </div>
+  ```
+
+  
+
+
+
+
+
+
+
 # React.memo()
 
 用于缓存组件，当子组件的 props 发生变化的时候再重新渲染，父组件的 state 变化的时候不会触发重新渲染。类似于 `PureComponent` 和 `shouldComponentUpdate` 方法的集合体。
 
 使用 `memo` 将组件包装起来，以获得该组件的一个 **记忆化** 版本。通常情况下，只要该组件的 props 没有改变，这个记忆化版本就不会在其父组件重新渲染时重新渲染。但 React 仍可能会重新渲染它：记忆化是一种性能优化，而非保证。
 
-- `React.memo` 只会对 props 进行浅比较。如果 props 是对象或数组，确保传递给组件的引用在每次渲染时都是新的，否则它可能不会正常工作。
+- ==`React.memo` 只会对 props 进行浅比较==。如果 props 是对象或数组，确保传递给组件的引用在每次渲染时都是新的，否则它可能不会正常工作。
 - 只有在确定组件因为渲染开销很大或者 props 变化时会进行渲染时，才应该使用 `React.memo`。对于简单的组件，它可能会增加代码的复杂性而不带来明显的性能提升。
 
 
@@ -1065,6 +1099,22 @@ render() {
    
    export default MyComponent;
    ```
+
+   函数式组件直接使用ts
+
+   ```tsx
+   type Props = {
+       name: string;
+       age?: number;
+       isActive: boolean;
+   }
+   
+   function MyComponent(props: Props) {
+     // 组件逻辑
+   }
+   ```
+
+   
 
 2. 消息订阅-发布：
 
