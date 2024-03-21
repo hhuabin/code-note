@@ -1,11 +1,21 @@
 # Number
 
 - `Number.MAX_VALUE`：能表示的最大正数。
+
 - `Number.MIN_VALUE`：能表示的最小正数即最接近 0 的正数（实际上不会变成 0）。
+
 - `Number.isNaN`：判断传入的值是否为 `NaN`。
+
 - `Number.parseFloat`：与全局函数 `parseFloat()` 相同，函数解析一个参数（必要时先转换为字符串）并返回一个浮点数。
+
 - `Number.parseInt`：与全局函数 `parseInt(string, radix)` 相同，解析一个字符串并返回指定基数的十进制整数
+
 - `Number.prototype.toFixed()`：使用定点表示法来格式化该数值。（保留几位小数）
+
+  ```javascript
+  const number = 3.1415926;
+  const roundedNumber = number.toFixed(2);
+  ```
 
 
 

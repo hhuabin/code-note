@@ -549,11 +549,15 @@ export default function ProductPage({ productId, referrer, theme }) {
 
 通过在函数组件中调用 `useImperativeHandle`，你可以自定义子组件向外暴露的实例或方法。
 
-```jsx
-import React, { useImperativeHandle, forwardRef } from 'react';
+```tsx
+import React, { useImperativeHandle, forwardRef, ForwardedRef } from 'react';
+
+export type ChildComponentRef = {
+    increment: () => void
+}
 
 // 子组件， 用 forwardRef 包裹
-const ChildComponent = forwardRef((props, ref) => {
+const ChildComponent = forwardRef((props, ref: ForwardedRef<ChildComponentRef>) => {
 	// 子组件的内部状态
 	const [count, setCount] = useState(0);
 
@@ -578,11 +582,11 @@ const ChildComponent = forwardRef((props, ref) => {
 // 父组件
 function ParentComponent() {
 	// 创建一个 ref
-	const childRef = useRef();
+	const childRef = useRef<ChildComponentRef>(null);
 
 	// 在父组件中调用子组件暴露的方法
 	const handleButtonClick = () => {
-		childRef.current.increment();
+		childRef.current?.increment();
 	};
 
 	return (

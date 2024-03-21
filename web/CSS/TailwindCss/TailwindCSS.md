@@ -670,6 +670,16 @@ left: 0px;
 | break-all    | word-break: break-all;                     |
 | break-keep   | word-break: keep-all;                      |
 
+### text-indent
+
+| Class        | Properties                       |
+| ------------ | -------------------------------- |
+| indent-[2em] | text-indent: 2em;                |
+| indent-0     | text-indent: 0px;                |
+| indent-px    | text-indent: 1px;                |
+| indent-0.5   | text-indent: 0.125rem; /* 2px */ |
+| indent-1     | text-indent: 0.25rem; /* 4px */  |
+
 ### white-space
 
 | Class                   | Properties                 |

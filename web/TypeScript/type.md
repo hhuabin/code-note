@@ -70,14 +70,66 @@ interface ClockInterface {
 
 # 泛型
 
-```typescript
-interface GenericIdentityFn<T> {
-    (arg: T): T;
-}
+1. 泛型接口
 
-function identity<T>(arg: T): T {
-    return arg;
-}
+   ```typescript
+   interface GenericIdentityFn<T> {
+       (arg: T): T;
+   }
+   ```
+
+2. 泛型类型
+
+   ```typescript
+   type Tree<T> = {
+       value: T;
+       left: Tree<T>;
+       right: Tree<T>;
+   }
+   
+   type Props<T extends OrderItem> = {
+   	orders: Array<T>;
+   }
+   ```
+
+   ```typescript
+   export interface OrderItem {
+   	readonly name: string;
+   }
+   
+   type Props<T> = {
+   	orders: Array<T>;
+   }
+   
+   function OrderList<T extends OrderItem>(props: Props<T>) {
+       
+   }
+   ```
+
+   
+
+3. 泛型函数
+
+   ```typescript
+   function identity<T>(arg: T): T {
+       return arg;
+   }
+   ```
+
+4. Map泛型
+
+   ```typescript
+   interface Map<T> {
+       [key: string]: T;
+   }
+   ```
+
+   
+
+```typescript
+
+
+
 
 let myIdentity: GenericIdentityFn<number> = identity;
 ```
