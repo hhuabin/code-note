@@ -219,7 +219,7 @@ render() {
 ```javascript
 import { useEffect } from 'react';
 
-useEffect(() => { 
+useEffect(() => {
     // 在此可以执行任何带副作用操作
     return () => { // 在组件卸载前执行
         // componentWillUnmount() 在此做一些收尾工作, 比如清除定时器/取消订阅等
@@ -274,7 +274,7 @@ attention：
 
 可以修改 `ref.current` 属性，改变 `ref.current` 属性时，React 不会重新渲染组件，因为 ref 是一个普通的 JavaScript 对象。
 
-```javascript
+```typescript
 const intervalRef = useRef(0);
 const inputRef = useRef(null);
 ```

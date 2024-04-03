@@ -16,6 +16,9 @@ interface DateConstructor {
     // 返回 1970-1-1 0:0:0 距离现在的毫秒数
 	now(): number;
 }
+
+const date = new Date(year, monthIndex, day, hours, minutes, seconds, milliseconds)
+const birthday = new Date(1995, 11, 17, 3, 24, 0);
 ```
 
 

@@ -54,7 +54,9 @@
 | delay-700      | transition-delay: 700ms;  |
 | delay-1000     | transition-delay: 1000ms; |
 
-## animation
+
+
+# animation
 
 | animate-none                             | animation: none;                                             |
 | ---------------------------------------- | ------------------------------------------------------------ |
