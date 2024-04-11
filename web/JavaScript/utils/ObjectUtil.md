@@ -11,6 +11,7 @@
    	const copy = (Array.isArray(obj) ? [] : {}) as T;
    	
    	for (const key in obj) {
+        	// 判断是否是对象本身的属性而不是继承属性，如 toString() 等   
    		if (obj.hasOwnProperty(key)) {
    			copy[key] = deepCopy(obj[key]);
    		}
@@ -21,6 +22,13 @@
    ```
 
 2. **JSON方法：**
+
+   缺点：
+
+   1. **无法复制函数、正则表达式和特殊对象**
+   2. **循环引用问题**
+   3. **性能问题**
+   4. **丢失对象的原型链信息**
 
    ```typescript
    const deepCopyWithJSON = <T>(obj: T): T => {

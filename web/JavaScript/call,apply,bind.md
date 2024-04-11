@@ -26,6 +26,41 @@ greet.call(obj, 'Hello'); // 输出: Hello, John
 
 
 
+## 手写call函数
+
+```javascript
+Function.prototype.myCall = function(context, ...args) {
+    // 如果传入的上下文为空，则默认为全局对象（在浏览器中为 window）
+    context = context || window;
+
+    // 将当前函数设置为传入的上下文对象的方法
+    context.fn = this;
+
+    // 调用函数，并传入参数
+    const result = context.fn(...args);
+
+    // 删除添加的属性
+    delete context.fn;
+
+    // 返回函数执行结果
+    return result;
+};
+```
+
+```javascript
+function greet(name) {
+	return `Hello, ${name}! I'm ${this.job}.`;
+}
+
+const person = {
+	job: 'a developer'
+};
+
+console.log(greet.myCall(person, 'John')); // 输出: Hello, John! I'm a developer.
+```
+
+
+
 # apply
 
 - `apply` 方法与 `call` 方法类似，也允许你显式地指定函数执行时的上下文（`this`）以及传入函数的参数，但参数是以**数组形式传入**的。
@@ -40,6 +75,41 @@ function greet(message) {
 }
 
 greet.apply(obj, ['Hello']); // 输出: Hello, John
+```
+
+
+
+## 手写apply函数
+
+```javascript
+Function.prototype.myApply = function(context, argsArray) {
+    // 如果传入的上下文为空，则默认为全局对象（在浏览器中为 window）
+    context = context || window;
+
+    // 将当前函数设置为传入的上下文对象的方法
+    context.fn = this;
+
+    // 调用函数，并传入参数数组
+    const result = context.fn(...argsArray);
+
+    // 删除添加的属性
+    delete context.fn;
+
+    // 返回函数执行结果
+    return result;
+};
+```
+
+```javascript
+function greet(name, age) {
+	return `Hello, ${name}! I'm ${this.job} and I'm ${age} years old.`;
+}
+
+const person = {
+	job: 'a developer'
+};
+
+console.log(greet.myApply(person, ['John', 30])); // 输出: Hello, John! I'm a developer and I'm 30 years old.
 ```
 
 
@@ -59,5 +129,31 @@ function greet(message) {
 
 const boundGreet = greet.bind(obj);
 boundGreet('Hello'); // 输出: Hello, John
+```
+
+
+
+## 手写bind函数
+
+```javascript
+Function.prototype.myBind = function(context, ...args1) {
+    const fn = this;
+    return function(...args2) {
+		return fn.call(context, ...args1, ...args2);
+    };
+};
+```
+
+```javascript
+function greet(name) {
+	return `Hello, ${name}! I'm ${this.job}.`;
+}
+
+const person = {
+	job: 'a developer'
+};
+
+const boundGreet = greet.myBind(person, 'John');
+console.log(boundGreet()); // 输出: Hello, John! I'm a developer.
 ```
 
