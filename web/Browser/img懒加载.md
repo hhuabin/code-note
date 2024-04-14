@@ -51,3 +51,58 @@
    ```
 
 在上述代码中，我们通过监听滚动事件，在图片进入可视区域时将 `data-src` 属性的值赋值给 `src` 属性，从而实现了图片的懒加载。同时可以添加一些过渡效果，使图片在加载时有动画效果
+
+
+
+# React中实现
+
+封装一个懒加载组件\<LazyImage/>即可，antd也有自带的
+
+```tsx
+import { useEffect, useState, useRef } from 'react';
+
+type Props = {
+	src: string;
+	defaultSrc?: string;
+	alt?: string
+}
+
+function LazyImage({ src, defaultSrc, alt }: Props) {
+
+	const imgRef = useRef<HTMLImageElement>(null);
+	const [isVisible, setIsVisible] = useState(false);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					setIsVisible(true);
+					observer.unobserve(imgRef.current as HTMLElement);
+				}
+			});
+		});
+		observer.observe(imgRef.current as HTMLElement);
+
+		return () => {
+			imgRef.current && observer.unobserve(imgRef.current)
+		};
+	}, [])
+
+	return (
+		<>
+			<img
+				ref={imgRef}
+				src={isVisible ? src : (defaultSrc || "")} alt={alt || ""}
+				className="block w-full h-full"
+			/>
+		</>
+	);
+}
+
+export default LazyImage;
+
+// 使用
+<LazyImage src={""}></LazyImage>
+
+```
+

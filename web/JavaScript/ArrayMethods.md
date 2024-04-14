@@ -18,6 +18,36 @@ arr.reduce(function(preview,current,index,arr){
 
 
 
+## 手写reduce
+
+```javascript
+Array.prototype.myReduce = function(callback, initValue) {
+	let result = initValue ?? this[0]
+
+	const startIndex = initValue === undefined ? 1 : 0
+	
+	for (let index = startIndex; index < this.length; index++) {
+		result = callback(result, this[index], index)
+	}
+
+	console.log(result);
+
+	return result
+}
+
+const arr = [1, 2, 3, 4]
+arr.myReduce((prev, current, index) => {
+	if (current % 2 === 0) {
+		prev.push(current)
+	}
+	return prev
+}, [])
+```
+
+
+
+
+
 # forEach
 
 - 返回值：`undefined`

@@ -50,6 +50,10 @@ ReactDOM.render(VDOM,document.getElemewntById('test'))
 
 **jsx 是 js 的语法糖**
 
+- `React.ReactNode`用于表示任何可以作为React节点的类型。
+- `React.FC`用于定义React函数组件，带有泛型参数指定props类型。
+- `JSX.Element`用于表示React元素，通常由JSX语法创建。
+
 
 
 **jsx语法规则**：
@@ -315,7 +319,7 @@ function sum(a){
 
 使用函数柯里化实现事件处理传参
 
-```javascript
+```tsx
 <input onChange={this.saveFormData('username')} type="text" name="username"/>
 ```
 
@@ -330,12 +334,12 @@ saveFormData = (dataType)=>{
 
 不使用函数柯里化实现事件处理传参（推荐使用这种事件处理方式）
 
-```javascript
+```tsx
 <input onChange={event => this.saveFormData('username',event) } type="text" name="username"/>
 ```
 
-```javascript
-saveFormData = (dataType,event)=>{
+```tsx
+saveFormData = (dataType, event: ChangeEvent<HTMLInputElement>)=>{
     this.setState({[dataType]:event.target.value})
 }
 ```

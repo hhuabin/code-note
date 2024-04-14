@@ -62,6 +62,26 @@ interface ClockInterface {
 
 
 
+## keyof
+
+可以说明是一个对象的键值
+
+```typescript
+interface Person {
+    name: string;
+    age: number;
+}
+let personProps: keyof Person; // 'name' | 'age'
+```
+
+
+
+
+
+
+
+
+
 # 继承
 
 
@@ -101,13 +121,12 @@ interface ClockInterface {
    	orders: Array<T>;
    }
    
-   function OrderList<T extends OrderItem>(props: Props<T>) {
-       
-   }
+   function OrderList<T extends OrderItem>(props: Props<T>) {}
+   const OrderList = <T extends OrderItem>(props: Props<T>) => {{}
    ```
-
    
-
+   
+   
 3. 泛型函数
 
    ```typescript
