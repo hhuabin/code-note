@@ -84,10 +84,10 @@
    ```
 
    ```tsx
-   /* index.tsx */
-   import ReactDOM from 'react-dom/client';
+   /* main.tsx */
+   import ReactDOM from 'react-dom/client'
    
-   import './styles/tailwind.css';
+   import './styles/tailwind.css'
    ```
 
 
