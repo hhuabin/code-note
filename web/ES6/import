@@ -1,4 +1,57 @@
-# 导入模块用法
+# export
+
+1. 声明后导出
+
+   ```javascript
+   const a = 42
+   export { a }
+   ```
+
+   ```javascript
+   import { a } from './module.js'
+   ```
+
+2. 声明并导出
+
+   ```javascript
+   export const a = 42;
+   ```
+
+   ```javascript
+   import { a } from './module.js'
+   ```
+
+3. 默认导出
+
+   ```javascript
+   const a = 42
+   export default a
+   ```
+
+   ```javascript
+   import a from './module'
+   ```
+
+4. 混合使用
+
+   ```javascript
+   const a = 42;
+   const b = 'Hello';
+   function greet() {
+     console.log('Hi');
+   }
+   
+   export { a, b, greet };
+   export default a;
+   ```
+
+   ```javascript
+   import value, { b, greet } from './module';
+   ```
+
+
+
+# import
 
 ```javascript
 import * as module from './module.js';

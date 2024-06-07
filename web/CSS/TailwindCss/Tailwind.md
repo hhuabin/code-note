@@ -7,7 +7,7 @@
    ```bash
    npm install -D tailwindcss postcss autoprefixer
    yarn add tailwindcss postcss autoprefixer -D
-   
+    
    npx tailwindcss init           // 在根目录生成 tailwind.config.js 文件   // 最保险的方法
    npx tailwindcss init --esm     // 在根目录生成 tailwind.config.js 文件 ESM风格
    npx tailwindcss init --ts      // 在根目录生成 tailwind.config.ts 文件   // tailwind有可能失效
