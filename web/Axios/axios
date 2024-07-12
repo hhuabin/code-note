@@ -1,5 +1,59 @@
 # Axios
 
+## header
+
+```javascript
+headers: {
+    'Authorization': 'Bearer <token>',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+    'Referer': 'https://example.com/page',
+    'Origin': 'https://example.com',
+    'If-None-Match': '<etag-value>',
+    'If-Modified-Since': 'Wed, 21 Oct 2015 07:28:00 GMT'
+}
+```
+
+1. **Authorization**：
+
+   用于身份验证。常见的值包括 `Basic`、`Bearer`、`Digest`等
+
+2. **Content-Type**
+
+   指定请求体的数据格式。常见的值包括 `application/json`、`application/x-www-form-urlencoded`、`multipart/form-data`等
+
+3. **Accept**
+
+   指定客户端能够处理的响应内容类型。常见的值包括 `application/json`、`text/html`、`application/xml`等
+
+4. **Cache-Control**
+
+   用于控制缓存行为。常见的指令包括 `no-cache`、`no-store`、`max-age`、`private`等
+
+5. **User-Agent**
+
+   包含关于客户端软件的信息。服务器可以根据这个头部字段来提供特定的响应
+
+6. **Referer**
+
+   指示请求来源页面的URL。服务器可以根据这个头部字段来进行防盗链、统计等
+
+7. **Origin**
+
+   指示请求的原始来源，用于跨域请求（CORS）。服务器可以根据这个头部字段来决定是否允许跨域请求
+
+8. **If-None-Match**
+
+   用于协商缓存，包含先前响应的ETag值。如果资源未修改，服务器返回304状态码
+
+9. **If-Modified-Since**
+
+   用于协商缓存，包含先前响应的最后修改时间。如果资源未修改，服务器返回304状态码
+
+
+
 # POST
 
 post的请求数据是data
@@ -31,6 +85,8 @@ return service({
 ```
 
 
+
+# Axios
 
 axios拥有的元素
 
@@ -74,7 +130,7 @@ AxiosInstance extends Axios {
 AxiosStatic extends AxiosInstance {
   create(config?: CreateAxiosDefaults): AxiosInstance;
   Cancel: CancelStatic;
-  CancelToken: CancelTokenStatic;
+  CancelToken: CancelTokenStatic;          // 取消令牌，可以用于取消请求 xhr.abort();
   Axios: typeof Axios;
   AxiosError: typeof AxiosError;
   HttpStatusCode: typeof HttpStatusCode;
@@ -92,7 +148,7 @@ AxiosStatic extends AxiosInstance {
 
 
 
-# axios请求参数
+# axios请求参数\<AxiosRequest>
 
 ```javascript
 export interface AxiosRequestConfig<D = any> {
@@ -126,7 +182,7 @@ export interface AxiosRequestConfig<D = any> {
   httpAgent?: any;
   httpsAgent?: any;
   proxy?: AxiosProxyConfig | false;
-  cancelToken?: CancelToken;
+  cancelToken?: CancelToken;            // 取消令牌，可以用于取消请求 xhr.abort();
   decompress?: boolean;
   transitional?: TransitionalOptions;
   signal?: GenericAbortSignal;
@@ -140,7 +196,7 @@ export interface AxiosRequestConfig<D = any> {
 
 
 
-# axios响应参数
+# axios响应参数\<AxiosResponse>
 
 ```javascript
 AxiosResponse<T = any, D = any> {

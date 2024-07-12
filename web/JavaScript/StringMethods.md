@@ -53,21 +53,6 @@ console.log(result); // 输出 "Hello"
    "abcd".slice(-2)       // cd
    ```
 
-   
-
-# splice
-
-用于**修改数组**，可以实现删除、插入和替换数组中的元素，**返回一个包含被删除元素的数组**（如果有）。**原始数组将会被修改**。
-
-1. 基础用法
-
-   ```javascript
-   array.splice(start, deleteCount, item1, item2, ...);
-   ```
-
-   - `start`：必需，表示开始修改的索引位置。
-   - `deleteCount`：可选，表示要删除的元素个数。如果省略或为 0，将不删除任何元素。
-   - `item1, item2, ...`：可选，要添加到数组的新元素。如果省略，则仅进行删除操作。
 
 
 

@@ -106,6 +106,44 @@ console.log(even); // 输出: 2，因为它是数组中第一个偶数
 
 
 
+# match
+
+`match()`方法检索字符串与[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_expressions)进行匹配的结果
+
+参数：一个正则表达式对象或者任何具有 [`Symbol.match`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/match) 方法的对象
+
+返回值：一个 `Array`，其内容取决于是否存在全局（`g`）标志，如果没有匹配，则返回null
+
+- 如果使用 `g` 标志，则将返回与完整正则表达式匹配的所有结果，但不会返回捕获组。
+- 如果没有使用 `g` 标志，则只返回第一个完整匹配及其相关捕获组。在这种情况下，`match()` 方法将返回与 `RegExp.prototype.exec()`相同的结果（一个带有一些额外属性的数组）
+
+```javascript
+const paragraph = 'The quick brown fox jumps over the lazy dog. It barked.';
+const regex = /[A-Z]/g;
+const found = paragraph.match(regex);
+
+console.log(found);
+// Expected output: Array ["T", "I"]
+```
+
+
+
+# splice
+
+用于**修改数组**，可以实现删除、插入和替换数组中的元素，**返回一个包含被删除元素的数组**（如果有）。**原始数组将会被修改**。
+
+1. 基础用法
+
+   ```javascript
+   array.splice(start, deleteCount, item1, item2, ...);
+   ```
+
+   - `start`：必需，表示开始修改的索引位置。
+   - `deleteCount`：可选，表示要删除的元素个数。如果省略或为 0，将不删除任何元素。
+   - `item1, item2, ...`：可选，要添加到数组的新元素。如果省略，则仅进行删除操作。
+
+
+
 # sort
 
 `Array.prototype.sort()`

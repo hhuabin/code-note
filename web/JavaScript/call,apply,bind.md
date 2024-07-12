@@ -137,9 +137,9 @@ boundGreet('Hello'); // 输出: Hello, John
 
 ```javascript
 Function.prototype.myBind = function(context, ...args1) {
-    const fn = this;
+    const that = this;
     return function(...args2) {
-		return fn.call(context, ...args1, ...args2);
+		return that.call(context, ...args1, ...args2);
     };
 };
 ```
