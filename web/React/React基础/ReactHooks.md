@@ -764,7 +764,7 @@ function MyComponent() {
 
 
 
-## 13. nextTick
+## 13. none nextTick
 
 - Vue的`nextTick`，是在DOM更新后执行的，**React中并没有针对DOM更新之后执行的代码**
 
@@ -928,7 +928,12 @@ context：一种组件间通信方式, 常用于【祖组件】与【后代组�
    }
    ```
 
-在应用开发中一般不用context, 一般都它的封装react插件
+在应用开发中一般不用context, 一般都它的封装react插件；在**全局状态管理**、**跨层级组件通信**、**减少重复代码**中使用较多。
+
+大多数情况下建议直接使用props传值最为简单快捷：
+
+- **Context 会在值发生变化时重新渲染所有使用它的组件**。如果你需要频繁更新的状态，且只需要传递给少数组件，直接使用 props 传值可以减少不必要的重渲染
+- 通过精确传递 props，可以更好地控制哪些组件需要更新，从而**提高性能**。
 
 
 
@@ -1113,7 +1118,7 @@ render() {
        isActive: boolean;
    }
    
-   function MyComponent(props: Props) {
+   const MyComponent: React.FC<Props> = (props) {
      // 组件逻辑
    }
    ```

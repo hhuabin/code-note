@@ -17,6 +17,14 @@
   ```typescript
   someValue as string
   ```
+  
+- 非空断言
+
+  **感叹号 (`!`) 的作用**：告诉 TypeScript 编译器“我知道这个值不会是 `null` 或 `undefined`，请不要为此发出类型错误的警告”
+
+  ```typescript
+  document.getElementById('root')!
+  ```
 
 
 - 数组类型

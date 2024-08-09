@@ -365,6 +365,7 @@ background:
 | bg-gradient-to-bl                 | background-image: linear-gradient(to bottom left, var(--tw-gradient-stops)); |
 | bg-gradient-to-l                  | background-image: linear-gradient(to left, var(--tw-gradient-stops)); |
 | bg-gradient-to-tl                 | background-image: linear-gradient(to top left, var(--tw-gradient-stops)); |
+|                                   |                                                              |
 
 1. 起始末尾颜色
 

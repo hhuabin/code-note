@@ -76,7 +76,32 @@ arr.myReduce((prev, current, index) => {
 
 # map
 
-返回一个新数组，数组中的元素是原始数组的元素调用函数之后处理的值
+一个新数组，每个元素都是回调函数的返回值
+
+```javascript
+map(callbackFn)
+map(callbackFn, thisArg)
+```
+
+- callbackFn
+
+  - element
+
+    数组中当前正在处理的元素
+
+  - index
+
+    正在处理的元素在数组中的索引
+
+  - array
+
+    调用了 `map()` 的数组本身
+
+- thisArg
+
+  执行 `callbackFn` 时用作 `this` 的值
+
+  
 
 
 
@@ -164,3 +189,18 @@ console.log(found);
    console.log(numbers); // 输出: [8, 6, 4, 2, 1]
    ```
 
+
+
+# indexOf
+
+```javascript
+indexOf(searchElement)
+indexOf(searchElement, [fromIndex])
+```
+
+- searchElement：数组中要查找的元素
+- fromIndex
+  - 默认为 0
+  - 如果 `fromIndex < 0`，`frommindex=frommindex + array.length`
+  - 如果 `fromIndex >= array.length`，数组不会继续搜索并返回 `-1`
+- **返回值**：首个被找到的元素在数组中的索引位置；若没有找到则返回 **-1**
