@@ -5,6 +5,12 @@ const homeUrl = new URL('@/images/home-selected.png', import.meta.url).href;
 (homeRef.value as HTMLImageElement).src = homeUrl;
 ```
 
+```typescript
+import image from '../../static/image.png';
+
+<img src={image} alt="" />
+```
+
 
 
 # require 引入
@@ -20,10 +26,24 @@ const image = require("@/images/sk-offiaccount.jpg")
 # import引入
 
 ```tsx
-import image from '../../static/image.png';
+import React, { useState, useEffect } from 'react';
 
-<img src={image} alt="" />
+function MyComponent() {
+    const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        import('./path/to/image.jpg').then(img => {
+        	setImage(img.default);
+    	});
+    }, []);
+
+    if (!image) return <p>Loading...</p>;
+
+    return <img src={image} alt="description" />;
+}
 ```
+
+
 
 
 

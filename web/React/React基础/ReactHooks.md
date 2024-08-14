@@ -799,24 +799,12 @@ function MyComponent() {
   </div>
   ```
 
-  
 
 
 
-
-
-
-
-# React.memo()
+# React.memo(Component, areEqual)
 
 用于缓存组件，当子组件的 props 发生变化的时候再重新渲染，父组件的 state 变化的时候不会触发重新渲染。类似于 `PureComponent` 和 `shouldComponentUpdate` 方法的集合体。
-
-使用 `memo` 将组件包装起来，以获得该组件的一个 **记忆化** 版本。通常情况下，只要该组件的 props 没有改变，这个记忆化版本就不会在其父组件重新渲染时重新渲染。但 React 仍可能会重新渲染它：记忆化是一种性能优化，而非保证。
-
-- ==`React.memo` 只会对 props 进行浅比较==。如果 props 是对象或数组，确保传递给组件的引用在每次渲染时都是新的，否则它可能不会正常工作。
-- 只有在确定组件因为渲染开销很大或者 props 变化时会进行渲染时，才应该使用 `React.memo`。对于简单的组件，它可能会增加代码的复杂性而不带来明显的性能提升。
-
-
 
 用法：**直接包裹组件**即可 React.memo(Component, areEqual)
 
@@ -827,10 +815,17 @@ function MyComponent() {
 ```jsx
 import { memo } from 'react';
 
-const SomeComponent = memo(function SomeComponent(props) {
-	
+const SomeComponent = memo((props) => {
+	return (<div></div>)
+}, (oldProps, newProps) => {
+    return true
 });
 ```
+
+使用 `memo` 将组件包装起来，以获得该组件的一个 **记忆化** 版本。通常情况下，只要该组件的 props 没有改变，这个记忆化版本就不会在其父组件重新渲染时重新渲染。但 React 仍可能会重新渲染它：记忆化是一种性能优化，而非保证。
+
+- ==`React.memo` 只会对 props 进行浅比较==。如果 props 是对象或数组，确保传递给组件的引用在每次渲染时都是新的，否则它可能不会正常工作。
+- 只有在确定组件因为渲染开销很大或者 props 变化时会进行渲染时，才应该使用 `React.memo`。对于简单的组件，它可能会增加代码的复杂性而不带来明显的性能提升。
 
 
 
@@ -939,6 +934,16 @@ context：一种组件间通信方式, 常用于【祖组件】与【后代组�
 
 # 组件优化
 
+## render函数触发条件
+
+1. state变化
+2. Props变化
+3. 父组件重新渲染（可优化）
+   - 即便当前组件的 props 和 state 没有变化，只要它的父组件重渲染了(如父组件因自身的 state 或props 变化而重新渲染)，那么这个子组件也会重新染
+   - 这个情况经常会导致一些不必要的重复渲染，为此，我们可以使用一些优化手段，如`React.memo`、`PureComponent` 或`shouldComponentUpdate`
+
+
+
 ## Component 有2个问题
 
 1. 只要执行setState()，即使不改变状态数据，组件也会重新render()
@@ -989,7 +994,9 @@ context：一种组件间通信方式, 常用于【祖组件】与【后代组�
 
 
 
-# render props
+# Render Props
+
+用处：可**封装高阶通用型组件**，如日志记录等。
 
 Vue中:  使用**slot 插槽技术**, 也就是通过组件标签体传入结构  \<AA>\<BB/>\</AA>
 
@@ -1009,7 +1016,7 @@ export default class Parent extends Component {
 		return (
 			<div className="parent">
 				<h3>我是Parent组件</h3>
-				<A render={(name)=><C name={name}/>}/>
+				<A render={ (name) => <B name={name}/> }/>
 			</div>
 		)
 	}
@@ -1039,8 +1046,52 @@ class B extends Component {
 		)
 	}
 }
-
+// 优化：使用 children 代替 render
 ```
+
+函数式组件中使用
+
+```tsx
+import React from 'react';
+import A from './A.tsx';
+
+function App() {
+    return (
+        <div className="parent">
+            <h3>我是Parent组件</h3>
+            <A render={ (name) => <B name={name}/> }>
+                {(name, age) => (
+                    <h3>{name}</h3>
+                    <h3>{age}</h3>
+                )}
+            </A>
+        </div>
+    );
+}
+
+export default App;
+```
+
+```tsx
+import React, { useState } from 'react';
+
+function A({ children }) {
+    const [name, setName] = useState("tom")
+    const [age, setAge] = useState(18)
+
+    return (
+        <div>
+        	{ children(name, age) }
+        </div>
+    );
+}
+
+export default MouseTracker;
+```
+
+
+
+
 
 
 

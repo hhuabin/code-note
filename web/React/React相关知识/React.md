@@ -30,46 +30,14 @@
 
 
 
-# React事件和普通事件有什么区别
+# React框架的核心思想
 
-1. **事件绑定方式**
+React 框架的核心思想主要包括以下几个方面:
 
-   - **普通事件：** 在普通的 DOM 中，事件通常通过 `addEventListener` 方法绑定，或者直接在 HTML 中使用内联事件处理函数。
-
-     ```html
-     <button onclick="handleClick()">Click me</button>
-     ```
-
-     ```javascript
-     document.getElementById('myButton').addEventListener('click', handleClick);
-     ```
-
-   - **React 事件：** 在 React 中，事件绑定通过在 JSX 中直接==传递事件处理函数==完成，事件名使用小驼峰命名法。
-
-     ```html
-     <button onClick={handleClick}>Click me</button>
-     ```
-
-2. **事件对象**
-
-   - **普通事件：** 在普通的 DOM 事件处理中，事件处理函数会接收到一个原生的事件对象。
-
-     ```javascript
-     document.getElementById('myButton').addEventListener('click', function(event) {
-     	console.log(event); // 原生的事件对象
-     });
-     ```
-
-   - **React 事件：** 在 React 中，事件处理函数接收到的是一个合成事件（SyntheticEvent），它是 React 对原生事件对象的封装，提供了跨浏览器的兼容性和一致的接口。
-
-     ```jsx
-     function handleClick(event) {
-     	console.log(event); // React 的合成事件对象
-     }
-     <button onClick={handleClick}>Click me</button>
-     ```
-
-React 事件是对原生 DOM 事件的封装和改进，提供了跨浏览器的兼容性和一致性。通过使用合成事件，React 实现了更高效的事件处理机制，并且简化了事件处理函数的书写和 `this` 的绑定问题。
+1. **组件化**：构建可复用的 U 组件，并将其组合成复杂的用户界面
+2. **虚拟 DOM**：通过虚拟 DOM 提高 DOM 操作的性能，使得 React 的渲染过程高效、快速
+3. **单向数据流**：数据在组件间的流动是单向的，父组件通过 props 向子组件传递数据和回调函数，而子组件不能直接修改父组件的状态
+4. **声明式编程**：使用声明式的方式来构建UI，简化了开发中的逻辑控制
 
 
 
@@ -245,3 +213,20 @@ function Counter() {
 }
 ```
 
+
+
+# React事件机制和普通HTML事件
+
+React 事件和普通 HTML 事件的主要区别在于，React 事件由 React 自己实现的**合成事件机制(SyntheticEvent)管理**，而不是原生的浏览器事件对象。这个合成事件是一种跨浏览器的包装器，能够为每一个事件提供一致的接口行为。React通过**事件委托和池化**(event delegation and pooling)技术,优化了事件处理的性能
+
+1. **合成事件**
+
+   
+
+2. **事件委托**
+
+3. **事件池化**
+
+4. **命名方式和行为**
+
+5. **事件对象**
