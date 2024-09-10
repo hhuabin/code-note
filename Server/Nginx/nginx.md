@@ -9,6 +9,7 @@ nginx
 
 停止 nginx
 nginx -s stop
+nginx -s quit
 
 查看 nginx 进程
 ps -ef | grep nginx

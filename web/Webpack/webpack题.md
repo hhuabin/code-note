@@ -18,3 +18,5 @@ Webpack 是一个现代 JavaScript 应用程序的静态模块打包器。它从
 
 # loader和plugin
 
+- **loader**：==webpack 只能理解 JavaScript 和 JSON 文件==，这是 webpack 开箱可用的自带能力。**loader** 让 webpack 能够去处理其他类型的文件，并将它们转换为有效模块，以供应用程序使用，以及被添加到依赖图中
+- **plugin**：loader 用于转换某些类型的模块，而插件则可以用于执行范围更广的任务。包括：==打包优化，资源管理，注入环境变量==
