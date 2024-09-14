@@ -139,7 +139,7 @@ npm install pinia
    export const useStore = defineStore('main', {
        state: () => ({
            count: 0,
-           }),
+       }),
        getters: {
            // 类型是自动推断出来的，因为我们没有使用 `this`
            doubleCount: (state) => state.count * 2,
@@ -238,5 +238,33 @@ router.beforeEach((to) => {
 
     if (to.meta.requiresAuth && !store.isLoggedIn) return '/login'
 })
+```
+
+
+
+# Pinia 的类似于 `setup` 的写法
+
+**复杂项目**：对于有复杂状态逻辑和需要灵活组合的项目，`setup` 写法利用 Composition API 的功能，提供了更大的灵活性和模块化能力
+
+更好地支持 TypeScript 的类型推导
+
+```typescript
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+
+export const useStore = defineStore('main', () => {
+    const count = ref(0);
+    const user = ref(null);
+
+    function increment() {
+    	count.value++;
+    }
+
+    function setUser(userData) {
+    	user.value = userData;
+    }
+
+    return { count, user, increment, setUser };
+});
 ```
 

@@ -17,7 +17,7 @@ for (let key in object) {
 
 # for of
 
-for of 是 ES6 中新增加的语法，用来循环获取一对键值对中的值，**不会访问原型**
+for of 是 ES6 中新增加的语法，用来循环获取一对**键值对中的值**，**不会访问原型**
 
 **for of 可以使用 `break` 结束循环，可以使用 continue 跳过本次循环**
 
