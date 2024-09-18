@@ -192,6 +192,18 @@ window.addEventListener('load', function() {
 
 
 
+## 各单位理想时间
+
+| 指标    | 理想时间  | 最大允许时间 |
+| ------- | --------- | ------------ |
+| **DCL** | 1秒以内   | 不超过2秒    |
+| **FP**  | 1秒以内   | 不超过2秒    |
+| **FCP** | 1.8秒以内 | 不超过2.5秒  |
+| **L**   | 2.5秒以内 | 不超过4秒    |
+| **LCP** | 2.5秒以内 | 不超过4秒    |
+
+
+
 # 性能监控
 
 ```tsx
@@ -204,18 +216,29 @@ useEffect(() => {
     const observer = new PerformanceObserver((entryList) => {
         const entries = entryList.getEntries()
         const lcpEntry = entries[entries.length - 1]
-        console.log('LCP:' + lcpEntry.startTime + 'ms')
+        console.log('LCP: ', lcpEntry.startTime, 'ms')
     });
     observer.observe({ type: 'largest-contentful-paint', buffered: true })
 
     // Onload Event
     setTimeout(() => {
+        const paintEntries = performance.getEntriesByType('paint');
         const navigationEntries = performance.getEntriesByType('navigation')
+
         const navTiming = navigationEntries[0] as PerformanceNavigationTiming      // 通常只有一个导航条目
         console.log(navTiming)
-        console.log('DOMContentLoaded:', navTiming.domContentLoadedEventEnd - navTiming.startTime + 'ms')
-        console.log('OnLoadTime:', navTiming.loadEventEnd - navTiming.startTime + 'ms')
-    }, 100)
+        console.log('DOMContentLoaded: ', navTiming.domContentLoadedEventEnd - navTiming.startTime, 'ms')
+
+        console.log(paintEntries);
+        paintEntries.forEach((entry) => {
+            if (entry.name === 'first-paint') {
+                console.log('FP: ', entry.startTime, 'ms');
+            } else if (entry.name === 'first-contentful-paint') {
+                console.log('FCP: ', entry.startTime, 'ms');
+            }
+        })
+        console.log('OnLoadTime: ', navTiming.loadEventEnd - navTiming.startTime, 'ms')
+    }, 200)
 
     return () => {
         // 移除PerformanceObserver监听
