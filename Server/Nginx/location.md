@@ -119,6 +119,25 @@
    以上基本不用，都有各式的问题，可以用其他方式解决
 
    `ip_hash`：通过计算客户端 IP 地址的哈希值，将每个客户端的请求固定分配到特定的后端服务器。虽然 `ip_hash` 有助于**保持会话的一致性**（即同一客户端的请求始终分配到同一台后端服务器），但也可能会带来一些不利影响，如负载不均衡、不支持`backup`等。不使用`ip_hash`可以使用cookie、token等方式解决
+   
+   ```nginx
+   upstream yourname {
+       ip_hash;      # 启用 ip_hash 负载均衡策略
+   
+   	server 192.168.0.1:80;
+   	server 192.168.0.2:80;
+   }
+   
+   server {
+   	location / {
+           proxy_pass yourname;
+           # root   /bin2;
+           # index  index.html index.htm;
+       }
+   }
+   ```
+   
+   
 
 
 
@@ -248,4 +267,73 @@ location {
 3. **避免无限重写**：使用 `rewrite` 时要防止出现无限重写循环，例如同一个 URI 不断被重写为相同的 URI
 
 
+
+## 防盗链配置valid_referers
+
+在 Nginx 中配置防盗链主要是通过检查 HTTP 请求的 `Referer` 头部来实现的。防盗链的目的是防止其他网站直接链接你的资源（如图片、视频等），从而保护你的带宽和资源
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    location /images/ {  # 假设要保护的资源目录为 /images/
+        # 允许特定的域名访问
+        valid_referers none blocked example.com *.example.com;
+
+        # 如果 Referer 不是有效的来源，则返回403错误
+        if ($invalid_referer) {
+            # return 403;
+            rewrite ^/ /image/error.jpg break;     # 非法请求将图片用错误图片代替
+        }
+        
+        # 其他处理配置
+        root /var/www/html;  # 资源存放路径
+    }
+}
+```
+
+- **`location /images/`**：指定要保护的资源目录。你可以根据需要调整路径。
+
+- **`valid_referers`**：
+
+  - `none`：表示没有 Referer 头部。
+
+  - `blocked`：表示 Referer 头部被屏蔽（即用户在浏览器中手动访问 URL，而不是通过链接）。
+
+  - `example.com` 和 `*.example.com`：允许的来源域名，`*` 表示子域名。
+
+- **`if ($invalid_referer)`**：检查请求的 Referer 是否有效。如果无效，返回 403 错误，或者自定义的其他页面。
+- **`return 403;`**：如果 Referer 不符合要求，返回 403 Forbidden 错误，拒绝访问
+
+
+
+# keepalived
+
+`Keepalived` 是一个用于高可用性和负载均衡的工具，它主要通过虚拟路由冗余协议（VRRP）来实现主备节点的自动切换。在 `Keepalived` 的配置中，`interface` 指定了要绑定的网络接口，起到了关键的作用
+
+[keepalived下载](https://keepalived.org/download.html# "keepalived")
+
+linux命令下载，安装完成后在`/etc/keepalived/keepalived.conf`
+
+```shell
+yum install -y keepalived
+```
+
+```nginx
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens33  # 指定网络接口
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1234
+    }
+    virtual_ipaddress {
+        192.168.1.100  # 要绑定的虚拟 IP 地址
+    }
+}
+```
 

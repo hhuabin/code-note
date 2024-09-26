@@ -128,7 +128,7 @@ server {
 
    ```java
    @RestController
-   @CrossOrigin(origins = "https://allowed-origin.com")
+   @CrossOrigin(origins = "*")           // 允许其他源访问服务器
    public class MyController {
        @GetMapping("/api/data")
        public ResponseEntity<String> getData() {
@@ -147,10 +147,10 @@ server {
        server_name example.com;
    
        location / {
-           add_header 'Access-Control-Allow-Origin' 'https://allowed-origin.com';
-           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-           add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization';
-           add_header 'Access-Control-Allow-Credentials' 'true';
+           add_header 'Access-Control-Allow-Origin' 'https://allowed-origin.com';  # 指定允许的跨域请求源
+           add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';  # 指定允许的 HTTP 方法
+           add_header 'Access-Control-Allow-Headers' 'Content-Type, Authorization'; # 指定允许的请求头
+           add_header 'Access-Control-Allow-Credentials' 'true'; # 允许跨域请求发送凭证（如 cookies ）
    
            # 处理预检请求
            if ($request_method = 'OPTIONS') {
