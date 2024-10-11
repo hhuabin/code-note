@@ -88,40 +88,10 @@
 
 - grep：文本搜索工具 `grep keyword filename`
   - -n：显示匹配行及行号
-  - -v：显示不包含匹配文件的所有行
+  - -v：显示不包含匹配文件的所有行mk
   - -i：忽略大小写
   - ^a：以 a 开头的行
   - a$：以 a 结束的行
-
-
-
-
-
-# 权限
-
-`su`（switch user）命令用于切换到指定的用户，如果没有指定用户，默认切换到 `root`
-
-1. 切换用户
-
-   ```shell
-   su root         // 切换到root(超级管理员)用户
-   
-   su huabin       // 切换到huabin(普通用户)
-   
-   su -
-   ```
-
-2. sudo：用于以超级管理员权限执行**某个**特定的命令
-
-   ```shell
-   sudo command
-   
-   sudo apt update     // 更新系统软件包
-   ```
-
-   
-
-   
 
 
 
@@ -134,8 +104,4 @@
 
 
 ## 进程信息
-
-
-
-# vi / vim
 

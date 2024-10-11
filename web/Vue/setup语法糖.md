@@ -97,3 +97,78 @@ const emit = defineEmits(['change', 'delete'])
 ```
 
 其他用法请参考官方文档
+
+
+
+# defineOptions
+
+在 `<script setup>` 中，因为它已经简化了组件的结构，`defineOptions` 允许你在使用这种简化语法的同时依然能够配置某些组件选项，比如命名组件、设置继承属性等
+
+```vue
+<script setup>
+defineOptions({
+  name: 'MyCustomComponent', // 组件名称
+  inheritAttrs: false // 禁用自动继承属性
+});
+</script>
+
+<template>
+  <div>My custom component content</div>
+</template>
+```
+
+### 主要配置选项
+
+1. **`name`**: 组件的名称，用于调试、Vue DevTools、以及递归组件引用等场景。
+
+   ```javascript
+   defineOptions({
+   	name: 'MyComponent'
+   });
+   ```
+
+2. **`inheritAttrs`**: 决定组件是否会自动继承父组件传递的 `attrs`（非 `props` 属性）。
+
+   ```javascript
+   defineOptions({
+   	inheritAttrs: false
+   });
+   ```
+
+3. **`emits`**: 声明组件可以发出的自定义事件。与 `emits` 选项类似，你可以通过 `defineOptions` 来声明该组件可以发出的事件。(**直接使用`defineEmits()`)**即可
+
+   ```javascript
+   defineOptions({
+   	emits: ['update', 'submit']
+   });
+   ```
+
+4. **`components`** 和 **`directives`**: 你可以显式声明在模板中使用的局部组件或指令（尽管通常建议通过自动导入或手动导入组件）。
+
+   ```javascript
+   defineOptions({
+       components: { MyButton },
+       directives: { myDirective }
+   });
+   ```
+
+### 完整示例
+
+```vue
+<script setup>
+import MyButton from './MyButton.vue';
+
+defineOptions({
+  name: 'FormComponent',
+  inheritAttrs: false, // 不自动继承父组件的attrs
+  components: { MyButton },
+  emits: ['submit', 'reset']
+});
+</script>
+
+<template>
+    <form @submit.prevent="$emit('submit')" @reset="$emit('reset')">
+    	<MyButton>Submit</MyButton>
+    </form>
+</template>
+```
