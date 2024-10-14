@@ -29,9 +29,9 @@ export default defineComponent({
 
 `expose`：用于在 `<script setup>` 语法糖中显式地暴露组件的内部状态和方法，使它们可以被父组件或外部代码访问。这个功能主要用于与外部组件或代码进行交互时，需要公开某些内部状态或方法的场景
 
-使用`setup`语法糖后，`expose`默认是`{}`，即父组件无法访问字组件内部的方法及变量
+**使用`setup`语法糖后，`expose`默认是`{}`，即父组件无法访问字组件内部的方法及变量**
 
-而`export default`暴露的东西会非常多，不仅包括return返回的东西，还包含`$props`、`$refs`、`$watch`等非常多东西
+**而`export default`暴露的东西会非常多，不仅包括return返回的东西，还包含`$props`、`$refs`、`$watch`等非常多东西**
 
 
 
