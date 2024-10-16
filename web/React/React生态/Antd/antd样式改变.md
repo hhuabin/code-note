@@ -7,15 +7,14 @@
 
    ```tsx
    <div>
-           <ImageUploader
-               style={{'--cell-size': '10rem'}}
-               upload={uploadImage}
-               maxCount={1}
-           ></ImageUploader>
-       </div>
+       <ImageUploader
+           style={{'--cell-size': '10rem'}}
+           upload={uploadImage}
+           maxCount={1}
+       ></ImageUploader>
    </div>
    ```
-
+   
 2. global
    当开启CSS Modules时，建工具会在编译的时候自动把我们的类名加上一个哈希字符串，而使用global声明的class，不会在编译的时候被加上哈希字符串，从而可以实现覆盖默认样式的效果、
 
