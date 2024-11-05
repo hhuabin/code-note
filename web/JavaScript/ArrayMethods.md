@@ -54,6 +54,8 @@ arr.myReduce((prev, current, index) => {
 
 - 不会改变原数组基本类型的值，但引用数据类型会改变
 
+- **不能使用break结束循环**
+
 
 
 # join
@@ -201,6 +203,7 @@ indexOf(searchElement, [fromIndex])
 - searchElement：数组中要查找的元素
 - fromIndex
   - 默认为 0
-  - 如果 `fromIndex < 0`，`frommindex=frommindex + array.length`
+  - 如果 `-array.length < fromIndex < 0`，`frommindex=frommindex + array.length`
   - 如果 `fromIndex >= array.length`，数组不会继续搜索并返回 `-1`
+  - 元素的位置返回值不会因为`fromIndex`改变而改变
 - **返回值**：首个被找到的元素在数组中的索引位置；若没有找到则返回 **-1**

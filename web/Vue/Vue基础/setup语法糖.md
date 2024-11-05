@@ -96,6 +96,26 @@ const emit = defineEmits(['change', 'delete'])
 </script>
 ```
 
+针对类型的 props/emit 声明：props 和 emit 也可以通过给 `defineProps` 和 `defineEmits` 传递纯类型参数的方式来声明
+
+```vue
+const props = defineProps<{
+    foo: string
+    bar?: number
+}>()
+
+const emit = defineEmits<{
+    (e: 'change', id: number): void
+    (e: 'update', value: string): void
+}>()
+
+// 3.3+：另一种更简洁的语法
+const emit = defineEmits<{
+    change: [id: number] // 具名元组语法
+    update: [value: string]
+}>()
+```
+
 其他用法请参考官方文档
 
 
