@@ -4,7 +4,7 @@
 
    ```javascript
    watch(
-       user,
+       user,   // user为响应式数据
        (newValue, oldValue) => {
        	console.log(newValue, oldValue)
        },

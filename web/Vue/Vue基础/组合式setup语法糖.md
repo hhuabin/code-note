@@ -87,7 +87,7 @@ export default defineComponent({
 ```vue
 <script setup>
 const props = defineProps({
-  foo: String
+	foo: String
 })
 
 const emit = defineEmits(['change', 'delete'])
@@ -96,14 +96,40 @@ const emit = defineEmits(['change', 'delete'])
 </script>
 ```
 
+```vue
+<script setup>
+const props = defineProps({
+	foo: {
+		type: String,
+		required: true,
+		default: '',
+	}
+})
+</script>
+```
+
 针对类型的 props/emit 声明：props 和 emit 也可以通过给 `defineProps` 和 `defineEmits` 传递纯类型参数的方式来声明
 
-```vue
+```typescript
+interface Props {
+  msg?: string
+  labels?: string[]
+}
+
+// 不使用默认值
 const props = defineProps<{
     foo: string
     bar?: number
 }>()
 
+// 使用类型声明时的默认 props 值
+const props = withDefaults(defineProps<Props>(), {
+  msg: 'hello',
+  labels: () => ['one', 'two']
+})
+```
+
+```vue
 const emit = defineEmits<{
     (e: 'change', id: number): void
     (e: 'update', value: string): void
