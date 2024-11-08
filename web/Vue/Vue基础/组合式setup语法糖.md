@@ -78,9 +78,9 @@ export default defineComponent({
 
 
 
-## 使用setup后
+# defineProps() 和 defineEmits()
 
-## defineProps() 和 defineEmits()
+`defineProps` 和 `defineEmits` 都是只能在 `<script setup>` 中使用的==**编译器宏**==。**他们不需要导入**，且会随着 `<script setup>` 的处理过程一同被编译掉
 
 可以使用`defineProps()` 和 `defineEmits()`代替`props`和`emit`
 
@@ -122,7 +122,14 @@ const props = defineProps<{
     bar?: number
 }>()
 
-// 使用类型声明时的默认 props 值
+// 使用默认值，推荐使用这种写法
+interface Props {
+  msg?: string
+  labels?: string[]
+}
+const { msg = 'hello', labels = ['one', 'two'] } = defineProps<Props>()
+
+// 使用类型声明时的默认 props 值，vue3.5+支持withDefaults
 const props = withDefaults(defineProps<Props>(), {
   msg: 'hello',
   labels: () => ['one', 'two']

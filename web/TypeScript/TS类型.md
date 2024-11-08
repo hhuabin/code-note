@@ -44,6 +44,40 @@
 
 
 
+# 高级类型
+
+## 交叉类型(&)
+
+`C` 类型同时包含了 `A` 和 `B` 的属性，因此 `person` 必须满足 `A` 和 `B` 的结构才能通过类型检查
+
+- 如果 `A` 和 `B` 有相同的属性，则它们的类型必须一致，否则会报错
+- `&`可以用于`interface`中，但是`interface`更推荐使用`extends`做继承
+- `&`支持`interface`和`type`混合
+
+```typescript
+type A = {
+	name: string;
+};
+
+type B = {
+	age: number;
+};
+
+type C = A & B;
+
+// 使用 C 类型的示例
+const person: C = {
+    name: 'Alice',
+    age: 30,
+};
+```
+
+
+
+## 联合类型(|)
+
+
+
 # 接口
 
 ```typescript
