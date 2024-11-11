@@ -275,18 +275,13 @@ export default class FetchRequest {
 
 	private baseURL = import.meta.env.VITE_API_BASE_URL
 	private controller: AbortController
-	private signal: AbortSignal
 
 	constructor() {
-		const controller = new AbortController()
-		this.controller = controller
-		this.signal = controller.signal
+		this.controller = new AbortController()
 	}
 
 	private updateController = () => {
-		const controller = new AbortController()
-		this.controller = controller
-		this.signal = controller.signal
+		this.controller = new AbortController()
 	}
 
 	// eslint-disable-next-line
@@ -315,7 +310,7 @@ export default class FetchRequest {
 		}
 
 		return fetch(url, {
-			signal: this.signal,
+			signal: this.controller.signal,
 			headers: {
 				'Content-Type': 'application/json',
 			},
@@ -335,6 +330,11 @@ export default class FetchRequest {
 		.catch(error => {
 			if (error.name === 'AbortError') {
 				console.log('请求被取消');
+                /**
+                 * 在返回 pendding 状态的时候，要确保请求函数的.catch没有什么必须要处理的逻辑
+                 * 比如清除组件的loading状态、以及函数防抖等
+                 * 若有此类逻辑，该接口不能使用取消请求功能，或者此处返回一个失败状态的 Promise
+                 */
 				return new Promise(() => {})
 			} else {
 				return Promise.reject(error)
