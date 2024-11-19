@@ -76,6 +76,28 @@ const person: C = {
 
 ## 联合类型(|)
 
+当A属性存在时，B属性也一定会存在
+
+```typescript
+type DependentProps = 
+  | { A?: undefined; B?: undefined }  // A 和 B 都不存在
+  | { A: string; B: string };         // A 和 B 都存在
+```
+
+```typescript
+interface WithAB {
+  A: string;
+  B: string;
+}
+
+interface WithoutAB {
+  A?: undefined;
+  B?: undefined;
+}
+
+type DependentProps = WithAB | WithoutAB;
+```
+
 
 
 # 接口

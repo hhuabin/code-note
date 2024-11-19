@@ -187,7 +187,7 @@ export default class AxiosRequest {
 请求函数
 
 ```typescript
-import { AxiosPromise, AxiosRequestConfig } from 'axios'
+import type { AxiosRequestConfig, AxiosPromise } from 'axios'
 
 import AxiosRequest from '@/utils/Request/AxiosRequest'
 import {
