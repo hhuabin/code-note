@@ -28,7 +28,7 @@ Vue 会将 `mixin` 和组件本身的选项进行合并，遵循以下规则：
 // helloMixin.js
 export default {
     mounted() {
-    	console.log('Mixin mounted');
+        console.log('Mixin mounted');
     }
 };
 
@@ -38,7 +38,7 @@ import helloMixin from './helloMixin';
 export default {
     mixins: [helloMixin],
     mounted() {
-    	console.log('Component mounted');
+        console.log('Component mounted');
     }
 };
 

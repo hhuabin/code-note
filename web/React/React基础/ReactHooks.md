@@ -610,22 +610,33 @@ export default ParentComponent;
 
 三个Effect：`useInsertionEffect`、`useLayoutEffect`、`useEffect`
 
-- useInsertionEffect：可以用于给页面**增加** state、样式 等
-- useLayoutEffect：可以用于给页面**修改** state、样式 等
+- useInsertionEffect：可以用于给页面**增加** state、样式 等，（不推荐使用本钩子）
+
+  `useInsertionEffect` 是为 CSS-in-JS 库的作者特意打造的。除非你正在使用 CSS-in-JS 库并且需要注入样式，否则你应该使用 `useEffect` 或者 `useLayoutEffect`
+
+- **useLayoutEffect**：可以用于给页面修改 state、样式 等
+
+  `useLayoutEffect` 是 `useEffect` 的一个版本，在浏览器重新绘制屏幕之前触发
+
+  ```jsx
+  useLayoutEffect(setup, dependencies?)
+  ```
+
+  React 保证了 `useLayoutEffect` 中的代码以及其中任何计划的状态更新都会在浏览器重新绘制屏幕之前得到处理。然后在用户没有注意到第一个额外渲染的情况下**再次重新渲染**。换句话说，`useLayoutEffect` 阻塞了浏览器的绘制
 
 ```mermaid
 graph TD
-    A1[组件挂在] --> B1[state 改变]
+    A1[组件挂载] --> B1[state 改变]
     B1 --> C1[DOM 改变]
     C1 --> D1[绘制屏幕]
     D1 --> F1[useEffect]
     
-    A2[组件挂在] --> B2[state 改变]
+    A2[组件挂载] --> B2[state 改变]
     B2 --> C2[useInsertionEffect]
     C2 --> D2[DOM 改变]
     D2 --> F2[绘制屏幕]
     
-    A3[组件挂在] --> B3[state 改变]
+    A3[组件挂载] --> B3[state 改变]
     B3 --> C3[DOM 改变]
     C3 --> D3[useLayoutEffect]
     D3 --> F3[绘制屏幕]
@@ -797,6 +808,13 @@ function MyComponent() {
           // document.getElementById('root') // 这是指定的 DOM 节点
       )}
   </div>
+  
+  or
+  
+  return createPortal(
+      <div></div>,
+      document.body
+  )
   ```
 
 

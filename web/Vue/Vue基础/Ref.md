@@ -4,7 +4,7 @@
 
 ```vue
 <template>
-  <ChildComponent ref="childRef" />
+    <ChildComponent ref="childRef" />
 </template>
 
 <script setup lang="ts">
@@ -15,7 +15,7 @@ const childRef = ref<InstanceType<typeof ChildComponent> | null>(null);
 
 onMounted(() => {
     if (childRef.value) {
-    	childRef.value.customMethod();  // 调用子组件的自定义方法
+        childRef.value.customMethod();  // 调用子组件的自定义方法
     }
 });
 </script>

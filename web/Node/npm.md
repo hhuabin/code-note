@@ -26,6 +26,7 @@ npm -v
    ```bash
    npm config set registry https://registry.npm.taobao.org/
    
+   ## 阿里云维护的一个国内 npm 镜像源，也是原淘宝镜像的升级版本，用于加速 npm 包的下载
    npm config set registry https://registry.npmmirror.com
    ```
 
@@ -35,7 +36,6 @@ npm -v
    npm config set registry https://registry.npmjs.org/
    ````
 
-   
 
 
 
@@ -100,7 +100,7 @@ npm update package-name@latest             // 将指定包更新至最新版本�
 npm update package-name[@version]        // 更新指定包
 ```
 
-**清楚缓存**
+**清除缓存**
 
 ```bash
 npm cache clean --force

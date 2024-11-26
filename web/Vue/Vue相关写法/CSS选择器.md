@@ -46,7 +46,7 @@
    ```css
    <style scoped>
        :global(.red) {
-       	color: red;
+           color: red;
        }
    </style>
    ```

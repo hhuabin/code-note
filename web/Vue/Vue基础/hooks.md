@@ -63,9 +63,9 @@ export function useFetchData(url) {
             if (!response.ok) throw new Error('Failed to fetch data'); // 自定义错误信息
             data.value = await response.json();
         } catch (err) {
-        	error.value = err.message; // 捕获错误信息
+            error.value = err.message; // 捕获错误信息
         } finally {
-        	isLoading.value = false;   // 请求结束后重置加载状态
+            isLoading.value = false;   // 请求结束后重置加载状态
         }
     };
 
@@ -127,16 +127,16 @@ export function useFetchData(params) {
             if (!response.ok) throw new Error('Failed to fetch data');
             data.value = await response.json();
         } catch (err) {
-       		error.value = err.message;
+               error.value = err.message;
         } finally {
-        	isLoading.value = false;
+            isLoading.value = false;
         }
     };
 
     watch(
         () => [params.url, params.query, params.page],
         () => {
-        	fetchData();
+            fetchData();
         },
         { immediate: true }
     );

@@ -47,11 +47,11 @@
    import type { Config } from 'tailwindcss'
    
    export default {
-   	content: ['./src/pages/**/*.{vue,js,ts,jsx,tsx}'],
-   	theme: {
-   		extend: {},
-   	},
-   	plugins: [],
+       content: ['./src/pages/**/*.{vue,js,ts,jsx,tsx}'],
+       theme: {
+           extend: {},
+       },
+       plugins: [],
    } satisfies Config
    ```
 
@@ -59,10 +59,10 @@
 
    ```javascript
    module.exports = {
-   	plugins: {
-   		tailwindcss: {},
-   		autoprefixer: {},
-   	}
+       plugins: {
+           tailwindcss: {},
+           autoprefixer: {},
+       }
    }
    ```
 
@@ -121,12 +121,12 @@ export default {
 import type { Config } from 'tailwindcss'
 
 export default {
-	content: ['./src/pages/**/*.{vue,js,ts,jsx,tsx}'],
-	theme: {
-		colors: {
+    content: ['./src/pages/**/*.{vue,js,ts,jsx,tsx}'],
+    theme: {
+        colors: {
             'color-primary': '#333',
-			'blue': '#1fb6ff',
-		},
+            'blue': '#1fb6ff',
+        },
         borderRadius: {
             'none': '0',
             'sm': '.125rem',
@@ -134,14 +134,14 @@ export default {
             'lg': '.5rem',
             'full': '9999px',
         }
-		extend: {
-			spacing: {
-				'8xl': '96rem',
-				'9xl': '128rem',
-			},
-		}
-	},
-	plugins: [],
+        extend: {
+            spacing: {
+                '8xl': '96rem',
+                '9xl': '128rem',
+            },
+        }
+    },
+    plugins: [],
 } satisfies Config
 ```
 
@@ -177,7 +177,7 @@ module.exports = {
     theme: {
         extend: {
             screens: {
-           		'3xl': '1600px', // Adds a new `3xl:` screen variant
+                '3xl': '1600px', // Adds a new `3xl:` screen variant
             },
             fontFamily: {
                 display: 'Oswald, ui-serif', // Adds a new `font-display` class

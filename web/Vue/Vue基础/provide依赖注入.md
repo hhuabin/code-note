@@ -85,7 +85,7 @@ const sharedData = ref('Hello from parent!');
 // 提供一个封装的更新方法
 const updateSharedData = (newData) => {
     if (typeof newData === 'string') { // 可添加条件来控制更新逻辑
-    	sharedData.value = newData;
+        sharedData.value = newData;
     }
 };
 

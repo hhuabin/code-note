@@ -92,7 +92,7 @@ try {
     }
 }
 catch (ex) {
-  	console.error("outer", ex.message);
+	console.error("outer", ex.message);
 }
 
 // Output:

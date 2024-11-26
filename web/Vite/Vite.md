@@ -30,12 +30,12 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-	base: './',
-	plugins: [
-		react(),
-	],
-})
+export default defineConfig((env: ConfigEnv) => ({
+    base: './',
+    plugins: [
+        react(),
+    ],
+}))
 ```
 
 
@@ -67,15 +67,13 @@ vite不推荐使用require等es5写法
    
    // https://vitejs.dev/config/
    export default defineConfig({
-   	base: './',
-   	plugins: [
-   		react(),
-   		commonjs(), // 添加 CommonJS 插件
-   	],
+       base: './',
+       plugins: [
+           react(),
+           commonjs(), // 添加 CommonJS 插件
+       ],
    })
-   
    ```
-
    
 
 

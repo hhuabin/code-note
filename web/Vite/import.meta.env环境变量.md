@@ -20,6 +20,8 @@ VITE_API_URL=https://api.example.com
 
 请注意，**环境变量名必须以 `VITE_` 开头**，这样才能在 Vite 中使用。
 
+
+
 ## 步骤 2: 在代码中使用环境变量
 
 你可以使用 `import.meta.env` 来访问环境变量。例如，在一个 React 组件中：

@@ -72,10 +72,10 @@ server {
 
       ```ts
       export default defineConfig({
-      	base: "/projectname/",     // 此处的 projectname 需要和上面保持一致
-      	build: {
-      		outDir: 'dist/projectname',   // 此处可以不配置，但是为了方便本地运行，建议加上
-      	}
+          base: "/projectname/",     // 此处的 projectname 需要和上面保持一致
+          build: {
+              outDir: 'dist/projectname',   // 此处可以不配置，但是为了方便本地运行，建议加上
+          }
       })
       ```
 

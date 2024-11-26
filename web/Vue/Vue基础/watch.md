@@ -52,7 +52,7 @@
 const stopWatch = watch(
     age,
     (newValue, oldValue) => {
-    	console.log(newValue, oldValue)
+		console.log(newValue, oldValue)
         if(age > 10) stopWatch()
     },
     { immediate: true, deep: true }

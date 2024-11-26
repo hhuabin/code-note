@@ -26,7 +26,7 @@ router.beforeEach((to, from) => {
     // 返回 false 以取消导航
     // return false
     if (to.name !== 'Login' && !isAuthenticated) next({ path: '/login' })
-	else next()
+    else next()
 })
 ```
 
@@ -47,7 +47,7 @@ router.beforeEach((to, from) => {
 ```typescript
 beforeRouteEnter(to, from, next) {
     next((vm: any) => {
-        // 通过 `vm` 访问组件实例
+		// 通过 `vm` 访问组件实例
     })
 },
 ```

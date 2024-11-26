@@ -14,11 +14,11 @@
 <script lang='ts'>
 import { defineComponent } from 'vue';
 export default defineComponent({
-	name: '',
-	setup() {
-		
-		return {}
-	}
+    name: '',
+    setup() {
+        
+        return {}
+    }
 });
 </script>
 ```
@@ -55,15 +55,15 @@ export default defineComponent({
    <script lang='ts'>
    import { defineComponent } from 'vue';
    export default defineComponent({
-   	name: '',
-   	setup(props, { expose }) {
-   		
+       name: '',
+       setup(props, { expose }) {
+           
            expose({
-           	a,
+               a,
                b
            })
-   		return {}
-   	}
+           return {}
+       }
    });
    </script>
    ```
@@ -87,7 +87,7 @@ export default defineComponent({
 ```vue
 <script setup>
 const props = defineProps({
-	foo: String
+    foo: String
 })
 
 const emit = defineEmits(['change', 'delete'])
@@ -99,11 +99,11 @@ const emit = defineEmits(['change', 'delete'])
 ```vue
 <script setup>
 const props = defineProps({
-	foo: {
-		type: String,
-		required: true,
-		default: '',
-	}
+    foo: {
+        type: String,
+        required: true,
+        default: '',
+    }
 })
 </script>
 ```
@@ -112,8 +112,8 @@ const props = defineProps({
 
 ```typescript
 interface Props {
-  msg?: string
-  labels?: string[]
+    msg?: string
+    labels?: string[]
 }
 
 // 不使用默认值
@@ -124,15 +124,15 @@ const props = defineProps<{
 
 // 使用默认值，推荐使用这种写法
 interface Props {
-  msg?: string
-  labels?: string[]
+    msg?: string
+    labels?: string[]
 }
 const { msg = 'hello', labels = ['one', 'two'] } = defineProps<Props>()
 
 // 使用类型声明时的默认 props 值，vue3.5+支持withDefaults
 const props = withDefaults(defineProps<Props>(), {
-  msg: 'hello',
-  labels: () => ['one', 'two']
+    msg: 'hello',
+    labels: () => ['one', 'two']
 })
 ```
 
@@ -166,7 +166,7 @@ defineOptions({
 </script>
 
 <template>
-  <div>My custom component content</div>
+	<div>My custom component content</div>
 </template>
 ```
 
@@ -221,7 +221,7 @@ defineOptions({
 
 <template>
     <form @submit.prevent="$emit('submit')" @reset="$emit('reset')">
-    	<MyButton>Submit</MyButton>
+        <MyButton>Submit</MyButton>
     </form>
 </template>
 ```

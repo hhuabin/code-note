@@ -38,25 +38,25 @@ npm install pinia
    import { defineStore } from "pinia";
    
    export const useMainStore = defineStore('main', {
-   	// 跨页面的 state 必须使用 Storage 保存
-   	state: () => ({
-   		phone: localStorage.getItem('yctnft_phone') || '',
-   	}),
-   	getters: {
-   		isLogin: (state): boolean => {
-   			return state.phone? true : false
-   		},
-   	},
-   	actions: {
-   		saveLoginInfo(phone: string) {
-   			this.phone = phone
-   			localStorage.setItem('yctnft_phone', phone)
-   		},
-   		removeLoginInfo() {
-   			this.phone = ''
-   			localStorage.removeItem('yctnft_phone')
-   		},
-   	}
+       // 跨页面的 state 必须使用 Storage 保存
+       state: () => ({
+           phone: localStorage.getItem('yctnft_phone') || '',
+       }),
+       getters: {
+           isLogin: (state): boolean => {
+               return state.phone? true : false
+           },
+       },
+       actions: {
+           saveLoginInfo(phone: string) {
+               this.phone = phone
+               localStorage.setItem('yctnft_phone', phone)
+           },
+           removeLoginInfo() {
+               this.phone = ''
+               localStorage.removeItem('yctnft_phone')
+           },
+       }
    })
    
    ```
@@ -96,13 +96,13 @@ npm install pinia
 
    ```typescript
    export const useCounterStore = defineStore('counter', () => {
-   	const count = ref(0)
+       const count = ref(0)
    
-   	function $reset() {
-   		count.value = 0
-   	}
+       function $reset() {
+           count.value = 0
+       }
    
-   	return { count, $reset }
+       return { count, $reset }
    })
    ```
 
@@ -120,12 +120,12 @@ npm install pinia
 
       ```typescript
       watch(
-      	pinia.state,
-      	(state) => {
-      		// 每当状态发生变化时，将整个 state 持久化到本地存储。
-      		localStorage.setItem('piniaState', JSON.stringify(state))
-      	},
-      	{ deep: true }
+          pinia.state,
+          (state) => {
+              // 每当状态发生变化时，将整个 state 持久化到本地存储。
+              localStorage.setItem('piniaState', JSON.stringify(state))
+          },
+          { deep: true }
       )
       ```
 
@@ -163,11 +163,11 @@ npm install pinia
 
    ```typescript
    export const useStore = defineStore('main', {
-   	getters: {
-   		getUserById: (state) => {
-   			return (userId) => state.users.find((user) => user.id === userId)
-   		},
-   	},
+       getters: {
+           getUserById: (state) => {
+               return (userId) => state.users.find((user) => user.id === userId)
+           },
+       },
    })
    ```
 
@@ -175,12 +175,12 @@ npm install pinia
 
    ```typescript
    export const useStore = defineStore('main', {
-   	getters: {
-   		getActiveUserById(state) {
-   			const activeUsers = state.users.filter((user) => user.active)
-   			return (userId) => activeUsers.find((user) => user.id === userId)
-   		},
-   	},
+       getters: {
+           getActiveUserById(state) {
+               const activeUsers = state.users.filter((user) => user.active)
+               return (userId) => activeUsers.find((user) => user.id === userId)
+           },
+       },
    })
    ```
 
@@ -190,15 +190,15 @@ npm install pinia
    import { useOtherStore } from './other-store'
    
    export const useStore = defineStore('main', {
-   	state: () => ({
-   		// ...
-   	}),
-   	getters: {
-   		otherGetter(state) {
-   			const otherStore = useOtherStore()
-   			return state.localData + otherStore.data
-   		},
-   	},
+       state: () => ({
+           // ...
+       }),
+       getters: {
+           otherGetter(state) {
+               const otherStore = useOtherStore()
+               return state.localData + otherStore.data
+           },
+       },
    })
    ```
 
@@ -257,11 +257,11 @@ export const useStore = defineStore('main', () => {
     const user = ref(null);
 
     function increment() {
-    	count.value++;
+        count.value++;
     }
 
     function setUser(userData) {
-    	user.value = userData;
+        user.value = userData;
     }
 
     return { count, user, increment, setUser };
