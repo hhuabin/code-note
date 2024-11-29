@@ -90,7 +90,7 @@ module.exports = {
         'object-curly-spacing': ['warn', 'always'],                // add spacing in object
         'comma-dangle': ['error', 'always-multiline'],             // use , end in object and array
         'semi': ['warn', 'never'],                                 // no end of spacing ;
-        'no-trailing-spaces': ['error', { 'skipBlankLines': false, 'ignoreComments': false }],     // no end of spacing
+        'no-trailing-spaces': ['warn', { 'skipBlankLines': false, 'ignoreComments': false }],      // no end of spacing
         'no-multiple-empty-lines': ['warn', { 'max': 2 }],         // max 2 empty lines in file
         'eol-last': ['error', 'always'],                           // file end of empty line
         'max-lines': ['warn', 300],                                // maximum 300 of lines per file

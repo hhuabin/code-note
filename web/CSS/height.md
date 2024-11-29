@@ -51,7 +51,7 @@
 
    ```css
    .parent {
-       height: 100vh; /* 父元素高度固定 */
+       height: 100px; /* 父元素高度固定 */
        display: flex;
        flex-direction: column; /* 子元素纵向排列 */
    }
@@ -62,13 +62,39 @@
    }
    
    .content {
-       flex: 1; /* 占据剩余高度 */
+       flex: 1; /* 占据剩余高度 50px */
        background-color: lightblue;
+       /* overflow: hidden; */
    }
    ```
+   
+   bug解决：
+   
+   如果`content`还有子元素，并且子元素的高度很大。那么`content`的高度会根据子元素的高度发生变化
+   
+   ```html
+   <div class="parent">
+       <div class="header">Header</div>
+       <div class="content">
+           <div class="child" style="height: 100px;">child</div>
+       </div>
+   </div>
+   ```
+   
+   此时，content需要加上`overflow: hidden;`
 
+   ```css
+   .content {
+       flex: 1;       /* 占据剩余高度 50px*/
+       background-color: lightblue;
+       overflow: hidden;
+   }
+   ```
+   
+   
+   
    **`height: 100%;`方法不可行**
-
+   
    ```css
    .parent {
        height: 100vh; /* 父元素高度固定 */
@@ -82,6 +108,6 @@
        height: 100%;    /* 100vh */
    }
    ```
-
+   
    
 

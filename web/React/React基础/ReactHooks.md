@@ -276,7 +276,7 @@ attention：
 
 ```typescript
 const intervalRef = useRef(0);
-const inputRef = useRef(null);
+const inputRef = useRef<HTMLDivElement | null>(null);
 ```
 
 作用：保存标签对象,功能与React.createRef()一样
@@ -288,7 +288,7 @@ intervalRef.current = 100
 
 ```jsx
 showData = ()=>{
-    console.log(intervalRef.value);
+    console.log(intervalRef.current);
     console.log(inputRef);
 }
 ```
