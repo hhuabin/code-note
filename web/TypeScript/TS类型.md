@@ -30,13 +30,23 @@
 - 数组类型
 
   ```typescript
-  export type IAnswer = Array<{
+  export type Answer = Array<{
   	readonly name: string;
   	readonly age: number;
   }>
   ```
   
-  数组单个类型获取，注意这里不要使用 `lineGroup[0].items`
+  数组单个类型获取
+  
+  ```typescript
+  type AnswerItem = Answer[number]
+  const answerItem = {
+      name: 'bin';
+  	age: 18;
+  }
+  ```
+  
+  注意这里不要使用 `lineGroup[0].items`
   
   ```typescript
   [] as typeof lineGroup[0]["items"]

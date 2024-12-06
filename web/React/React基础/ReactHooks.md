@@ -459,11 +459,13 @@ export default function Counter() {
 - `fn`：在多次渲染中需要缓存的函数。此函数可以接受任何参数并且返回任何值。React 将会在初次渲染而非调用时返回该函数
 - `dependencies`：有关是否更新 `fn` 的所有响应式值的一个列表。响应式值包括 props、state，和所有在你组件内部直接声明的变量和函数
 
-`useCallback` 是一个允许你在**多次渲染中缓存函数的 React Hook**，用于优化函数的性能。它的作用是在组件渲染过程中，**缓存回调函数**，以避免不必要的函数重新创建
+`useCallback` 是一个允许你在**多次渲染中缓存函数的 React Hook**，用于优化函数的性能。它的作用是**在组件渲染过程中，缓存回调函数，以避免不必要的函数重新创建**
 
-**useCallback用法**：特别注意当依赖项是函数时，一般需要使用 `useCallback` 记住函数，因为每次状态更新都会触发函数的重新创建
+**useCallback用法**：特别注意==**当依赖项是函数时，一般需要使用 `useCallback` 记住函数**==，因为每次状态更新都会触发函数的重新创建
 
-1. 跳过组件的重新渲染
+除此之外，没事别用它，意义不大
+
+1. **跳过组件的重新渲染**
 
    ```jsx
    export default function Page({ productId, referrer }) {
@@ -486,7 +488,7 @@ export default function Counter() {
 
 2. 从记忆化回调中更新 state
 
-3. 防止频繁触发 Effect
+3. **防止频繁触发 Effect**
 
 4. 优化自定义 Hook
 
@@ -606,11 +608,11 @@ export default ParentComponent;
 
 
 
-## 8. useInsertionEffect、useLayoutEffect
+## 8. ~~useInsertionEffect~~、useLayoutEffect、useEffect
 
 三个Effect：`useInsertionEffect`、`useLayoutEffect`、`useEffect`
 
-- useInsertionEffect：可以用于给页面**增加** state、样式 等，（不推荐使用本钩子）
+- ~~useInsertionEffect~~：可以用于给页面**增加** state、样式 等，（不推荐使用本钩子）
 
   `useInsertionEffect` 是为 CSS-in-JS 库的作者特意打造的。除非你正在使用 CSS-in-JS 库并且需要注入样式，否则你应该使用 `useEffect` 或者 `useLayoutEffect`
 
