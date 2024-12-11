@@ -60,7 +60,7 @@ headers: {
 
 # Axios实例
 
-```javascript
+```typescript
 const instance = axios.create({
     baseURL: 'https://some-domain.com/api/',
     timeout: 1000,
@@ -106,7 +106,7 @@ return service({
 
 axios拥有的元素
 
-```javascript
+```typescript
 export class Axios {
     constructor(config?: AxiosRequestConfig);
     defaults: AxiosDefaults;
@@ -129,7 +129,7 @@ export class Axios {
 }
 ```
 
-```javascript
+```typescript
 AxiosInstance extends Axios {
     <T = any, R = AxiosResponse<T>, D = any>(config: AxiosRequestConfig<D>): Promise<R>;
     <T = any, R = AxiosResponse<T>, D = any>(url: string, config?: AxiosRequestConfig<D>): Promise<R>;
@@ -142,7 +142,7 @@ AxiosInstance extends Axios {
 }
 ```
 
-```javascript
+```typescript
 AxiosStatic extends AxiosInstance {
     create(config?: CreateAxiosDefaults): AxiosInstance;
     Cancel: CancelStatic;
@@ -166,7 +166,7 @@ AxiosStatic extends AxiosInstance {
 
 # axios请求参数\<AxiosRequest>
 
-```javascript
+```typescript
 export interface AxiosRequestConfig<D = any> {
     url?: string;
     method?: Method | string;
@@ -214,7 +214,7 @@ export interface AxiosRequestConfig<D = any> {
 
 # axios响应参数\<AxiosResponse>
 
-```javascript
+```typescript
 AxiosResponse<T = any, D = any> {
     data: T;
     status: number;

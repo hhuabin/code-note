@@ -339,7 +339,7 @@ saveFormData = (dataType)=>{
 ```
 
 ```tsx
-saveFormData = (dataType, event: ChangeEvent<HTMLInputElement>)=>{
+saveFormData = (dataType, event: React.ChangeEvent<HTMLInputElement>)=>{
     this.setState({[dataType]:event.target.value})
 }
 ```

@@ -207,3 +207,86 @@ indexOf(searchElement, [fromIndex])
   - 如果 `fromIndex >= array.length`，数组不会继续搜索并返回 `-1`
   - 元素的位置返回值不会因为`fromIndex`改变而改变
 - **返回值**：首个被找到的元素在数组中的索引位置；若没有找到则返回 **-1**
+
+
+
+# 伪数组
+
+**伪数组**（类数组，Array-like Object）是指具有类似数组特性的对象，但它并不是真正的数组。伪数组通常出现在特定场景中，例如 DOM 操作或函数调用参数中。它们与数组在访问方式上类似，但**缺少数组的大多数方法和功能**
+
+
+
+**与数组的不同点**
+
+| 特性                       | 真正的数组                                      | 伪数组（类数组）                           |
+| -------------------------- | ----------------------------------------------- | ------------------------------------------ |
+| **数据类型**               | 数组是 `Array` 类型                             | 通常是对象类型（`Object`）。               |
+| **原型方法支持**           | 原生支持所有数组方法（如 `map`, `filter` 等）。 | 不支持数组方法，需转换为数组才能使用。     |
+| **构造方式**               | 通过 `[]` 或 `Array` 创建。                     | 通常是对象，类似 `{ 0: 'a', length: 1 }`。 |
+| **是否是数组实例**         | `arr instanceof Array` 为 `true`。              | 类数组不满足 `instanceof Array`。          |
+| **`Array.isArray()` 检查** | 返回 `true`。                                   | 返回 `false`。                             |
+| **遍历方式支持**           | 支持 `forEach`, `for...of` 等现代遍历方式。     | 不支持现代遍历方式，需转换后使用。         |
+| **动态扩展**               | 可以动态增加新元素（`arr.push()`）。            | 不支持动态扩展。                           |
+
+
+
+## 常见的伪数组
+
+1. **DOM 集合（`HTMLCollection`, `NodeList`）**：
+
+   ```javascript
+   const divs = document.getElementsByTagName('div'); // 返回 HTMLCollection
+   console.log(divs.length); // 有 length，但不能直接使用数组方法
+   ```
+
+2. **函数的 `arguments` 对象**：
+
+   ```javascript
+   function example() {
+       console.log(arguments); // 类数组
+       console.log(arguments[0]); // 访问第一个参数
+   }
+   example(1, 2, 3);
+   ```
+
+3. **字符串**（虽然字符串不是伪数组，但也表现出部分类似行为）：
+
+   ```javascript
+   const str = "hello";
+   console.log(str[0]); // 'h'
+   console.log(str.length); // 5
+   ```
+
+
+
+## 伪数组转换为真正的数组
+
+1. `Array.from()`
+
+   将伪数组直接转换为数组。
+
+   ```javascript
+   const divs = document.getElementsByTagName('div'); // HTMLCollection
+   const divArray = Array.from(divs); // 转为真正数组
+   console.log(divArray);
+   ```
+
+2. 扩展运算符 (`...`)
+
+   使用扩展运算符快速转换。
+
+   ```javascript
+   const divs = document.getElementsByTagName('div');
+   const divArray = [...divs];
+   console.log(divArray);
+   ```
+
+3. `Array.prototype.slice.call()`
+
+   传统方式，使用数组方法的 `call`。
+
+   ```javascript
+   const divs = document.getElementsByTagName('div');
+   const divArray = Array.prototype.slice.call(divs);
+   console.log(divArray);
+   ```
