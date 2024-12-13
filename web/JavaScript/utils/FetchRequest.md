@@ -52,7 +52,7 @@ export default class FetchRequest {
             body,
         })
         .then((response: Response) => {
-            if (!response.ok) return Promise.resolve(response)
+            if (!response.ok) return Promise.reject(response)
             return response.json()
         })
         .then(data => {
@@ -206,6 +206,7 @@ export default class FetchRequest {
             body,
         })
         .then((response: Response) => {
+            if (!response.ok) return Promise.reject(response)
             return response.json()
         })
         .then(data => {
@@ -327,7 +328,7 @@ export default class FetchRequest {
             body,
         })
         .then(async (response: Response) => {
-            if (!response.ok) return Promise.resolve(response)
+            if (!response.ok) return Promise.reject(response)
             // 获取响应头，确定响应头的类型
             const contentType = response.headers.get("Content-Type")
             // 从请求头获取数据总长度

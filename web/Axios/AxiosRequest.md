@@ -130,6 +130,7 @@ export default class AxiosRequest {
                 })
                 return Promise.reject(new Error("登录已失效"))
             } else {
+                console.error(response)
                 return Promise.reject(response)
             }
         }, this.handleRequestError)
@@ -156,7 +157,7 @@ export default class AxiosRequest {
              * 比如清除组件的loading状态、以及函数防抖等
              * 若有此类逻辑，该接口不能使用取消请求功能，或者此处返回一个失败状态的 Promise
              */
-            return new Promise(() => { })
+            return new Promise(() => {})
         } else if (axios.isAxiosError(error)) {
             if (error.response?.status === 403) {
                 errorMessage = "拒绝访问"
@@ -175,11 +176,9 @@ export default class AxiosRequest {
                 console.error('请求错误:', error.message)
             }
         }
-        Toast.show({
-            icon: 'fail',
-            content: errorMessage,
-        })
-        return Promise.reject(error as AxiosError)
+        console.error(error)
+        // err_msg 字段需要根据src/api/types/public.d 的 PublicAnswer进行自定义
+        return Promise.reject({ ...(error as AxiosError), data: { err_msg: errorMessage } })
     }
 
     public getAxiosInstance = () => {
@@ -229,7 +228,10 @@ const request = () => {
         console.log(res)
     })
     .catch(error => {
-        console.error(error)
+        Toast.show({
+            icon: 'fail',
+            content: error.data?.err_msg || "请求错误，请稍后再试",
+        })
     })
 }
 
@@ -253,6 +255,7 @@ import { message } from 'antd'
 import store from '@/store/store'
 import { removeToken } from '@/store/slice/userSlice'
 import formatDate from './formatDate'
+import { error } from 'console'
 
 interface CommonParams {
     version: string;
@@ -365,6 +368,7 @@ export default class AxiosRequest {
                 message.error("登录已失效")
                 return Promise.reject(new Error("登录已失效"))
             } else {
+                console.error(response)
                 return Promise.reject(response)
             }
         }, this.handleRequestError)
@@ -388,7 +392,7 @@ export default class AxiosRequest {
         let errorMessage = "请求失败，请稍后再试"
         if (axios.isCancel(error)) {
             console.warn('请求被取消', error.message)
-            return new Promise(() => { })
+            return new Promise(() => {})
         } else if (axios.isAxiosError(error)) {
             if (error.response?.status === 403) {
                 errorMessage = "拒绝访问"
@@ -407,8 +411,9 @@ export default class AxiosRequest {
                 console.error('请求错误:', error.message)
             }
         }
-        message.error(errorMessage)
-        return Promise.reject(error as AxiosError)
+        console.error(error)
+        // err_msg 字段需要根据src/api/types/public.d 的 PublicAnswer进行自定义
+        return Promise.reject({ ...(error as AxiosError), data: { err_msg: errorMessage } })
     }
 
     // 获取实例，用于请求
