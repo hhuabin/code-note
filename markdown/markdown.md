@@ -270,15 +270,19 @@ ___
 
 
 
-# 15. 标题编号 {custom-id}
+# 15. 标题编号custom-id {#custom-id}
 
-标题编号仅限英文
+**标题编号仅限英文**
+
+也可以使用 html 定义标题
 
 `<h1 id="custom-id">custom-id</h1>`
 
-<h1 id="custom-id">custom-id</h1>
+<h1 id="custom-id2">custom-id2</h1>
 
-[标题编号](#custom-id)
+[custom-id](#custom-id)
+
+[custom-id2](#custom-id2)
 
 
 
@@ -318,7 +322,25 @@ markdown使用LaTeX语法来编写数学公式。下面是一些常用的数学�
 
 
 
-# 17. 流程图
+# 17. Emoji表情
+
+语法：`:**:`
+
+> :zero:、:one:、:two:、:ok:、:information_source:
+>
+> :no_entry_sign:、:white_check_mark:、:negative_squared_cross_mark:、:clock3:、:x:、:heavy_check_mark:、:exclamation:、:warning:、:triangular_flag_on_post:、:bulb:、:bell:、:star:、
+>
+> :bangbang:、:red_circle:、:small_red_triangle:、:alarm_clock:、:question:
+>
+> :lock:、:accept:、:pencil:、:pencil2:、:hearts:、:closed_book:、:file_folder:、:dog:、:thumbsup:、:pray:、:fire:、:fu:、:neutral_face:、:expressionless:、:sob:
+
+[表情符号简码列表](https://gist.github.com/rxaviers/7360908)
+
+> :bulb: Tip：表情符号简码因应用程序而异
+
+
+
+# 18. 流程图
 
 ## mermaid 基本流程图绘制
 
